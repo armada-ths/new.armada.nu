@@ -1,12 +1,12 @@
 import { Countdown } from "@/app/_components/Countdown"
-import { PageBackground } from "@/components/shared/PageBackground"
+import { Page } from "@/components/shared/Page"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { ArrowRightIcon, UserRoundIcon } from "lucide-react"
 
 export default function HomePage() {
 	return (
-		<PageBackground className="">
+		<Page.Background className="">
 			<div className="mb-5 flex w-full flex-1 justify-center ">
 				<div className="mx-5 w-full max-w-[800px] pt-3 md:mx-10 md:pt-6">
 					<a href="/recruitment">
@@ -54,6 +54,6 @@ export default function HomePage() {
 					</div>
 				</div>
 			</div>
-		</PageBackground>
+		</Page.Background>
 	)
 }

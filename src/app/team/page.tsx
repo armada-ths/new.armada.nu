@@ -1,5 +1,5 @@
 import { PeopleList } from "@/app/team/_components/PeopleList"
-import { PageBackground } from "@/components/shared/PageBackground"
+import { Page } from "@/components/shared/Page"
 import { fetchOrganization } from "@/components/shared/hooks/useOrganization"
 import {
 	HydrationBoundary,
@@ -17,15 +17,13 @@ export default async function TeamPage() {
 
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
-			<PageBackground withIndents className="justify-start">
-				<div className="mt-10 flex w-full flex-1 flex-col">
-					<h1 className="font-bebas-neue text-5xl text-melon-700">
-						Meet the Team
-					</h1>
+			<Page.Background withIndents className="justify-start">
+				<Page.Boundary>
+					<Page.Header>Meet the team</Page.Header>
 					<PeopleList />
-				</div>
+				</Page.Boundary>
 				<div className="h-20" />
-			</PageBackground>
+			</Page.Background>
 		</HydrationBoundary>
 	)
 }

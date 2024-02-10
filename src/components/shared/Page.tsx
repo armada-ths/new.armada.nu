@@ -1,6 +1,34 @@
 import { cn } from "@/lib/utils"
 
-export function PageBackground(
+export function Page() {
+	return null
+}
+
+Page.Boundary = function PageBoundary({
+	children,
+	className,
+	...rest
+}: React.HTMLAttributes<HTMLDivElement> & { maxWidth?: number }) {
+	return (
+		<div
+			className={cn("mx-auto mt-10 flex w-full flex-1 flex-col", className)}
+			style={{ maxWidth: rest.maxWidth ?? 1000 }}
+			{...rest}>
+			{children}
+		</div>
+	)
+}
+Page.Header = function PageHeader(props: React.HTMLAttributes<HTMLDivElement>) {
+	const { children, className, ...rest } = props
+	return (
+		<h1
+			className={cn("font-bebas-neue text-5xl text-melon-700", className)}
+			{...rest}>
+			{children}
+		</h1>
+	)
+}
+Page.Background = function PageBackground(
 	props: React.HTMLAttributes<HTMLDivElement> & {
 		avoidHeader?: boolean
 		withIndents?: boolean

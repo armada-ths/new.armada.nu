@@ -11,7 +11,7 @@ export function PeopleList() {
 	if (isLoading || data == null) return null
 
 	return (
-		<div className="mx-auto max-w-[1000px]">
+		<div className="">
 			{data.map(group => (
 				<div key={group.name} className="mt-16">
 					<h2 className="font-bebas-neue text-3xl">{group.name}</h2>
