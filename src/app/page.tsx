@@ -1,4 +1,3 @@
-import { Countdown } from "@/app/_components/Countdown"
 import { Page } from "@/components/shared/Page"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -49,9 +48,9 @@ export default function HomePage() {
 					</div>
 				</div>
 				<div className="z-10 flex justify-center gap-4 md:flex-[1]">
-					<div className="flex max-h-52 max-w-96 flex-col items-center justify-center gap-y-5 rounded-lg border-[1px] border-slate-200 bg-white bg-opacity-40 p-8">
+					{/* 					<div className="flex max-h-52 max-w-96 flex-col items-center justify-center gap-y-5 rounded-lg border-[1px] border-slate-200 bg-white bg-opacity-40 p-8">
 						<Countdown />
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</Page.Background>
