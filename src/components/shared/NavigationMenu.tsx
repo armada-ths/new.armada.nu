@@ -14,41 +14,28 @@ import {
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import { FaceIcon } from "@radix-ui/react-icons"
+import { DateTime } from "luxon"
 
 const components: { title: string; href: string; description: string }[] = [
 	{
-		title: "Alert Dialog",
-		href: "/docs/primitives/alert-dialog",
-		description:
-			"A modal dialog that interrupts the user with important content and expects a response."
+		title: "Registration",
+		href: "https://register.armada.nu/register",
+		description: `Signup as an exhibitor for the fair ${DateTime.now().year}`
 	},
 	{
-		title: "Hover Card",
-		href: "/docs/primitives/hover-card",
-		description: "For sighted users to preview content available behind a link."
+		title: "Packages",
+		href: "/exhibitor/packages",
+		description: "See what we have to offer"
 	},
 	{
-		title: "Progress",
+		title: "Why KTH",
 		href: "/docs/primitives/progress",
-		description:
-			"Displays an indicator showing the completion progress of a task, typically displayed as a progress bar."
+		description: "The industry's top engineers come from KTH"
 	},
 	{
-		title: "Scroll-area",
+		title: "Timeline - Step by Step",
 		href: "/docs/primitives/scroll-area",
-		description: "Visually or semantically separates content."
-	},
-	{
-		title: "Tabs",
-		href: "/docs/primitives/tabs",
-		description:
-			"A set of layered sections of content—known as tab panels—that are displayed one at a time."
-	},
-	{
-		title: "Tooltip",
-		href: "/docs/primitives/tooltip",
-		description:
-			"A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it."
+		description: "Your guide to the fair"
 	}
 ]
 
@@ -58,9 +45,9 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 		<div
 			className={cn("flex w-screen items-center gap-x-10 px-5 py-4", className)}
 			{...rest}>
-			<BaseNavigationMenu className="bg-transparent">
+			<BaseNavigationMenu>
 				<NavigationMenuList>
-					<NavigationMenuItem>
+					<NavigationMenuItem className="hover:bg-transparent focus:bg-transparent">
 						<Link href="/" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								Logo here
@@ -68,7 +55,9 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 						</Link>
 					</NavigationMenuItem>
 					<NavigationMenuItem>
-						<NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+						<NavigationMenuTrigger className="dark:hover:text-melon-700">
+							Getting started
+						</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 								<li className="row-span-3">
@@ -100,8 +89,10 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 							</ul>
 						</NavigationMenuContent>
 					</NavigationMenuItem>
-					<NavigationMenuItem>
-						<NavigationMenuTrigger>Components</NavigationMenuTrigger>
+					<NavigationMenuItem className="hover:bg-transparent">
+						<NavigationMenuTrigger className="dark:hover:text-melon-700">
+							For Exhibitors
+						</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
 								{components.map(component => (
@@ -115,14 +106,14 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 							</ul>
 						</NavigationMenuContent>
 					</NavigationMenuItem>
-					<NavigationMenuItem>
+					<NavigationMenuItem className="hover:bg-transparent">
 						<Link href="/docs" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								Documentation
 							</NavigationMenuLink>
 						</Link>
 					</NavigationMenuItem>
-					<NavigationMenuItem>
+					<NavigationMenuItem className="hover:bg-transparent">
 						<Link href="/team" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								About us
@@ -145,12 +136,14 @@ const ListItem = React.forwardRef<
 				<a
 					ref={ref}
 					className={cn(
-						"hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+						"block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-stone-900",
 						className
 					)}
 					{...props}>
-					<div className="text-sm font-medium leading-none">{title}</div>
-					<p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
+					<div className="text-sm font-medium leading-none text-melon-700">
+						{title}
+					</div>
+					<p className="line-clamp-2 text-sm leading-snug text-stone-400">
 						{children}
 					</p>
 				</a>

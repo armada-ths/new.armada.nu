@@ -10,7 +10,7 @@ export default function HomePage() {
 			<div className="mb-5 flex w-full flex-1 justify-center ">
 				<div className="mx-5 w-full max-w-[800px] pt-3 md:mx-10 md:pt-6">
 					<a href="/recruitment">
-						<Alert className="mt-0 cursor-pointer hover:opacity-80">
+						<Alert className="mt-0 cursor-pointer dark:hover:border-melon-700 dark:hover:border-opacity-50">
 							<UserRoundIcon className="h-4 w-4" />
 							<AlertTitle>Recruitment open!</AlertTitle>
 							<AlertDescription>

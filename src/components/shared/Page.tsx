@@ -18,8 +18,22 @@ Page.Boundary = function PageBoundary({
 		</div>
 	)
 }
-Page.Header = function PageHeader(props: React.HTMLAttributes<HTMLDivElement>) {
+Page.Header = function PageHeader(
+	props: React.HTMLAttributes<HTMLDivElement> & {
+		tier?: "primary" | "secondary"
+	}
+) {
 	const { children, className, ...rest } = props
+	if (props.tier === "secondary") {
+		return (
+			<h2
+				className={cn("font-bebas-neue text-3xl text-stone-400", className)}
+				{...rest}>
+				{children}
+			</h2>
+		)
+	}
+
 	return (
 		<h1
 			className={cn("font-bebas-neue text-5xl text-melon-700", className)}
@@ -38,15 +52,23 @@ Page.Background = function PageBackground(
 	return (
 		<div
 			className={cn(
-				"via-emerald-white flex min-h-screen flex-1 flex-col items-center justify-center bg-gradient-to-br from-emerald-950 via-stone-900 to-stone-900",
+				"via-emerald-white relative flex min-h-screen flex-1 flex-col items-center justify-center bg-gradient-to-br from-emerald-950 via-stone-900 to-stone-900",
 				{
 					"px-5 pt-10": props.withIndents
 				},
 				className
 			)}
 			{...rest}>
-			<div className="absolute bottom-0 right-0 h-60 w-60 rounded-full bg-emerald-700 opacity-20 blur-3xl filter"></div>
-			<div className="absolute bottom-1/2 right-1/4 h-52 w-52 rounded-full bg-emerald-700 opacity-20 blur-3xl filter"></div>
+			<div className="absolute top-0 h-full w-screen overflow-hidden">
+				<div className="absolute right-0 top-[80%] h-60 w-60 rounded-full bg-emerald-700 opacity-20 blur-3xl filter"></div>
+				<div className="absolute right-1/4 top-[30%] h-52 w-52 rounded-full bg-emerald-700 opacity-20 blur-3xl filter"></div>
+				<div className="absolute right-1/3 top-[150%] h-96 w-96 rounded-full bg-emerald-700 opacity-10 blur-3xl filter"></div>
+				<div className="absolute left-10 top-[250%] h-96 w-96 rounded-full bg-emerald-700 opacity-10 blur-3xl filter"></div>
+				<div className="absolute left-2/3 top-[300%] h-96 w-96 rounded-full bg-emerald-700 opacity-10 blur-3xl filter"></div>
+				<div className="absolute right-1/2 top-[350%] h-96 w-96 rounded-full bg-emerald-700 opacity-5 blur-3xl filter"></div>
+				<div className="absolute right-2/3 top-[400%] h-96 w-96 rounded-full bg-emerald-700 opacity-10 blur-3xl filter"></div>
+				<div className="absolute left-2/3 top-[450%] h-96 w-96 rounded-full bg-emerald-700 opacity-10 blur-3xl filter"></div>
+			</div>
 			{!props.avoidHeader && <div className="h-16" />}
 			<div className="z-10 flex w-full flex-1 flex-col">{children}</div>
 		</div>
