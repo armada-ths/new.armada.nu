@@ -47,7 +47,7 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 			{...rest}>
 			<BaseNavigationMenu>
 				<NavigationMenuList>
-					<NavigationMenuItem className="hover:bg-transparent focus:bg-transparent">
+					<NavigationMenuItem className="dark:hover:text-melon-700">
 						<Link href="/" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								Logo here
@@ -89,7 +89,7 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 							</ul>
 						</NavigationMenuContent>
 					</NavigationMenuItem>
-					<NavigationMenuItem className="hover:bg-transparent">
+					<NavigationMenuItem>
 						<NavigationMenuTrigger className="dark:hover:text-melon-700">
 							For Exhibitors
 						</NavigationMenuTrigger>
@@ -106,7 +106,7 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 							</ul>
 						</NavigationMenuContent>
 					</NavigationMenuItem>
-					<NavigationMenuItem className="hover:bg-transparent">
+					<NavigationMenuItem className="dark:hover:text-melon-700">
 						<Link href="/team" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								About us

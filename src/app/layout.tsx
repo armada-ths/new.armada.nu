@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<ThemeProvider attribute="class" defaultTheme="dark">
+			<ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
 				<Providers>
 					<body
 						className={`${inter.variable} ${bebasNeue.variable} ${lato.variable}`}>
