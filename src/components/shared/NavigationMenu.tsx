@@ -56,7 +56,7 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 					</NavigationMenuItem>
 					<NavigationMenuItem>
 						<NavigationMenuTrigger className="dark:hover:text-melon-700">
-							Getting started
+							For Students
 						</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -105,13 +105,6 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 								))}
 							</ul>
 						</NavigationMenuContent>
-					</NavigationMenuItem>
-					<NavigationMenuItem className="hover:bg-transparent">
-						<Link href="/docs" legacyBehavior passHref>
-							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-								Documentation
-							</NavigationMenuLink>
-						</Link>
 					</NavigationMenuItem>
 					<NavigationMenuItem className="hover:bg-transparent">
 						<Link href="/team" legacyBehavior passHref>
