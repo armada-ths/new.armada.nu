@@ -1,0 +1,16 @@
+{
+	"plugins": ["prettier-plugin-tailwindcss"],
+	"overrides": [
+		{
+			"files": "*.astro",
+			"options": {
+				"parser": "astro"
+			}
+		}
+	],
+	"tailwindFunctions": ["class"],
+	"semi": false,
+	"arrowParens": "avoid",
+	"trailingComma": "none",
+	"bracketSameLine": true
+}
