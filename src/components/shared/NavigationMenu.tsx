@@ -61,6 +61,13 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 			<BaseNavigationMenu className="bg-transparent">
 				<NavigationMenuList>
 					<NavigationMenuItem>
+						<Link href="/" legacyBehavior passHref>
+							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								Logo here
+							</NavigationMenuLink>
+						</Link>
+					</NavigationMenuItem>
+					<NavigationMenuItem>
 						<NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -112,6 +119,13 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 						<Link href="/docs" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								Documentation
+							</NavigationMenuLink>
+						</Link>
+					</NavigationMenuItem>
+					<NavigationMenuItem>
+						<Link href="/team" legacyBehavior passHref>
+							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+								About us
 							</NavigationMenuLink>
 						</Link>
 					</NavigationMenuItem>
