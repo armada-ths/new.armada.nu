@@ -1,6 +1,7 @@
 import Providers from "@/app/providers"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { ThemeProvider } from "@/lib/theme_provider"
+import { DateTime } from "luxon"
 import type { Metadata } from "next"
 import { Bebas_Neue, Inter, Lato } from "next/font/google"
 import "./globals.css"
@@ -18,8 +19,8 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
-	title: "THS Armada",
-	description: "Official site for THS armada career fair"
+	title: `THS Armada ${DateTime.now().year} Career Fair`,
+	description: "Scandinavia's largest career fair for engineers"
 }
 
 export default function RootLayout({
