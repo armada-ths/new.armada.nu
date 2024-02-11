@@ -48,13 +48,13 @@ Page.Background = function PageBackground(
 		withIndents?: boolean
 	}
 ) {
-	const { children, className, ...rest } = props
+	const { children, className, withIndents, ...rest } = props
 	return (
 		<div
 			className={cn(
 				"via-emerald-white relative flex min-h-dvh flex-1 flex-col items-center justify-center bg-gradient-to-br from-emerald-950 via-stone-900 to-stone-900",
 				{
-					"px-5 pt-10": props.withIndents
+					"px-5 pt-10": withIndents
 				},
 				className
 			)}
