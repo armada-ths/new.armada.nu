@@ -106,7 +106,7 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 							</ul>
 						</NavigationMenuContent>
 					</NavigationMenuItem>
-					<NavigationMenuItem className="dark:hover:text-melon-700">
+					<NavigationMenuItem className="hover:text-melon-700 dark:hover:text-melon-700">
 						<Link href="/team" legacyBehavior passHref>
 							<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 								About us
