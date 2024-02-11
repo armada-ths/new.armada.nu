@@ -1,5 +1,5 @@
 "use client"
-import { useOrganization } from "@/components/shared/hooks/useOrganization"
+import { useOrganization } from "@/components/shared/hooks/api/useOrganization"
 import { PersonIcon } from "@radix-ui/react-icons"
 import { LinkedinIcon, MailIcon } from "lucide-react"
 import Image from "next/image"

@@ -1,6 +1,6 @@
 import { PeopleList } from "@/app/team/_components/PeopleList"
 import { Page } from "@/components/shared/Page"
-import { fetchOrganization } from "@/components/shared/hooks/useOrganization"
+import { fetchOrganization } from "@/components/shared/hooks/api/useOrganization"
 import {
 	HydrationBoundary,
 	QueryClient,

@@ -1,6 +1,6 @@
 "use client"
 
-import { useDates } from "@/components/shared/hooks/useDates"
+import { useDates } from "@/components/shared/hooks/api/useDates"
 import { DateTime } from "luxon"
 import { useEffect, useState } from "react"
 
