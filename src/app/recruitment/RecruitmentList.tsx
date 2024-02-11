@@ -25,7 +25,7 @@ export function RecruitmentList() {
 	}
 
 	return (
-		<div className="flex flex-1 flex-col">
+		<div className="mb-32 flex flex-1 flex-col">
 			<Page.Header tier="secondary">
 				Available roles - Open{" "}
 				{DateTime.fromISO(data.start_date).toFormat("d MMM")} -{" "}

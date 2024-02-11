@@ -13,8 +13,8 @@ import {
 	navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
-import { FaceIcon } from "@radix-ui/react-icons"
 import { DateTime } from "luxon"
+import Image from "next/image"
 
 const components: { title: string; href: string; description: string }[] = [
 	{
@@ -29,7 +29,7 @@ const components: { title: string; href: string; description: string }[] = [
 	},
 	{
 		title: "Why KTH",
-		href: "/docs/primitives/progress",
+		href: "/exhibitor/why_kth",
 		description: "The industry's top engineers come from KTH"
 	},
 	{
@@ -65,26 +65,31 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 										<a
 											className="from-muted/50 to-muted flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none focus:shadow-md"
 											href="/">
-											<FaceIcon className="h-6 w-6" />
+											<Image
+												src={"/logo.svg"}
+												alt="Armada logo"
+												className="aspect-square w-full p-5"
+												width={0}
+												height={0}
+											/>
 											<div className="mb-2 mt-4 text-lg font-medium">
-												shadcn/ui
+												THS Armada
 											</div>
 											<p className="text-muted-foreground text-sm leading-tight">
-												Beautifully designed components that you can copy and
-												paste into your apps. Accessible. Customizable. Open
-												Source.
+												Scandinavia&apos;s largest career fair
 											</p>
 										</a>
 									</NavigationMenuLink>
 								</li>
-								<ListItem href="/docs" title="Introduction">
-									Re-usable components built using Radix UI and Tailwind CSS.
+								<ListItem href="/exhibitors" title="Exhibitors">
+									Get an in depth look at the companies attending the fair
 								</ListItem>
-								<ListItem href="/docs/installation" title="Installation">
-									How to install dependencies and structure your app.
+								<ListItem href="/events" title="Events">
+									See the events leading up to the fair
 								</ListItem>
-								<ListItem href="/docs/primitives/typography" title="Typography">
-									Styles for headings, paragraphs, lists...etc
+								<ListItem href="/recruitment" title="Recruitment">
+									Join Armada {DateTime.now().year}. See which roles are
+									available
 								</ListItem>
 							</ul>
 						</NavigationMenuContent>
