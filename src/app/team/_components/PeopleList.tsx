@@ -28,10 +28,8 @@ export function PeopleList() {
 										<Image
 											src={person.picture}
 											alt={person.name}
-											// Width and height doesn't matter since we're using "unoptimized" images
-											// due to have output type "export"
-											width={0}
-											height={0}
+											width={200}
+											height={200}
 											className="aspect-square w-full object-cover transition-all duration-200 hover:scale-105"
 										/>
 									</div>

@@ -69,8 +69,8 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 												src={"/logo.svg"}
 												alt="Armada logo"
 												className="aspect-square w-full p-5"
-												width={0}
-												height={0}
+												width={200}
+												height={200}
 											/>
 											<div className="mb-2 mt-4 text-lg font-medium">
 												THS Armada
