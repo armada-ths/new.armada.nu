@@ -4,7 +4,7 @@ import ExhibitorListFilteringHeader from "@/app/exhibitors/_components/Exhibitor
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { DateTime } from "luxon"
 import { useSearchParams } from "next/navigation"
-import { createContext, useMemo } from "react"
+import { Suspense, createContext, useMemo } from "react"
 
 interface ExhibitorFilter {
 	year?: number
@@ -42,10 +42,12 @@ export function ExhibitorList({
 
 	return (
 		<div className="mt-10">
-			<ExhibitorListFilteringHeader
-				filtered={filteredExhibitors.length}
-				total={exhibitors.length}
-			/>
+			<Suspense>
+				<ExhibitorListFilteringHeader
+					filtered={filteredExhibitors.length}
+					total={exhibitors.length}
+				/>
+			</Suspense>
 			<div className="mt-10 flex flex-wrap gap-4">
 				{filteredExhibitors.map(exhibitor => (
 					<ExhibitorCard key={exhibitor.id} year={year} exhibitor={exhibitor} />
