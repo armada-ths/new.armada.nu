@@ -17,7 +17,9 @@ export interface Person {
 }
 
 export async function fetchOrganization() {
-	const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/organization/v2`)
+	const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/organization/v2`, {
+		credentials: "include"
+	})
 	const result = await res.json()
 	return result as Organization[]
 }

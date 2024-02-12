@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import { DateTime } from "luxon"
-import Image from "next/legacy/image"
+import Image from "next/image"
 
 const components: { title: string; href: string; description: string }[] = [
 	{
@@ -71,6 +71,10 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 												className="aspect-square w-full p-5"
 												width={200}
 												height={200}
+												style={{
+													maxWidth: "100%",
+													height: "auto"
+												}}
 											/>
 											<div className="mb-2 mt-4 text-lg font-medium">
 												THS Armada

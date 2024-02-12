@@ -2,7 +2,9 @@
 import { ExhibitorCard } from "@/app/exhibitors/_components/ExhibitorCard"
 import ExhibitorListFilteringHeader from "@/app/exhibitors/_components/ExhibitorListFilteringHeader"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
-import { createContext, useMemo, useState } from "react"
+import { DateTime } from "luxon"
+import { useSearchParams } from "next/navigation"
+import { createContext, useMemo } from "react"
 
 interface ExhibitorFilter {
 	year?: number
@@ -13,32 +15,42 @@ interface ExhibitorFilter {
 
 export const ExhibitorContext = createContext<ExhibitorFilter>({})
 
-export function ExhibitorList({ exhibitors }: { exhibitors: Exhibitor[] }) {
-	const [year, setYear] = useState<number>()
-	const [textSearch, setTextSearch] = useState<string>()
+export function ExhibitorList({
+	exhibitorYears
+}: {
+	exhibitorYears: { year: string; exhibitors: Exhibitor[] }[]
+}) {
+	const { get } = useSearchParams()
+	const year =
+		get("year") ?? DateTime.now().minus({ months: 6 }).year.toString()
+	const search = get("search")
+
+	const exhibitors = useMemo(
+		() =>
+			exhibitorYears.find(x => x.year === year)?.exhibitors ??
+			exhibitorYears[0].exhibitors,
+		[exhibitorYears, year]
+	)
 
 	const filteredExhibitors = useMemo(
 		() =>
 			exhibitors?.filter(exhibitor =>
-				exhibitor.name.toLowerCase().includes(textSearch?.toLowerCase() ?? "")
+				exhibitor.name.toLowerCase().includes(search?.toLowerCase() ?? "")
 			),
-		[exhibitors, textSearch]
+		[exhibitors, search]
 	)
 
 	return (
-		<ExhibitorContext.Provider
-			value={{ year, setYear, textSearch, setTextSearch }}>
-			<div className="mt-10">
-				<ExhibitorListFilteringHeader
-					filteredMatches={filteredExhibitors.length}
-					total={exhibitors.length}
-				/>
-				<div className="mt-10 flex flex-wrap gap-4">
-					{filteredExhibitors.map(exhibitor => (
-						<ExhibitorCard key={exhibitor.id} exhibitor={exhibitor} />
-					))}
-				</div>
+		<div className="mt-10">
+			<ExhibitorListFilteringHeader
+				filtered={filteredExhibitors.length}
+				total={exhibitors.length}
+			/>
+			<div className="mt-10 flex flex-wrap gap-4">
+				{filteredExhibitors.map(exhibitor => (
+					<ExhibitorCard key={exhibitor.id} year={year} exhibitor={exhibitor} />
+				))}
 			</div>
-		</ExhibitorContext.Provider>
+		</div>
 	)
 }

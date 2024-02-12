@@ -15,9 +15,14 @@ export default async function RecruitmentPage() {
 
 	if (data == null) {
 		return (
-			<Page.Header tier="secondary">
-				No available roles at the moment
-			</Page.Header>
+			<Page.Background withIndents>
+				<Page.Boundary>
+					<Page.Header>Armada Recruitment</Page.Header>
+					<Page.Header tier="secondary">
+						No available roles at the moment
+					</Page.Header>
+				</Page.Boundary>
+			</Page.Background>
 		)
 	}
 

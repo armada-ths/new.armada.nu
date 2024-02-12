@@ -1,22 +1,27 @@
 import { Page } from "@/components/shared/Page"
+import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { ArrowRightIcon, UserRoundIcon } from "lucide-react"
 
-export default function HomePage() {
+export default async function HomePage() {
+	const recruitment = await fetchRecruitment()
+
 	return (
 		<Page.Background className="">
 			<div className="mb-5 flex w-full flex-1 justify-center ">
 				<div className="mx-5 w-full max-w-[800px] pt-3 md:mx-10 md:pt-6">
-					<a href="/recruitment">
-						<Alert className="mt-0 cursor-pointer dark:hover:border-melon-700 dark:hover:border-opacity-50">
-							<UserRoundIcon className="h-4 w-4" />
-							<AlertTitle>Recruitment open!</AlertTitle>
-							<AlertDescription>
-								Apply to become a part of Armada 2024
-							</AlertDescription>
-						</Alert>
-					</a>
+					{recruitment != null && (
+						<a href="/recruitment">
+							<Alert className="mt-0 cursor-pointer dark:hover:border-melon-700 dark:hover:border-opacity-50">
+								<UserRoundIcon className="h-4 w-4" />
+								<AlertTitle>Recruitment open!</AlertTitle>
+								<AlertDescription>
+									Apply to become a part of Armada 2024
+								</AlertDescription>
+							</Alert>
+						</a>
+					)}
 				</div>
 			</div>
 			<div className="flex w-full flex-1 flex-col gap-y-10 pb-32 md:flex-row">

@@ -1,5 +1,5 @@
 "use client"
-import { ExhibitorContext } from "@/app/exhibitors/_components/ExhibitorList"
+import { useDebounce } from "@/components/shared/hooks/useDebounce"
 import { Input } from "@/components/ui/input"
 import {
 	Select,
@@ -10,34 +10,67 @@ import {
 	SelectValue
 } from "@/components/ui/select"
 import { DateTime } from "luxon"
-import { useContext } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useCallback, useState } from "react"
 
 export default function ExhibitorListFilteringHeader({
-	filteredMatches,
+	filtered,
 	total
 }: {
-	filteredMatches: number
+	filtered: number
 	total: number
 }) {
-	const { setYear, textSearch, setTextSearch } = useContext(ExhibitorContext)
+	const { get } = useSearchParams()
+	const router = useRouter()
+
+	const year =
+		get("year") ?? DateTime.now().minus({ months: 6 }).year.toString()
+	const search = get("search") ?? ""
+
+	const [searchText, setSearchText] = useState(search)
+
+	// Since setting attributes in the URL is slow, we debounce the search
+	// to not interrupt the user while typing
+	useDebounce(searchText, value =>
+		router.replace(
+			`?${new URLSearchParams({
+				year,
+				search: value
+			})}`
+		)
+	)
+
+	const SelectGroupCallback = useCallback(
+		() => (
+			<SelectGroup>
+				{new Array(DateTime.now().year - 2021).fill(0).map((_, i) => (
+					<SelectItem key={i} value={(DateTime.now().year - i).toString()}>
+						{DateTime.now().year - i}
+					</SelectItem>
+				))}
+			</SelectGroup>
+		),
+		[]
+	)
 
 	return (
 		<div className="flex flex-col">
 			<div className="flex w-full flex-wrap gap-1">
-				<Select onValueChange={year => setYear?.(Number(year))}>
+				<Select
+					value={year}
+					onValueChange={year =>
+						router.replace(
+							`?${new URLSearchParams({
+								year,
+								search
+							})}`
+						)
+					}>
 					<SelectTrigger className="w-[120px]">
 						<SelectValue placeholder="Fair Year" />
 					</SelectTrigger>
 					<SelectContent>
-						<SelectGroup>
-							{new Array(DateTime.now().year - 2021).fill(0).map((_, i) => (
-								<SelectItem
-									key={i}
-									value={(DateTime.now().year - i).toString()}>
-									{DateTime.now().year - i}
-								</SelectItem>
-							))}
-						</SelectGroup>
+						<SelectGroupCallback />
 					</SelectContent>
 				</Select>
 				<Select disabled>
@@ -54,12 +87,12 @@ export default function ExhibitorListFilteringHeader({
 					type="text"
 					placeholder="Search..."
 					className="max-w-[400px]"
-					value={textSearch}
-					onChange={e => setTextSearch?.(e.target.value)}
+					value={searchText}
+					onChange={e => setSearchText(e.target.value)}
 				/>
 			</div>
 			<p className="mt-4">
-				{filteredMatches} out of {total}
+				{filtered} out of {total}
 			</p>
 		</div>
 	)

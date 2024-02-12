@@ -1,23 +1,37 @@
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
-import Image from "next/legacy/image"
+import Image from "next/image"
+import Link from "next/link"
 
-export function ExhibitorCard({ exhibitor }: { exhibitor: Exhibitor }) {
+export function ExhibitorCard({
+	exhibitor,
+	year
+}: {
+	exhibitor: Exhibitor
+	year: string
+}) {
 	return (
-		<div className="group relative flex aspect-square w-52 flex-col rounded-lg bg-liqorice-700 p-4">
-			{exhibitor.logo_freesize != null ||
-				(exhibitor.logo_squared != null && (
-					<Image
-						className="brightness-20 p-4 grayscale-[100] filter group-hover:brightness-100 group-hover:grayscale-0"
-						src={exhibitor.logo_squared ?? exhibitor.logo_freesize}
-						alt={exhibitor.name}
-						objectFit="contain"
-						layout="fill"
-					/>
-				))}
-			<div className="flex-1" />
-			<h3 className="text-center transition-all duration-200 group-hover:text-melon-700">
-				{exhibitor.name}
-			</h3>
-		</div>
+		<Link href={`/exhibitors/${exhibitor.id}?year=${year}`}>
+			<div className="group relative flex aspect-square w-72 cursor-pointer flex-col rounded-lg border-2 border-solid border-emerald-900 bg-gradient-to-br from-emerald-950 to-liqorice-700 filter hover:brightness-95">
+				{exhibitor.logo_freesize != null ||
+					(exhibitor.logo_squared != null && (
+						<div className="p-4">
+							<Image
+								className="max-h-[80px] w-auto max-w-[50%] rounded-lg"
+								src={exhibitor.logo_squared ?? exhibitor.logo_freesize}
+								alt={exhibitor.name}
+								width={100}
+								height={100}
+								style={{
+									objectFit: "contain"
+								}}
+							/>
+						</div>
+					))}
+				<div className="flex-1" />
+				<h3 className="py-2 text-center font-bebas-neue text-2xl group-hover:text-melon-700">
+					{exhibitor.name}
+				</h3>
+			</div>
+		</Link>
 	)
 }

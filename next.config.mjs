@@ -6,6 +6,15 @@ const nextConfig = {
             hostname: "armada-ais-files.s3.amazonaws.com",
             port: "",
             pathname: "**"
+        },
+        {
+            protocol: "https",
+            hostname: "s3.amazonaws.com",
+            port: "",
+            pathname: "**"
+        }, {
+            protocol: "https",
+            hostname: "**"
         }]
     },
 }
