@@ -1,5 +1,5 @@
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
-import Image from "next/image"
+import Image from "next/legacy/image"
 
 export function ExhibitorCard({ exhibitor }: { exhibitor: Exhibitor }) {
 	return (

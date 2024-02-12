@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import { DateTime } from "luxon"
-import Image from "next/image"
+import Image from "next/legacy/image"
 
 const components: { title: string; href: string; description: string }[] = [
 	{
