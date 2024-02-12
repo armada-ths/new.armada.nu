@@ -19,15 +19,15 @@ interface FairDate {
 	}
 }
 
+export async function fetchDates() {
+	const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/dates`)
+	const result = await res.json()
+	return result as FairDate
+}
+
 export function useDates() {
 	return useQuery({
 		queryKey: ["dates"],
-		queryFn: async () => {
-			const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/dates`, {
-				cache: "force-cache"
-			})
-			const result = await res.json()
-			return result as FairDate
-		}
+		queryFn: fetchDates
 	})
 }

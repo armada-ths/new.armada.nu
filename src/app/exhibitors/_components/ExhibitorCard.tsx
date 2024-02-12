@@ -10,8 +10,6 @@ export function ExhibitorCard({ exhibitor }: { exhibitor: Exhibitor }) {
 						className="brightness-20 p-4 grayscale-[100] filter group-hover:brightness-100 group-hover:grayscale-0"
 						src={exhibitor.logo_squared ?? exhibitor.logo_freesize}
 						alt={exhibitor.name}
-						width={200}
-						height={200}
 						objectFit="contain"
 						layout="fill"
 					/>

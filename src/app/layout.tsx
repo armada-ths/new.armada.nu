@@ -23,6 +23,8 @@ export const metadata: Metadata = {
 	description: "Scandinavia's largest career fair for engineers"
 }
 
+export const revalidate = 60 * 60 * 12 // 12 hours
+
 export default function RootLayout({
 	children
 }: Readonly<{
