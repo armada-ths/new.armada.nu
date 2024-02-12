@@ -14,7 +14,7 @@ import { DateTime } from "luxon"
 
 export function RecruitmentList() {
 	const { data, isLoading } = useRecruitment()
-	if (isLoading) return null
+	if (isLoading) return <p>Loading...</p>
 
 	if (data == null) {
 		return (
