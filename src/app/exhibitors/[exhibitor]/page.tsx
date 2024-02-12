@@ -1,5 +1,8 @@
 import { Page } from "@/components/shared/Page"
-import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
+import {
+	fetchAllYearExhibitors,
+	fetchExhibitors
+} from "@/components/shared/hooks/api/useExhibitors"
 import { Badge } from "@/components/ui/badge"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
@@ -9,6 +12,17 @@ import { notFound } from "next/navigation"
 interface RouteProps {
 	params: { exhibitor: string }
 	searchParams: unknown
+}
+
+// This tells Next about all the companies that it should
+// prerender, these will be compiled at build time
+export async function generateStaticParams() {
+	const years = await fetchAllYearExhibitors()
+	const exhibitors = years.flatMap(x => x.exhibitors)
+
+	return exhibitors.map(exhibitor => ({
+		slug: `/exhibitors/${exhibitor.id}`
+	}))
 }
 
 function getYearOrDefault(searchParams: unknown) {
