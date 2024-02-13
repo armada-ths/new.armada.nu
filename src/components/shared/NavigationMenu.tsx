@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils"
 import { DateTime } from "luxon"
 import Image from "next/image"
 
-const components: { title: string; href: string; description: string }[] = [
+const companyLinks: { title: string; href: string; description: string }[] = [
 	{
 		title: "Registration",
 		href: "https://register.armada.nu/register",
@@ -55,9 +55,11 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 						</Link>
 					</NavigationMenuItem>
 					<NavigationMenuItem>
-						<NavigationMenuTrigger className="dark:hover:text-melon-700">
-							For Students
-						</NavigationMenuTrigger>
+						<Link href="/student/exhibitors">
+							<NavigationMenuTrigger className="dark:hover:text-melon-700">
+								For Students
+							</NavigationMenuTrigger>
+						</Link>
 						<NavigationMenuContent>
 							<ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 								<li className="row-span-3">
@@ -85,13 +87,13 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 										</a>
 									</NavigationMenuLink>
 								</li>
-								<ListItem href="/exhibitors" title="Exhibitors">
+								<ListItem href="/student/exhibitors" title="Exhibitors">
 									Get an in depth look at the companies attending the fair
 								</ListItem>
-								<ListItem href="/events" title="Events">
+								<ListItem href="/student/events" title="Events">
 									See the events leading up to the fair
 								</ListItem>
-								<ListItem href="/recruitment" title="Recruitment">
+								<ListItem href="/student/recruitment" title="Recruitment">
 									Join Armada {DateTime.now().year}. See which roles are
 									available
 								</ListItem>
@@ -104,7 +106,7 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 						</NavigationMenuTrigger>
 						<NavigationMenuContent>
 							<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-								{components.map(component => (
+								{companyLinks.map(component => (
 									<ListItem
 										key={component.title}
 										title={component.title}

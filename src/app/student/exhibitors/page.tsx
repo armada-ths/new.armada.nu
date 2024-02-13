@@ -1,4 +1,4 @@
-import { ExhibitorList } from "@/app/exhibitors/_components/ExhibitorList"
+import { ExhibitorList } from "@/app/student/exhibitors/_components/ExhibitorList"
 import { Page } from "@/components/shared/Page"
 import { fetchAllYearExhibitors } from "@/components/shared/hooks/api/useExhibitors"
 import { Suspense } from "react"

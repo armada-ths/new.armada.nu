@@ -1,6 +1,6 @@
 "use client"
-import { ExhibitorCard } from "@/app/exhibitors/_components/ExhibitorCard"
-import ExhibitorListFilteringHeader from "@/app/exhibitors/_components/ExhibitorListFilteringHeader"
+import { ExhibitorCard } from "@/app/student/exhibitors/_components/ExhibitorCard"
+import ExhibitorListFilteringHeader from "@/app/student/exhibitors/_components/ExhibitorListFilteringHeader"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { DateTime } from "luxon"
 import { useSearchParams } from "next/navigation"
