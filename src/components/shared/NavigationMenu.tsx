@@ -72,7 +72,7 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 
 	useEffect(() => {
 		// Always close sheet if its open when expanding the screen size
-		if (width > 768 && sheetOpen) {
+		if ((width ?? 0) > 768 && sheetOpen) {
 			setSheetOpen(false)
 		}
 	}, [width, sheetOpen])
