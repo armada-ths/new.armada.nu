@@ -48,7 +48,7 @@ export function ExhibitorList({
 					total={exhibitors.length}
 				/>
 			</Suspense>
-			<div className="mt-10 flex flex-wrap gap-4">
+			<div className="mt-10 flex flex-wrap justify-center gap-4">
 				{filteredExhibitors.map(exhibitor => (
 					<ExhibitorCard key={exhibitor.id} year={year} exhibitor={exhibitor} />
 				))}

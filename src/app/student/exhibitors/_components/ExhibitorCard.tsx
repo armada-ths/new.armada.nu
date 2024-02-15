@@ -11,7 +11,7 @@ export function ExhibitorCard({
 }) {
 	return (
 		<Link href={`/exhibitors/${exhibitor.id}?year=${year}`}>
-			<div className="group relative flex aspect-square w-72 cursor-pointer flex-col rounded-lg border-2 border-solid border-emerald-900 bg-gradient-to-br from-emerald-950 to-liqorice-700 filter hover:brightness-95">
+			<div className="group relative flex aspect-square w-32 cursor-pointer flex-col rounded-lg border-2 border-solid border-emerald-900 bg-gradient-to-br from-emerald-950 to-liqorice-700 filter hover:brightness-95 lg:w-72">
 				{exhibitor.logo_freesize != null ||
 					(exhibitor.logo_squared != null && (
 						<div className="p-4">
@@ -28,7 +28,7 @@ export function ExhibitorCard({
 						</div>
 					))}
 				<div className="flex-1" />
-				<h3 className="py-2 text-center font-bebas-neue text-2xl group-hover:text-melon-700">
+				<h3 className="py-2 text-center font-bebas-neue text-sm group-hover:text-melon-700 lg:text-2xl">
 					{exhibitor.name}
 				</h3>
 			</div>
