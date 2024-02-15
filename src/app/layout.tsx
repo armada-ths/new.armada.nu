@@ -1,6 +1,5 @@
 import Providers from "@/app/providers"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
-import { ThemeProvider } from "@/lib/theme_provider"
 import { DateTime } from "luxon"
 import type { Metadata } from "next"
 import { Bebas_Neue, Inter, Lato } from "next/font/google"
@@ -31,17 +30,19 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="en">
+		<html
+			lang="en"
+			style={{
+				colorScheme: "dark"
+			}}>
 			<head />
-			<ThemeProvider attribute="class" defaultTheme="dark">
+			<body
+				className={`${inter.variable} ${bebasNeue.variable} ${lato.variable}`}>
 				<Providers>
-					<body
-						className={`${inter.variable} ${bebasNeue.variable} ${lato.variable}`}>
-						<NavigationMenu className="fixed top-0 z-50 h-16 bg-gradient-to-b from-stone-900 to-stone-950/40 filter backdrop-blur-lg" />
-						{children}
-					</body>
+					<NavigationMenu className="fixed top-0 z-50 h-16 bg-gradient-to-b from-stone-900 to-stone-950/40 filter backdrop-blur-lg" />
+					{children}
 				</Providers>
-			</ThemeProvider>
+			</body>
 		</html>
 	)
 }
