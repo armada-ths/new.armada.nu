@@ -130,7 +130,7 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 						</div>
 					))}
 					<Separator className="my-4" />
-					<Link href="/" onClick={() => setSheetOpen(false)}>
+					<Link href="/team" onClick={() => setSheetOpen(false)}>
 						<p className="font-bebas-neue text-xl text-melon-700">About us</p>
 					</Link>
 				</SheetContent>
