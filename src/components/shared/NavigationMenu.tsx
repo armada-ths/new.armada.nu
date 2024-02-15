@@ -3,6 +3,8 @@
 import Link from "next/link"
 import * as React from "react"
 
+import { Page } from "@/components/shared/Page"
+import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import {
 	NavigationMenu as BaseNavigationMenu,
 	NavigationMenuContent,
@@ -12,9 +14,13 @@ import {
 	NavigationMenuTrigger,
 	navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu"
+import { Separator } from "@/components/ui/separator"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
+import { HamburgerMenuIcon } from "@radix-ui/react-icons"
 import { DateTime } from "luxon"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
 const companyLinks: { title: string; href: string; description: string }[] = [
 	{
@@ -39,13 +45,98 @@ const companyLinks: { title: string; href: string; description: string }[] = [
 	}
 ]
 
+const studentLinks: { title: string; href: string; description: string }[] = [
+	{
+		title: "Exhibitors",
+		href: "/student/exhibitors",
+		description: `Get an in depth look at the companies attending the fair`
+	},
+	{
+		title: "Events",
+		href: "/student/events",
+		description: "See the events leading up to the fair"
+	},
+	{
+		title: "Recruitment",
+		href: "/student/recruitment",
+		description:
+			"Join Armada {DateTime.now().year}. See which roles are available"
+	}
+]
+
 export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
+	const [sheetOpen, setSheetOpen] = useState<boolean>()
 	const { className, ...rest } = props
+
+	const { width } = useScreenSize()
+
+	useEffect(() => {
+		// Always close sheet if its open when expanding the screen size
+		if (width > 768 && sheetOpen) {
+			setSheetOpen(false)
+		}
+	}, [width, sheetOpen])
+
+	useEffect(() => {
+		if (sheetOpen) {
+			// This gives back the control to the underlying radix component
+			// Without this the exit button and click on overlay won't work
+			setSheetOpen(undefined)
+		}
+	}, [sheetOpen])
+
 	return (
 		<div
-			className={cn("flex w-screen items-center gap-x-10 px-5 py-4", className)}
+			className={cn(
+				"flex w-screen items-center justify-end gap-x-10 px-5 py-4 md:justify-start",
+				className
+			)}
 			{...rest}>
-			<BaseNavigationMenu>
+			{/** Sheet is used for mobile navigation */}
+			<Sheet open={sheetOpen}>
+				<SheetTrigger className="md:hidden" onClick={() => setSheetOpen(true)}>
+					<HamburgerMenuIcon width={30} height={30} />
+				</SheetTrigger>
+				<SheetContent className="md:hidden">
+					<Link href="/" onClick={() => setSheetOpen(false)}>
+						<p className="font-bebas-neue text-xl text-melon-700">Home</p>
+					</Link>
+					<Separator className="my-4" />
+					<Page.Header tier="secondary" className="text-2xl">
+						Student
+					</Page.Header>
+					{studentLinks.map(component => (
+						<div key={component.href} className="mt-2">
+							<Link
+								onClick={() => setSheetOpen(false)}
+								className="font-bebas-neue text-xl text-melon-700"
+								href={component.href}>
+								{component.title}
+							</Link>
+						</div>
+					))}
+					<Separator className="my-4" />
+					<Page.Header tier="secondary" className="text-2xl">
+						Exhibitor
+					</Page.Header>
+					{companyLinks.map(component => (
+						<div key={component.href} className="mt-2">
+							<Link
+								onClick={() => setSheetOpen(false)}
+								className="font-bebas-neue text-xl text-melon-700"
+								href={component.href}>
+								{component.title}
+							</Link>
+						</div>
+					))}
+					<Separator className="my-4" />
+					<Link href="/" onClick={() => setSheetOpen(false)}>
+						<p className="font-bebas-neue text-xl text-melon-700">About us</p>
+					</Link>
+				</SheetContent>
+			</Sheet>
+			{/** BaseNavigationMenu is used for desktop navigation */}
+			<BaseNavigationMenu className="hidden md:block">
 				<NavigationMenuList>
 					<NavigationMenuItem className="dark:hover:text-melon-700">
 						<Link href="/" legacyBehavior passHref>
@@ -87,16 +178,14 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 										</a>
 									</NavigationMenuLink>
 								</li>
-								<ListItem href="/student/exhibitors" title="Exhibitors">
-									Get an in depth look at the companies attending the fair
-								</ListItem>
-								<ListItem href="/student/events" title="Events">
-									See the events leading up to the fair
-								</ListItem>
-								<ListItem href="/student/recruitment" title="Recruitment">
-									Join Armada {DateTime.now().year}. See which roles are
-									available
-								</ListItem>
+								{studentLinks.map(component => (
+									<ListItem
+										key={component.href}
+										href={component.href}
+										title={component.title}>
+										{component.description}
+									</ListItem>
+								))}
 							</ul>
 						</NavigationMenuContent>
 					</NavigationMenuItem>
