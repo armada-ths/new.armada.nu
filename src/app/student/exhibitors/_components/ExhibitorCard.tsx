@@ -10,7 +10,7 @@ export function ExhibitorCard({
 	year: string
 }) {
 	return (
-		<Link href={`/exhibitors/${exhibitor.id}?year=${year}`}>
+		<Link href={`/student/exhibitors/${exhibitor.id}?year=${year}`}>
 			<div className="group relative flex aspect-square w-32 cursor-pointer flex-col rounded-lg border-2 border-solid border-emerald-900 bg-gradient-to-br from-emerald-950 to-liqorice-700 filter hover:brightness-95 lg:w-72">
 				{exhibitor.logo_freesize != null ||
 					(exhibitor.logo_squared != null && (
