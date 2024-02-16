@@ -59,8 +59,7 @@ const studentLinks: { title: string; href: string; description: string }[] = [
 	{
 		title: "Recruitment",
 		href: "/student/recruitment",
-		description:
-			"Join Armada {DateTime.now().year}. See which roles are available"
+		description: `Join Armada ${DateTime.now().year}. See which roles are available`
 	}
 ]
 

@@ -6,6 +6,7 @@ import {
 	AccordionItem,
 	AccordionTrigger
 } from "@/components/ui/accordion"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { env } from "@/env"
 import { DateTime } from "luxon"
@@ -28,7 +29,7 @@ export default async function RecruitmentPage() {
 
 	return (
 		<Page.Background withIndents>
-			<Page.Boundary>
+			<Page.Boundary maxWidth={750}>
 				<Page.Header>Armada Recruitment</Page.Header>
 				<div className="mb-32 flex flex-1 flex-col">
 					<Page.Header tier="secondary">
@@ -44,6 +45,13 @@ export default async function RecruitmentPage() {
 							</Button>
 						</a>
 					</div>
+					<Alert className="my-5">
+						<AlertTitle>Armada is a student organization</AlertTitle>
+						<AlertDescription>
+							As such all roles are volunteer-based and unpaid, we want to
+							clarify this as it has been a common misconception in the past.
+						</AlertDescription>
+					</Alert>
 
 					<div className="flex-1">
 						<Accordion type="single" collapsible>
@@ -56,7 +64,7 @@ export default async function RecruitmentPage() {
 										<AccordionItem key={role.name} value={role.name}>
 											<AccordionTrigger>{role.name}</AccordionTrigger>
 											<AccordionContent>
-												<p>{role.description}</p>
+												<p className="leading-7">{role.description}</p>
 											</AccordionContent>
 										</AccordionItem>
 									))}

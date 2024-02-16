@@ -16,7 +16,9 @@ interface RecruitmentGroup {
 }
 
 export async function fetchRecruitment() {
-	const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/recruitment`)
+	const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/recruitment`, {
+		cache: "no-cache"
+	})
 	const result = await res.json()
 	if (result == null || !Array.isArray(result) || result.length <= 0)
 		return null
