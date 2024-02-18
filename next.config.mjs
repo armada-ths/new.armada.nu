@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
+        unoptimized: true,
         remotePatterns: [{
             protocol: "https",
             hostname: "armada-ais-files.s3.amazonaws.com",
@@ -12,9 +13,6 @@ const nextConfig = {
             hostname: "s3.amazonaws.com",
             port: "",
             pathname: "**"
-        }, {
-            protocol: "https",
-            hostname: "**"
         }]
     },
 }
