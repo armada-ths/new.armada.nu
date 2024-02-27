@@ -43,10 +43,9 @@ export default async function HomePage() {
 									<Button>Exhibitor signup</Button>
 								</a>
 								<a href="/recruitment">
-									<Button>Fair Info</Button>
-								</a>
-								<a href="/recruitment">
-									<Button>
+									<Button
+										variant={"secondary"}
+										className="dark:bg-liqorice-700">
 										Fair Info
 										<ArrowRightIcon className="ml-2 h-4 w-4" />
 									</Button>
