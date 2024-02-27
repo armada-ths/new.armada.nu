@@ -189,9 +189,11 @@ export function NavigationMenu(props: React.HTMLAttributes<HTMLDivElement>) {
 						</NavigationMenuContent>
 					</NavigationMenuItem>
 					<NavigationMenuItem>
-						<NavigationMenuTrigger className="dark:hover:text-melon-700">
-							For Exhibitors
-						</NavigationMenuTrigger>
+						<Link href="/exhibitor">
+							<NavigationMenuTrigger className="dark:hover:text-melon-700">
+								For Exhibitors
+							</NavigationMenuTrigger>
+						</Link>
 						<NavigationMenuContent>
 							<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
 								{companyLinks.map(component => (
