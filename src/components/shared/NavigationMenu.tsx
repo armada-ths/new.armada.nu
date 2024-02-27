@@ -40,7 +40,7 @@ const companyLinks: { title: string; href: string; description: string }[] = [
 	},
 	{
 		title: "Timeline - Step by Step",
-		href: "/docs/primitives/scroll-area",
+		href: "/exhibitor/timeline",
 		description: "Your guide to the fair"
 	}
 ]
