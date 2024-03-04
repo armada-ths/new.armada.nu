@@ -46,10 +46,12 @@ export default async function RecruitmentPage() {
 						</a>
 					</div>
 					<Alert className="my-5">
-						<AlertTitle>Armada is a student organization</AlertTitle>
+						<AlertTitle>Be an Armada volunteer</AlertTitle>
 						<AlertDescription>
-							As such all roles are volunteer-based and unpaid, we want to
-							clarify this as it has been a common misconception in the past.
+							In Armada over 200 volunteers join together to create one of KTH
+							biggest happenings. Take the opportunity to meet new friends,
+							expand your network and be a part of something you can be really
+							proud of!
 						</AlertDescription>
 					</Alert>
 
