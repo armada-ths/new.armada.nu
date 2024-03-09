@@ -148,7 +148,7 @@ export function NavigationMenu(
 					</Link>
 				</SheetContent>
 			</Sheet>
-			{/** BaseNavigationMenu is used for desktop navigation */}
+			{/** BaseNavigationMenu is used for desktop navigation  */}
 			<div className="hidden flex-1 justify-between md:flex">
 				<BaseNavigationMenu className="">
 					<NavigationMenuList>
