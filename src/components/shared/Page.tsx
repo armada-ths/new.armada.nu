@@ -59,7 +59,7 @@ Page.Background = function PageBackground(
 				className
 			)}
 			{...rest}>
-			<div className="absolute top-0 h-full w-screen overflow-hidden">
+			<div className="absolute top-0 h-full w-full overflow-hidden">
 				<div className="absolute right-0 top-[80%] h-60 w-60 rounded-full bg-emerald-700 opacity-20 blur-3xl filter"></div>
 				<div className="absolute right-1/4 top-[30%] h-52 w-52 rounded-full bg-emerald-700 opacity-20 blur-3xl filter"></div>
 				<div className="absolute right-1/3 top-[150%] h-96 w-96 rounded-full bg-emerald-700 opacity-10 blur-3xl filter"></div>

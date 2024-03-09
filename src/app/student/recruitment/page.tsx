@@ -1,10 +1,11 @@
+import { P } from "@/app/_components/Paragraph"
 import { Page } from "@/components/shared/Page"
 import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
 import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
 } from "@/components/ui/accordion"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -66,7 +67,7 @@ export default async function RecruitmentPage() {
 										<AccordionItem key={role.name} value={role.name}>
 											<AccordionTrigger>{role.name}</AccordionTrigger>
 											<AccordionContent>
-												<p className="leading-7">{role.description}</p>
+												<P className="leading-7">{role.description}</P>
 											</AccordionContent>
 										</AccordionItem>
 									))}

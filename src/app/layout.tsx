@@ -39,7 +39,6 @@ export default function RootLayout({
 			<body
 				className={`${inter.variable} ${bebasNeue.variable} ${lato.variable}`}>
 				<Providers>
-					<NavigationMenu className="fixed top-0 z-50 h-16 bg-gradient-to-b from-stone-900 to-stone-950/40 filter backdrop-blur-lg" />
 					{children}
 				</Providers>
 			</body>
