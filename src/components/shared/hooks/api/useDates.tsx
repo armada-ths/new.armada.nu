@@ -12,8 +12,13 @@ interface FairDate {
 	ir: {
 		start: string
 		end: string
+		acceptance: string
 	}
 	fr: {
+		start: string
+		end: string
+	}
+	events: {
 		start: string
 		end: string
 	}

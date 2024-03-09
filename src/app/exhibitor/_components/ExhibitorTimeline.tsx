@@ -108,8 +108,8 @@ export async function ExhibitorTimeline() {
 							their dream employer!
 						</P>
 						<P className="mt-2 text-stone-400">
-							In Initial Registration you don't need to choose a package, and
-							the packages are outlined{" "}
+							In Initial Registration you don&apost need to choose a package,
+							and the packages are outlined{" "}
 							<a
 								className="text-white underline hover:no-underline"
 								href="/exhibitor/packages">
@@ -213,7 +213,7 @@ export async function ExhibitorTimeline() {
 								href="mailto:sales@armada.nu">
 								sales@armada.nu
 							</a>{" "}
-							or your sales representative and they'll guide you through it.
+							or your sales representative and they&aposll guide you through it.
 							Maybe you want to talk to a few students in a more cozy setting?
 							Or stand out extra on the fair compared to everyone else? We can
 							help you do that.
