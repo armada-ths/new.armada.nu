@@ -29,7 +29,7 @@ export default async function Packages() {
 			<Page.Boundary className="pb-20">
 				<div className="mx-auto max-w-[600px]">
 					<Page.Header>Packages</Page.Header>
-					<div className="">
+					<div className="mt-4">
 						<p className="max-w-[500] text-stone-400">
 							Armada has the following packages you can get. The bronze package
 							is all the basics you need to exhibit at Armada. The silver
@@ -37,7 +37,7 @@ export default async function Packages() {
 							makes you truly stand out from the rest through extra marketing.
 						</p>
 					</div>
-					<Alert className="mt-5">
+					<Alert className="mt-8">
 						<Sparkles size={20} />
 						<AlertTitle>Did you know?</AlertTitle>
 						<AlertDescription>
@@ -96,7 +96,7 @@ export default async function Packages() {
 					</div>
 				</div>
 				<p className="mt-4 text-sm">*All prices are ex. VAT. </p>
-				<div className="mx-auto mt-10 w-[600px]">
+				<div className="mx-auto mt-10 w-full max-w-[600px]">
 					<h1 className="ml-2 text-2xl">FAQ</h1>
 					<div>
 						<Collapsible>
