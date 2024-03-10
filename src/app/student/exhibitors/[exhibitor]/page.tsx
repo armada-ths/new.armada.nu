@@ -17,7 +17,9 @@ interface RouteProps {
 // This tells Next about all the companies that it should
 // prerender, these will be compiled at build time
 export async function generateStaticParams() {
-	const years = await fetchAllYearExhibitors()
+	const years = await fetchAllYearExhibitors({
+		cache: "force-cache"
+	})
 	const exhibitors = years.flatMap(x => x.exhibitors)
 
 	return exhibitors.map(exhibitor => ({

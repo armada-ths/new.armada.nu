@@ -53,13 +53,16 @@ export interface Group {
 
 const defaultYear = DateTime.now().minus({ months: 6 }).year
 
-export async function fetchExhibitors(options?: { year?: number }) {
+export async function fetchExhibitors(
+	options?: RequestInit & { year?: number }
+) {
 	const res = await fetch(
 		`${env.NEXT_PUBLIC_API_URL}/api/exhibitors?year=${options?.year ?? defaultYear}`,
 		{
-			cache: "no-cache",
+			cache: options?.cache ?? "no-cache",
 			next: {
-				tags: [
+				...options?.next,
+				tags: options?.next?.tags ?? [
 					"exhibitors",
 					options?.year?.toString() ?? defaultYear.toString()
 				]
@@ -75,13 +78,16 @@ export async function fetchExhibitors(options?: { year?: number }) {
  * this is ok since this is statically compiled in
  * next. This should NOT be called in a client component
  */
-export async function fetchAllYearExhibitors() {
+export async function fetchAllYearExhibitors(options?: RequestInit) {
 	const exhibitorYears = await Promise.allSettled(
 		new Array(DateTime.now().year - 2021).fill(0).map(async (_, i) => {
 			const year = DateTime.now().year - i
 			return {
 				year: year.toString(),
-				exhibitors: await fetchExhibitors({ year })
+				exhibitors: await fetchExhibitors({
+					...options,
+					year
+				})
 			}
 		})
 	)
