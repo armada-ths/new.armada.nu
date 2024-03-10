@@ -1,5 +1,5 @@
 import Providers from "@/app/providers"
-import { NavigationMenu } from "@/components/shared/NavigationMenu"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { DateTime } from "luxon"
 import type { Metadata } from "next"
 import { Bebas_Neue, Inter, Lato } from "next/font/google"
@@ -38,9 +38,8 @@ export default function RootLayout({
 			<head />
 			<body
 				className={`${inter.variable} ${bebasNeue.variable} ${lato.variable}`}>
-				<Providers>
-					{children}
-				</Providers>
+				<SpeedInsights />
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	)
