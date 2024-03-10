@@ -64,7 +64,7 @@ export default async function Packages() {
 							<ul className="mt-2 font-lato text-zinc-500">
 								<li className="my-2">Everything from bronze package</li>
 								<li className="my-2">4x2 m booth</li>
-								<li className="my-2">Silver priority placement</li>
+								<li className="my-2">Second priority placement</li>
 								<li className="my-2">Lunch for 6 people</li>
 								<li className="my-2">2 banquet tickets</li>
 								<li className="my-2">
@@ -79,7 +79,7 @@ export default async function Packages() {
 							<ul className="mt-2 font-lato text-yellow-500">
 								<li className="my-2">Everything from silver package</li>
 								<li className="my-2">5x2 m booth</li>
-								<li className="my-2">Gold priority placement</li>
+								<li className="my-2">First priority placement</li>
 								<li className="my-2">Lunch for 8 people</li>
 								<li className="my-2">4 banquet tickets</li>
 								<li className="my-2">
