@@ -258,8 +258,7 @@ export async function ExhibitorTimeline() {
 						</P>
 						<P>
 							Armada run, the 5km race we organize with students and exhibitor
-							representatives, is also happening, but often a little earlier to
-							be done when there is more light.
+							representatives, is also happening during the event weeks.
 						</P>
 					</CollapsibleContent>
 				</Collapsible>
