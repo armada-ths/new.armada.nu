@@ -235,7 +235,45 @@ export async function ExhibitorTimeline() {
 				</Collapsible>
 			</li>
 
-			{/*fair preperations*/}
+			<li className="mb-2 ms-4">
+				<div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-melon-700"></div>
+
+				<Collapsible>
+					<CollapsibleTrigger className="hover: w-full rounded px-2 pb-4 text-left hover:bg-slate-700">
+						<P className="	text-stone-400">{formatDate(dates.fr.end)}</P>
+						<div className="flex w-full justify-between">
+							<h3 className="text-2xl md:text-3xl">Fair preparations start</h3>
+							<div className="flex h-8 w-8 items-center justify-center rounded-full">
+								<ChevronsUpDown />
+							</div>
+						</div>
+					</CollapsibleTrigger>
+					<CollapsibleContent className="px-2">
+						<P className="mt-3 text-stone-400">
+							Once Final Registration is complete, there are a few things that
+							need to be sorted before the fair. All of them are listed with
+							individual deadlines on the dashboard, and it is also there you
+							will do them. Some things are:
+						</P>
+						<ul className="mx-4 list-disc">
+							<li className="mt-3 text-stone-400">
+								Logo and company information for the map of exhibitors and
+								exhibitors catalog
+							</li>
+							<li className="mt-3 text-stone-400">Transportation of goods</li>
+							<li className="mt-3 text-stone-400">
+								Lunch tickets and dietary restrictions
+							</li>
+						</ul>
+						<P className="mt-3 text-stone-400">
+							You will be assigned a Host who will help you go through these
+							things and answer any questions you might have. The Host will also
+							meet you when you come to KTH to show you to your place etc. The
+							host will be assigned sometime in early October.
+						</P>
+					</CollapsibleContent>
+				</Collapsible>
+			</li>
 
 			<li className="mb-2 ms-4">
 				<div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-melon-700"></div>
@@ -251,7 +289,7 @@ export async function ExhibitorTimeline() {
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
 						<P className="mt-3 text-stone-400">
-							This is when the events happen. Three weeks filled of lunch
+							This is when the events happen. Three weeks filled with lunch
 							lectures, after works, panel discussions and more. Building up the
 							momentum before the fair, giving students and exhibitors the
 							opportunity to meet in a focused environment.
@@ -308,6 +346,35 @@ export async function ExhibitorTimeline() {
 						</P>
 						<P className="mt-3 text-stone-400">
 							Best of luck and we really look forward to seeing you there!
+						</P>
+					</CollapsibleContent>
+				</Collapsible>
+			</li>
+
+			<li className="mb-2 ms-4">
+				<div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-melon-700"></div>
+
+				<Collapsible>
+					<CollapsibleTrigger className="hover: w-full rounded px-2 pb-4 text-left hover:bg-slate-700">
+						<P className="	text-stone-400">{formatDate(dates.fair.days[0])}</P>
+						<div className="flex w-full justify-between">
+							<h3 className="text-2xl md:text-3xl">The grand banquet</h3>
+							<div className="flex h-8 w-8 items-center justify-center rounded-full">
+								<ChevronsUpDown />
+							</div>
+						</div>
+					</CollapsibleTrigger>
+					<CollapsibleContent className="px-2">
+						<P className="mt-3 text-stone-400">
+							On the eve of the first fair day, Armada organizes a grand
+							banquet, a night of glamor, to celebrate together with you! Silver
+							and Gold exhibitors have tickets included, and more tickets are
+							available for purchase in final registration.
+						</P>
+						<P className="mt-3 text-stone-400">
+							It is the perfect opportunity to meet the talented and ambitious
+							students who make Armada possible in a more informal setting.
+							Welcome!
 						</P>
 					</CollapsibleContent>
 				</Collapsible>
