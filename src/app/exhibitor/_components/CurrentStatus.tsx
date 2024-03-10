@@ -8,7 +8,6 @@ import Link from "next/link"
 export async function CurrentStatus() {
 	const dates = await fetchDates()
 	const today = Date.now() //.toISOString();
-	console.log(today)
 
 	function formatDate(date: string) {
 		return DateTime.fromISO(date).toFormat(
