@@ -42,7 +42,7 @@ export async function generateMetadata({
 	searchParams
 }: RouteProps): Promise<Metadata> {
 	const year = getYearOrDefault(searchParams)
-	const exhibitors = await fetchExhibitors({ year })
+	const exhibitors = await fetchExhibitors({ year, cache: "force-cache" })
 	const exhibitor = exhibitors.find(x => x.id.toString() === params.exhibitor)
 
 	if (exhibitor == null) return notFound()
@@ -63,7 +63,7 @@ export default async function ExhibitorPage({
 	// Type narrow the searchParams to a number
 	const year = getYearOrDefault(searchParams)
 
-	const exhibitors = await fetchExhibitors({ year })
+	const exhibitors = await fetchExhibitors({ year, cache: "force-cache" })
 	const exhibitor = exhibitors.find(x => x.id.toString() === params.exhibitor)
 
 	if (exhibitor == null) {
