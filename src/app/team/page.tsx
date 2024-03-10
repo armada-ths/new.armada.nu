@@ -35,6 +35,7 @@ export default async function TeamPage() {
 										) : (
 											<div className="overflow-hidden rounded-lg">
 												<Image
+													loading="lazy"
 													src={person.picture}
 													alt={person.name}
 													width={200}
