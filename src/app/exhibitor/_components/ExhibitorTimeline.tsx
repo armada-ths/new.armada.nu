@@ -57,13 +57,13 @@ export async function ExhibitorTimeline() {
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
 						<div>
-							<P className="mt-2 text-stone-400">
+							<P className="mt-3 text-stone-400">
 								Before the initial registration can open, we need to make
 								preparations. We are right now choosing a new project group - 20
 								something students who will work hard all year to make Armada
 								happen.
 							</P>
-							<P className="mt-2 text-stone-400">
+							<P className="mt-3 text-stone-400">
 								We will open Initial Registration where you apply to be an
 								exhibitor soon. You can express your interest here, and we will
 								contact you as soon as registration opens!
@@ -88,7 +88,7 @@ export async function ExhibitorTimeline() {
 						</div>
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							Initial Registration is where you apply to be an exhibitor. When
 							you register you commit to be a part of Armada and given a spot
 							you are expected to exhibit, so wait with registration until you
@@ -100,15 +100,15 @@ export async function ExhibitorTimeline() {
 							</a>
 							.
 						</P>
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							Sadly, we cannot guarantee everyone that register a spot. We right
 							now are investigating how many exhibitors we can fit and how big
 							the interest is. We really try our best to get a good mix of great
 							exhibitors that make Armada the best place for students to find
 							their dream employer!
 						</P>
-						<P className="mt-2 text-stone-400">
-							In Initial Registration you don&apost need to choose a package,
+						<P className="mt-3 text-stone-400">
+							In Initial Registration you don&apos;t need to choose a package,
 							and the packages are outlined{" "}
 							<a
 								className="text-white underline hover:no-underline"
@@ -192,7 +192,7 @@ export async function ExhibitorTimeline() {
 						</div>
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							In Final Registration you choose your package, if you want to do
 							any events, number of tickets for the banquet etc. All of this is
 							done on the registration dashboard - same as where you did initial
@@ -204,7 +204,7 @@ export async function ExhibitorTimeline() {
 								<Button>Signup to Armada</Button>
 							</a>
 						</div>
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							We have many different products that help you reach students on
 							KTH in different ways. If you have any thoughts on what best suits
 							you, please contact{" "}
@@ -213,10 +213,10 @@ export async function ExhibitorTimeline() {
 								href="mailto:sales@armada.nu">
 								sales@armada.nu
 							</a>{" "}
-							or your sales representative and they&aposll guide you through it.
-							Maybe you want to talk to a few students in a more cozy setting?
-							Or stand out extra on the fair compared to everyone else? We can
-							help you do that.
+							or your sales representative and they&apos;ll guide you through
+							it. Maybe you want to talk to a few students in a more cozy
+							setting? Or stand out extra on the fair compared to everyone else?
+							We can help you do that.
 						</P>
 					</CollapsibleContent>
 				</Collapsible>
@@ -250,7 +250,7 @@ export async function ExhibitorTimeline() {
 						</div>
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							This is when the events happen. Three weeks filled of lunch
 							lectures, after works, panel discussions and more. Building up the
 							momentum before the fair, giving students and exhibitors the
@@ -291,7 +291,7 @@ export async function ExhibitorTimeline() {
 						</div>
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							The days we all have waited for! Four days Armada have worked
 							together to build the fair venues and prepare everything! When you
 							arrive in the morning, your Host meets you and shows you your
@@ -300,14 +300,14 @@ export async function ExhibitorTimeline() {
 							sandwich and a cup of coffee to read those few emails and charge
 							up before the fair!
 						</P>
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							At 10 the students start rolling in, and your brand will be on
 							display. Some are looking for general career advice, some younger
 							students just want to know who you are. Some wonder what
 							consultants really do, and some have only one goal in mind -
 							finding a master thesis.
 						</P>
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							Best of luck and we really look forward to seeing you there!
 						</P>
 					</CollapsibleContent>
