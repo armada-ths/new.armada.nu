@@ -108,7 +108,7 @@ export async function ExhibitorTimeline() {
 							their dream employer!
 						</P>
 						<P className="mt-2 text-stone-400">
-							In Initial Registration you don&apost need to choose a package,
+							In Initial Registration you don&apos;t need to choose a package,
 							and the packages are outlined{" "}
 							<a
 								className="text-white underline hover:no-underline"
