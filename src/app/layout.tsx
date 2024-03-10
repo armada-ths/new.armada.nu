@@ -20,7 +20,21 @@ const lato = Lato({
 
 export const metadata: Metadata = {
 	title: `THS Armada ${DateTime.now().year} Career Fair`,
-	description: "Scandinavia's largest career fair for engineers"
+	description: "Scandinavia's largest student career fair",
+	openGraph: {
+		title: `THS Armada ${DateTime.now().year} Career Fair`,
+		description: "Scandinavia's largest student career fair",
+		url: "https://armada.nu",
+		type: "website",
+		images: [
+			{
+				url: "/screenshots/homepage_screenshot.jpeg",
+				width: 2531,
+				height: 1395,
+				alt: "Armada homepage"
+			}
+		]
+	}
 }
 
 export const revalidate = 60 * 60 * 12 // 12 hours
