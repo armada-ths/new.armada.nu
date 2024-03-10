@@ -46,7 +46,7 @@ export async function generateMetadata({
 	if (exhibitor == null) return notFound()
 
 	return {
-		title: exhibitor?.name,
+		title: `${exhibitor?.name} at Armada`,
 		abstract: exhibitor?.about,
 		openGraph: {
 			images: [exhibitor.logo_squared ?? exhibitor.logo_freesize ?? ""]

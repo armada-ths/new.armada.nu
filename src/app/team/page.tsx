@@ -2,8 +2,14 @@ import { Page } from "@/components/shared/Page"
 import { fetchOrganization } from "@/components/shared/hooks/api/useOrganization"
 import { PersonIcon } from "@radix-ui/react-icons"
 import { LinkedinIcon, MailIcon } from "lucide-react"
+import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+	title: `Armada Organization`,
+	description: "Meet all the volunteers that make Armada possible"
+}
 
 export default async function TeamPage() {
 	const organization = await fetchOrganization()

@@ -2,15 +2,21 @@ import { P } from "@/app/_components/Paragraph"
 import { Page } from "@/components/shared/Page"
 import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger
 } from "@/components/ui/accordion"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { env } from "@/env"
 import { DateTime } from "luxon"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+	title: `Armada Recruitment`,
+	description: "See available roles and apply to become a part of Armada"
+}
 
 export default async function RecruitmentPage() {
 	const data = await fetchRecruitment()

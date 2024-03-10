@@ -2,6 +2,11 @@ import { CurrentStatus } from "@/app/exhibitor/_components/CurrentStatus"
 import { PhotoCarousel } from "@/app/exhibitor/_components/PhotoCarousel"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+	title: `Become an exhibitor at Armada`
+}
 
 export default function ForExhibitorsPage() {
 	const swedishFormat = Intl.NumberFormat("sv")
@@ -13,16 +18,20 @@ export default function ForExhibitorsPage() {
 
 				<div className="flex w-full flex-col space-y-4">
 					<div className="mt-2 flex w-full flex-row flex-wrap justify-between gap-4 bg-melon-700 p-6 text-center md:text-2xl">
-						<p className="font-bebas-neue  font-medium text-stone-900 w-3/12">
-							<p className="md:text-4xl text-2xl">{swedishFormat.format(20000)}+</p>
+						<p className="w-3/12  font-bebas-neue font-medium text-stone-900">
+							<p className="text-2xl md:text-4xl">
+								{swedishFormat.format(20000)}+
+							</p>
 							<p>visits</p>
 						</p>
-						<p className=" font-bebas-neue  font-medium text-stone-900 w-3/12">
-							<p className="md:text-4xl text-2xl">{swedishFormat.format(15000)}</p>
+						<p className=" w-3/12  font-bebas-neue font-medium text-stone-900">
+							<p className="text-2xl md:text-4xl">
+								{swedishFormat.format(15000)}
+							</p>
 							<p>Students</p>
 						</p>
-						<p className=" font-bebas-neue font-medium text-stone-900 w-3/12">
-							<p className="md:text-4xl text-2xl">2 days</p>
+						<p className=" w-3/12 font-bebas-neue font-medium text-stone-900">
+							<p className="text-2xl md:text-4xl">2 days</p>
 							<p>of networking</p>
 						</p>
 					</div>
@@ -63,15 +72,14 @@ export default function ForExhibitorsPage() {
 							New students, every year!
 						</h2>
 						<p className="text-stone-300">
-							Every year, around 4000 new students come to KTH. Almost as
-							many students get their first full time job or internship.
-							Participating in Armada means you get access to all of them,
-							and can both build awareness among younger students and be top
-							of mind when the older students start looking for a job.
-							Welcome!
-						</p>	
+							Every year, around 4000 new students come to KTH. Almost as many
+							students get their first full time job or internship.
+							Participating in Armada means you get access to all of them, and
+							can both build awareness among younger students and be top of mind
+							when the older students start looking for a job. Welcome!
+						</p>
 					</div>
-					
+
 					<div className="mt-6">
 						<h2 className="font-bebas-neue text-3xl font-medium text-melon-700">
 							Do you write &quot;we place high importance on your personal
@@ -96,10 +104,9 @@ export default function ForExhibitorsPage() {
 						</p>
 					</div>
 				</section>
-				<div className="flex justify-center mt-6">
-					<PhotoCarousel/>
+				<div className="mt-6 flex justify-center">
+					<PhotoCarousel />
 				</div>
-				
 			</Page.Boundary>
 		</Page.Background>
 	)

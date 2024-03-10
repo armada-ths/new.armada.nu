@@ -9,6 +9,13 @@ import {
 } from "@/components/ui/collapsible"
 import { ChevronsUpDown, Sparkles } from "lucide-react"
 import { DateTime } from "luxon"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+	title: `Packages - Armada Exhibitor`,
+	description:
+		"The packages we offer for exhibitors at Armada. Choose between bronze, silver and gold."
+}
 
 export default async function Packages() {
 	function formatDate(date: string) {

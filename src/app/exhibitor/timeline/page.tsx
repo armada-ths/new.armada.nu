@@ -1,5 +1,12 @@
 import { ExhibitorTimeline } from "@/app/exhibitor/_components/ExhibitorTimeline"
 import { Page } from "@/components/shared/Page"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+	title: `Exhibitor Timeline`,
+	description:
+		"From signup to fair, see what happens, step by step as an exhibitor"
+}
 
 export default async function WhyArmadaPage() {
 	return (
