@@ -1,4 +1,5 @@
 import { Page } from "@/components/shared/Page"
+import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -7,6 +8,7 @@ import {
 	CollapsibleTrigger
 } from "@/components/ui/collapsible"
 import { ChevronsUpDown, Sparkles } from "lucide-react"
+import { DateTime } from "luxon"
 import { Metadata } from "next"
 import Link from "next/link"
 
@@ -17,6 +19,14 @@ export const metadata: Metadata = {
 }
 
 export default async function Packages() {
+	const dates = await fetchDates()
+
+	function formatDate(date: string) {
+		return DateTime.fromISO(date).toFormat(
+			`d MMMM ${DateTime.fromISO(date).year !== DateTime.now().year ? " YYYY" : ""}`
+		)
+	}
+
 	return (
 		<Page.Background withIndents>
 			<Page.Boundary className="pb-20">
