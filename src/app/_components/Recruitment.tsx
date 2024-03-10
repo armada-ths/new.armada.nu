@@ -5,7 +5,9 @@ import Link from "next/link"
 
 export async function RecruitmentBanner() {
 	const recruitment = await fetchRecruitment({
-		cache: "no-cache"
+		next: {
+			revalidate: 3600 * 3 // 3 hours
+		}
 	})
 
 	if (recruitment == null) return null

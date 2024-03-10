@@ -19,7 +19,11 @@ export const metadata: Metadata = {
 }
 
 export default async function RecruitmentPage() {
-	const data = await fetchRecruitment()
+	const data = await fetchRecruitment({
+		next: {
+			revalidate: 3600 * 3 // 3 hours
+		}
+	})
 
 	if (data == null) {
 		return (

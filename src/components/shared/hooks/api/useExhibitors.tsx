@@ -57,8 +57,8 @@ export async function fetchExhibitors(options?: { year?: number }) {
 	const res = await fetch(
 		`${env.NEXT_PUBLIC_API_URL}/api/exhibitors?year=${options?.year ?? defaultYear}`,
 		{
+			cache: "no-cache",
 			next: {
-				revalidate: 3600 * 24, // 24 cache hours
 				tags: [
 					"exhibitors",
 					options?.year?.toString() ?? defaultYear.toString()
