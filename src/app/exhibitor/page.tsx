@@ -3,6 +3,7 @@ import { PhotoCarousel } from "@/app/exhibitor/_components/PhotoCarousel"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
 import { Metadata } from "next"
+import Link from "next/link"
 
 export const metadata: Metadata = {
 	title: `Become an exhibitor at Armada`
@@ -42,16 +43,16 @@ export default function ForExhibitorsPage() {
 						<a href="https://register.armada.nu/register">
 							<Button>Signup to Armada</Button>
 						</a>
-						<a href="/exhibitor/packages">
+						<Link href="/exhibitor/packages">
 							<Button variant={"secondary"} className="dark:bg-liqorice-700">
 								Packages
 							</Button>
-						</a>
-						<a href="/exhibitor/timeline">
+						</Link>
+						<Link href="/exhibitor/timeline">
 							<Button variant={"secondary"} className="dark:bg-liqorice-700">
 								Timeline
 							</Button>
-						</a>
+						</Link>
 					</div>
 					<p className="text-xs text-slate-400">
 						Or{" "}

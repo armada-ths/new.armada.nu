@@ -40,14 +40,14 @@ export default async function HomePage() {
 									<a href="https://register.armada.nu/register">
 										<Button>Exhibitor signup</Button>
 									</a>
-									<a href="/exhibitor/packages">
+									<Link href="/exhibitor/packages">
 										<Button
 											variant={"secondary"}
 											className="dark:bg-liqorice-700">
 											This Years Packages
 											<ArrowRightIcon className="ml-2 h-4 w-4" />
 										</Button>
-									</a>
+									</Link>
 								</div>
 								<Suspense>
 									<FairDates />

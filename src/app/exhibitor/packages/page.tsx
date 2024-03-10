@@ -1,5 +1,4 @@
 import { Page } from "@/components/shared/Page"
-import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -8,8 +7,8 @@ import {
 	CollapsibleTrigger
 } from "@/components/ui/collapsible"
 import { ChevronsUpDown, Sparkles } from "lucide-react"
-import { DateTime } from "luxon"
 import { Metadata } from "next"
+import Link from "next/link"
 
 export const metadata: Metadata = {
 	title: `Packages - Armada Exhibitor`,
@@ -18,12 +17,6 @@ export const metadata: Metadata = {
 }
 
 export default async function Packages() {
-	function formatDate(date: string) {
-		return DateTime.fromISO(date).toFormat(
-			`d MMMM ${DateTime.fromISO(date).year !== DateTime.now().year ? " YYYY" : ""}`
-		)
-	}
-	const dates = await fetchDates()
 	return (
 		<Page.Background withIndents>
 			<Page.Boundary className="pb-20">
@@ -149,17 +142,17 @@ export default async function Packages() {
 							<CollapsibleContent className="p-2 text-stone-400">
 								<p>You can sign up here:</p>
 								<div className="my-4">
-									<a href="https://register.armada.nu/register">
+									<Link href="https://register.armada.nu/register">
 										<Button>Signup to Armada</Button>
-									</a>
+									</Link>
 								</div>
 								<p>
 									If you have any questions, you can contact us at{" "}
-									<a
+									<Link
 										className="text-white underline hover:no-underline"
 										href="mailto:sales@armada.nu">
 										sales@armada.nu
-									</a>
+									</Link>
 									.
 								</p>
 							</CollapsibleContent>
