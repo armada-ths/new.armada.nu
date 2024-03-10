@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/collapsible"
 import { ChevronsUpDown } from "lucide-react"
 import { DateTime } from "luxon"
+import Link from "next/link"
 
 export async function ExhibitorTimeline() {
 	const dates = await fetchDates()
@@ -110,11 +111,11 @@ export async function ExhibitorTimeline() {
 						<P className="mt-3 text-stone-400">
 							In Initial Registration you don&apos;t need to choose a package,
 							and the packages are outlined{" "}
-							<a
+							<Link
 								className="text-white underline hover:no-underline"
 								href="/exhibitor/packages">
 								here
-							</a>{" "}
+							</Link>{" "}
 							to give you an overview. Prices are set, and small changes can
 							occur in the larger packages.
 						</P>

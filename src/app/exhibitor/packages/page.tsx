@@ -152,11 +152,11 @@ export default async function Packages() {
 								<p>
 									The initial registration ends {formatDate(dates.ir.end)}. See
 									our{" "}
-									<a
+									<Link
 										className="text-white underline hover:no-underline"
 										href="/exhibitor/timeline">
 										timeline
-									</a>{" "}
+									</Link>{" "}
 									for more information and other important dates.
 								</p>
 							</CollapsibleContent>
