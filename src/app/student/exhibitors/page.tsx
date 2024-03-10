@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 
 export default async function ExhibitorListPage() {
 	const exhibitors = await fetchAllYearExhibitors({
-		cache: "force-cache",
+		cache: "default",
 		next: {
-			revalidate: 3600 * 24 * 3 // 3 days
+			revalidate: 3600 * 24 * 6 // 6 days
 		}
 	})
 

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function TeamPage() {
 	const organization = await fetchOrganization({
 		next: {
-			revalidate: 3600 * 24 * 3 // 3 days
+			revalidate: 3600 * 24 * 6 // 6 days (S3 caches the images for 7 days exactly, we want to revalidate before that, otherwise the images will not be loaded)
 		}
 	})
 
