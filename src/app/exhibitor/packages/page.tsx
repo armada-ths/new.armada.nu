@@ -76,6 +76,10 @@ export default async function Packages() {
 									social media together with other exhibitors.
 								</li>
 							</ul>
+							<div className="absolute bottom-4">
+								<p className="text-s">Early bird price:</p>
+								<p>71 500 SEK*</p>
+							</div>
 							{/* 							<p className="absolute bottom-4">71 500 SEK*</p> */}
 						</div>
 						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-yellow-800 p-5 pb-20">
@@ -95,6 +99,10 @@ export default async function Packages() {
 									social media
 								</li>
 							</ul>
+							<div className="absolute bottom-4">
+								<p className="text-s">Early bird price:</p>
+								<p>114 500 SEK*</p>
+							</div>
 							{/* 							<p className="absolute bottom-4">108 500 SEK*</p> */}
 						</div>
 					</div>
