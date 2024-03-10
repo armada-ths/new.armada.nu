@@ -213,10 +213,10 @@ export async function ExhibitorTimeline() {
 								href="mailto:sales@armada.nu">
 								sales@armada.nu
 							</a>{" "}
-							or your sales representative and they&aposll guide you through it.
-							Maybe you want to talk to a few students in a more cozy setting?
-							Or stand out extra on the fair compared to everyone else? We can
-							help you do that.
+							or your sales representative and they&apos;ll guide you through
+							it. Maybe you want to talk to a few students in a more cozy
+							setting? Or stand out extra on the fair compared to everyone else?
+							We can help you do that.
 						</P>
 					</CollapsibleContent>
 				</Collapsible>
