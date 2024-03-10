@@ -28,10 +28,10 @@ export const metadata: Metadata = {
 		type: "website",
 		images: [
 			{
-				url: "/armada_white.svg",
-				width: 500,
-				height: 500,
-				alt: "THS Armada Logo white"
+				url: "/screenshots/homepage_screenshot.jpeg",
+				width: 2531,
+				height: 1395,
+				alt: "Armada homepage"
 			}
 		]
 	}
