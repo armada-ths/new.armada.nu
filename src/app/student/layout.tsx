@@ -12,7 +12,7 @@ export default async function ExhibitorLayout({
 	return (
 		<>
 			<NavigationMenu
-				itemAside={
+				aside={
 					data != null && (
 						<Link href="https://ais.armada.nu/fairs/2024/recruitment">
 							<Button variant={"outline"}>Apply for Armada</Button>

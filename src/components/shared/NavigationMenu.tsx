@@ -65,7 +65,7 @@ const studentLinks: { title: string; href: string; description: string }[] = [
 
 export function NavigationMenu(
 	props: React.HTMLAttributes<HTMLDivElement> & {
-		itemAside?: React.ReactNode
+		aside?: React.ReactNode
 		float?: boolean // Default true
 	}
 ) {
@@ -103,7 +103,7 @@ export function NavigationMenu(
 			{/** Sheet is used for mobile navigation */}
 			<Sheet open={sheetOpen}>
 				<div className="flex w-full justify-between md:hidden">
-					{props.itemAside}
+					{props.aside != null && <>{props.aside}</>}
 					<SheetTrigger
 						className="md:hidden"
 						onClick={() => setSheetOpen(true)}>
@@ -212,7 +212,7 @@ export function NavigationMenu(
 						</NavigationMenuItem>
 					</NavigationMenuList>
 				</BaseNavigationMenu>
-				<div>{props.itemAside}</div>
+				{props.aside != null && <div>{props.aside}</div>}
 			</div>
 		</div>
 	)

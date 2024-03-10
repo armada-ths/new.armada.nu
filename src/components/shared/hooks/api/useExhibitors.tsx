@@ -57,7 +57,6 @@ export async function fetchExhibitors(options?: { year?: number }) {
 	const res = await fetch(
 		`${env.NEXT_PUBLIC_API_URL}/api/exhibitors?year=${options?.year ?? defaultYear}`,
 		{
-			credentials: "include",
 			next: {
 				tags: [
 					"exhibitors",

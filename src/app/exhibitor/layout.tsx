@@ -10,7 +10,7 @@ export default function ExhibitorLayout({
 	return (
 		<>
 			<NavigationMenu
-				itemAside={
+				aside={
 					<Link href="https://register.armada.nu/register">
 						<Button>Exhibitor signup</Button>
 					</Link>

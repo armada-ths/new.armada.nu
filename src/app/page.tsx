@@ -15,7 +15,7 @@ export default async function HomePage() {
 	return (
 		<>
 			<NavigationMenu
-				itemAside={
+				aside={
 					<Link href="https://register.armada.nu/register">
 						<Button>Exhibitor Signup</Button>
 					</Link>
