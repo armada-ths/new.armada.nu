@@ -3,13 +3,16 @@ import { RecruitmentBanner } from "@/app/_components/Recruitment"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
+import { FlagValues } from "@vercel/flags/react"
 import { ArrowRightIcon } from "lucide-react"
 import Link from "next/link"
+
 import { Suspense } from "react"
 
 export default async function HomePage() {
 	return (
 		<>
+			<FlagValues values={{ newFeature: true }} />
 			<NavigationMenu
 				aside={
 					<Link href="https://register.armada.nu/register">
