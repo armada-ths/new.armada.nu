@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/collapsible"
 import { ChevronsUpDown } from "lucide-react"
 import { DateTime } from "luxon"
+import Link from "next/link"
 
 export async function ExhibitorTimeline() {
 	const dates = await fetchDates()
@@ -57,13 +58,13 @@ export async function ExhibitorTimeline() {
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
 						<div>
-							<P className="mt-2 text-stone-400">
+							<P className="mt-3 text-stone-400">
 								Before the initial registration can open, we need to make
 								preparations. We are right now choosing a new project group - 20
 								something students who will work hard all year to make Armada
 								happen.
 							</P>
-							<P className="mt-2 text-stone-400">
+							<P className="mt-3 text-stone-400">
 								We will open Initial Registration where you apply to be an
 								exhibitor soon. You can express your interest here, and we will
 								contact you as soon as registration opens!
@@ -88,7 +89,7 @@ export async function ExhibitorTimeline() {
 						</div>
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							Initial Registration is where you apply to be an exhibitor. When
 							you register you commit to be a part of Armada and given a spot
 							you are expected to exhibit, so wait with registration until you
@@ -100,21 +101,21 @@ export async function ExhibitorTimeline() {
 							</a>
 							.
 						</P>
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							Sadly, we cannot guarantee everyone that register a spot. We right
 							now are investigating how many exhibitors we can fit and how big
 							the interest is. We really try our best to get a good mix of great
 							exhibitors that make Armada the best place for students to find
 							their dream employer!
 						</P>
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							In Initial Registration you don&apos;t need to choose a package,
 							and the packages are outlined{" "}
-							<a
+							<Link
 								className="text-white underline hover:no-underline"
 								href="/exhibitor/packages">
 								here
-							</a>{" "}
+							</Link>{" "}
 							to give you an overview. Prices are set, and small changes can
 							occur in the larger packages.
 						</P>
@@ -192,7 +193,7 @@ export async function ExhibitorTimeline() {
 						</div>
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							In Final Registration you choose your package, if you want to do
 							any events, number of tickets for the banquet etc. All of this is
 							done on the registration dashboard - same as where you did initial
@@ -204,7 +205,7 @@ export async function ExhibitorTimeline() {
 								<Button>Signup to Armada</Button>
 							</a>
 						</div>
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							We have many different products that help you reach students on
 							KTH in different ways. If you have any thoughts on what best suits
 							you, please contact{" "}
@@ -235,7 +236,45 @@ export async function ExhibitorTimeline() {
 				</Collapsible>
 			</li>
 
-			{/*fair preperations*/}
+			<li className="mb-2 ms-4">
+				<div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-melon-700"></div>
+
+				<Collapsible>
+					<CollapsibleTrigger className="hover: w-full rounded px-2 pb-4 text-left hover:bg-slate-700">
+						<P className="	text-stone-400">{formatDate(dates.fr.end)}</P>
+						<div className="flex w-full justify-between">
+							<h3 className="text-2xl md:text-3xl">Fair preparations start</h3>
+							<div className="flex h-8 w-8 items-center justify-center rounded-full">
+								<ChevronsUpDown />
+							</div>
+						</div>
+					</CollapsibleTrigger>
+					<CollapsibleContent className="px-2">
+						<P className="mt-3 text-stone-400">
+							Once Final Registration is complete, there are a few things that
+							need to be sorted before the fair. All of them are listed with
+							individual deadlines on the dashboard, and it is also there you
+							will do them. Some things are:
+						</P>
+						<ul className="mx-4 list-disc">
+							<li className="mt-3 text-stone-400">
+								Logo and company information for the map of exhibitors and
+								exhibitors catalog
+							</li>
+							<li className="mt-3 text-stone-400">Transportation of goods</li>
+							<li className="mt-3 text-stone-400">
+								Lunch tickets and dietary restrictions
+							</li>
+						</ul>
+						<P className="mt-3 text-stone-400">
+							You will be assigned a Host who will help you go through these
+							things and answer any questions you might have. The Host will also
+							meet you when you come to KTH to show you to your place etc. The
+							host will be assigned sometime in early October.
+						</P>
+					</CollapsibleContent>
+				</Collapsible>
+			</li>
 
 			<li className="mb-2 ms-4">
 				<div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-melon-700"></div>
@@ -250,8 +289,8 @@ export async function ExhibitorTimeline() {
 						</div>
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
-						<P className="mt-2 text-stone-400">
-							This is when the events happen. Three weeks filled of lunch
+						<P className="mt-3 text-stone-400">
+							This is when the events happen. Three weeks filled with lunch
 							lectures, after works, panel discussions and more. Building up the
 							momentum before the fair, giving students and exhibitors the
 							opportunity to meet in a focused environment.
@@ -290,7 +329,7 @@ export async function ExhibitorTimeline() {
 						</div>
 					</CollapsibleTrigger>
 					<CollapsibleContent className="px-2">
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							The days we all have waited for! Four days Armada have worked
 							together to build the fair venues and prepare everything! When you
 							arrive in the morning, your Host meets you and shows you your
@@ -299,15 +338,44 @@ export async function ExhibitorTimeline() {
 							sandwich and a cup of coffee to read those few emails and charge
 							up before the fair!
 						</P>
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							At 10 the students start rolling in, and your brand will be on
 							display. Some are looking for general career advice, some younger
 							students just want to know who you are. Some wonder what
 							consultants really do, and some have only one goal in mind -
 							finding a master thesis.
 						</P>
-						<P className="mt-2 text-stone-400">
+						<P className="mt-3 text-stone-400">
 							Best of luck and we really look forward to seeing you there!
+						</P>
+					</CollapsibleContent>
+				</Collapsible>
+			</li>
+
+			<li className="mb-2 ms-4">
+				<div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-melon-700"></div>
+
+				<Collapsible>
+					<CollapsibleTrigger className="hover: w-full rounded px-2 pb-4 text-left hover:bg-slate-700">
+						<P className="	text-stone-400">{formatDate(dates.fair.days[0])}</P>
+						<div className="flex w-full justify-between">
+							<h3 className="text-2xl md:text-3xl">The grand banquet</h3>
+							<div className="flex h-8 w-8 items-center justify-center rounded-full">
+								<ChevronsUpDown />
+							</div>
+						</div>
+					</CollapsibleTrigger>
+					<CollapsibleContent className="px-2">
+						<P className="mt-3 text-stone-400">
+							On the eve of the first fair day, Armada organizes a grand
+							banquet, a night of glamor, to celebrate together with you! Silver
+							and Gold exhibitors have tickets included, and more tickets are
+							available for purchase in final registration.
+						</P>
+						<P className="mt-3 text-stone-400">
+							It is the perfect opportunity to meet the talented and ambitious
+							students who make Armada possible in a more informal setting.
+							Welcome!
 						</P>
 					</CollapsibleContent>
 				</Collapsible>

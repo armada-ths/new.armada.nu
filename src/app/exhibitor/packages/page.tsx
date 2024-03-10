@@ -1,4 +1,5 @@
 import { Page } from "@/components/shared/Page"
+import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -7,6 +8,7 @@ import {
 	CollapsibleTrigger
 } from "@/components/ui/collapsible"
 import { ChevronsUpDown, Sparkles } from "lucide-react"
+import { DateTime } from "luxon"
 import { Metadata } from "next"
 import Link from "next/link"
 
@@ -17,6 +19,14 @@ export const metadata: Metadata = {
 }
 
 export default async function Packages() {
+	const dates = await fetchDates()
+
+	function formatDate(date: string) {
+		return DateTime.fromISO(date).toFormat(
+			`d MMMM ${DateTime.fromISO(date).year !== DateTime.now().year ? " YYYY" : ""}`
+		)
+	}
+
 	return (
 		<Page.Background withIndents>
 			<Page.Boundary className="pb-20">
@@ -50,6 +60,10 @@ export default async function Packages() {
 								<li className="my-2">Armada transport</li>
 								<li className="my-2">Lunch for 4 people</li>
 							</ul>
+							<div className="absolute bottom-4">
+								<p className="text-s">Early bird price:</p>
+								<p>46 000 SEK*</p>
+							</div>
 							{/* 							<p className="absolute bottom-4">46 000 SEK*</p> */}
 						</div>
 						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-zinc-800 p-5 pb-20">
@@ -57,7 +71,7 @@ export default async function Packages() {
 							<ul className="mt-2 font-lato text-zinc-500">
 								<li className="my-2">Everything from bronze package</li>
 								<li className="my-2">4x2 m booth</li>
-								<li className="my-2">Silver priority placement</li>
+								<li className="my-2">Second priority placement</li>
 								<li className="my-2">Lunch for 6 people</li>
 								<li className="my-2">2 banquet tickets</li>
 								<li className="my-2">
@@ -65,6 +79,10 @@ export default async function Packages() {
 									social media together with other exhibitors.
 								</li>
 							</ul>
+							<div className="absolute bottom-4">
+								<p className="text-s">Early bird price:</p>
+								<p>71 500 SEK*</p>
+							</div>
 							{/* 							<p className="absolute bottom-4">71 500 SEK*</p> */}
 						</div>
 						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-yellow-800 p-5 pb-20">
@@ -72,7 +90,7 @@ export default async function Packages() {
 							<ul className="mt-2 font-lato text-yellow-500">
 								<li className="my-2">Everything from silver package</li>
 								<li className="my-2">5x2 m booth</li>
-								<li className="my-2">Gold priority placement</li>
+								<li className="my-2">First priority placement</li>
 								<li className="my-2">Lunch for 8 people</li>
 								<li className="my-2">4 banquet tickets</li>
 								<li className="my-2">
@@ -84,6 +102,10 @@ export default async function Packages() {
 									social media
 								</li>
 							</ul>
+							<div className="absolute bottom-4">
+								<p className="text-s">Early bird price:</p>
+								<p>114 500 SEK*</p>
+							</div>
 							{/* 							<p className="absolute bottom-4">108 500 SEK*</p> */}
 						</div>
 					</div>
@@ -127,7 +149,16 @@ export default async function Packages() {
 								</div>
 							</CollapsibleTrigger>
 							<CollapsibleContent className="p-2 text-stone-400">
-								<p></p>
+								<p>
+									The initial registration ends {formatDate(dates.ir.end)}. See
+									our{" "}
+									<Link
+										className="text-white underline hover:no-underline"
+										href="/exhibitor/timeline">
+										timeline
+									</Link>{" "}
+									for more information and other important dates.
+								</p>
 							</CollapsibleContent>
 						</Collapsible>
 						<Collapsible>

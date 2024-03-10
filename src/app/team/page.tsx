@@ -26,7 +26,7 @@ export default async function TeamPage() {
 					{organization.map(group => (
 						<div key={group.name} className="mt-16">
 							<h2 className="font-bebas-neue text-3xl">{group.name}</h2>
-							<div className="mt-5 flex flex-wrap items-center justify-center gap-6 md:justify-start">
+							<div className="mt-5 flex flex-wrap items-start justify-center gap-6 md:justify-start">
 								{group.people.map(person => (
 									<div key={person.id} className="w-52">
 										{person.picture == null ||
