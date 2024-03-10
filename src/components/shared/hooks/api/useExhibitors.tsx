@@ -59,7 +59,7 @@ export async function fetchExhibitors(
 	const res = await fetch(
 		`${env.NEXT_PUBLIC_API_URL}/api/exhibitors?year=${options?.year ?? defaultYear}`,
 		{
-			cache: options?.cache ?? "no-cache",
+			cache: options?.cache,
 			next: {
 				...options?.next,
 				tags: options?.next?.tags ?? [

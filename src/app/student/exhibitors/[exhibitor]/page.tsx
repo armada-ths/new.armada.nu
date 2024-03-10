@@ -65,7 +65,6 @@ export default async function ExhibitorPage({
 
 	const exhibitors = await fetchExhibitors({
 		year,
-		cache: "default",
 		next: { revalidate: 3600 * 24 * 6 /* 6 days */ }
 	})
 	const exhibitor = exhibitors.find(x => x.id.toString() === params.exhibitor)
