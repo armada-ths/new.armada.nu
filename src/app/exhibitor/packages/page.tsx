@@ -50,6 +50,10 @@ export default async function Packages() {
 								<li className="my-2">Armada transport</li>
 								<li className="my-2">Lunch for 4 people</li>
 							</ul>
+							<div className="absolute bottom-4">
+								<p className="text-s">Early bird price:</p>
+								<p>46 000 SEK*</p>
+							</div>
 							{/* 							<p className="absolute bottom-4">46 000 SEK*</p> */}
 						</div>
 						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-zinc-800 p-5 pb-20">
@@ -127,7 +131,16 @@ export default async function Packages() {
 								</div>
 							</CollapsibleTrigger>
 							<CollapsibleContent className="p-2 text-stone-400">
-								<p></p>
+								<p>
+									The initial registration ends {formatDate(dates.ir.end)}. See
+									our{" "}
+									<a
+										className="text-white underline hover:no-underline"
+										href="/exhibitor/timeline">
+										timeline
+									</a>{" "}
+									for more information and other important dates.
+								</p>
 							</CollapsibleContent>
 						</Collapsible>
 						<Collapsible>
