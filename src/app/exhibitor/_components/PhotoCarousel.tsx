@@ -9,7 +9,6 @@ import {
 import Image from "next/image"
 
 export function PhotoCarousel() {
-
 	const promotionalPhotos = [
 		{
 			src: "/fair_pictures/49121473038_5876d71e29_b.jpg",
@@ -22,18 +21,24 @@ export function PhotoCarousel() {
 		{
 			src: "/fair_pictures/49122130686_297ea7d00a_o.jpg",
 			alt: "Student interacting with robot"
-		},		
+		}
 	]
 
 	return (
 		<Carousel className="w-4/5">
 			<CarouselContent>
-				{promotionalPhotos.map(({src, alt}, index) => (
+				{promotionalPhotos.map(({ src, alt }, index) => (
 					<CarouselItem key={index}>
 						<div className="w-full">
 							<Card className="w-full">
-								<CardContent className="flex w-full items-center justify-center p-6 overflow-hidden">
-									<Image src={src} width={200} height={200} alt={alt} className="w-full  object-cover"/>
+								<CardContent className="flex w-full items-center justify-center overflow-hidden p-6">
+									<Image
+										src={src}
+										width={430}
+										height={280}
+										alt={alt}
+										className="h-[280px] w-[430px] object-cover"
+									/>
 								</CardContent>
 							</Card>
 						</div>

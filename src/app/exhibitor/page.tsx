@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default function ForExhibitorsPage() {
-	const swedishFormat = Intl.NumberFormat("sv")
+	const numberFormat = Intl.NumberFormat("sv")
 	return (
 		<Page.Background withIndents>
 			<Page.Boundary maxWidth={600} className="pb-20">
@@ -18,22 +18,22 @@ export default function ForExhibitorsPage() {
 
 				<div className="flex w-full flex-col space-y-4">
 					<div className="mt-2 flex w-full flex-row flex-wrap justify-between gap-4 bg-melon-700 p-6 text-center md:text-2xl">
-						<p className="w-3/12  font-bebas-neue font-medium text-stone-900">
+						<div className="w-3/12  font-bebas-neue font-medium text-stone-900">
 							<p className="text-2xl md:text-4xl">
-								{swedishFormat.format(20000)}+
+								{numberFormat.format(20000)}+
 							</p>
 							<p>visits</p>
-						</p>
-						<p className=" w-3/12  font-bebas-neue font-medium text-stone-900">
+						</div>
+						<div className=" w-3/12  font-bebas-neue font-medium text-stone-900">
 							<p className="text-2xl md:text-4xl">
-								{swedishFormat.format(15000)}
+								{numberFormat.format(15000)}
 							</p>
 							<p>Students</p>
-						</p>
-						<p className=" w-3/12 font-bebas-neue font-medium text-stone-900">
+						</div>
+						<div className=" w-3/12 font-bebas-neue font-medium text-stone-900">
 							<p className="text-2xl md:text-4xl">2 days</p>
 							<p>of networking</p>
-						</p>
+						</div>
 					</div>
 				</div>
 
