@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 
 export default async function TeamPage() {
 	const organization = await fetchOrganization({
-		cache: "no-cache"
+		next: {
+			revalidate: 3600 * 24 * 3 // 3 days
+		}
 	})
 
 	return (

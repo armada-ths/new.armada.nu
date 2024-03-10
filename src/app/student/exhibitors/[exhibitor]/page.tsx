@@ -63,7 +63,11 @@ export default async function ExhibitorPage({
 	// Type narrow the searchParams to a number
 	const year = getYearOrDefault(searchParams)
 
-	const exhibitors = await fetchExhibitors({ year, cache: "force-cache" })
+	const exhibitors = await fetchExhibitors({
+		year,
+		cache: "force-cache",
+		next: { revalidate: 3600 * 24 * 3 /* 3 days */ }
+	})
 	const exhibitor = exhibitors.find(x => x.id.toString() === params.exhibitor)
 
 	if (exhibitor == null) {

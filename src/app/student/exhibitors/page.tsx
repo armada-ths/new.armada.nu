@@ -10,7 +10,12 @@ export const metadata: Metadata = {
 }
 
 export default async function ExhibitorListPage() {
-	const exhibitors = await fetchAllYearExhibitors()
+	const exhibitors = await fetchAllYearExhibitors({
+		cache: "force-cache",
+		next: {
+			revalidate: 3600 * 24 * 3 // 3 days
+		}
+	})
 
 	return (
 		<Page.Background withIndents>
