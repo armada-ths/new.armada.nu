@@ -15,19 +15,22 @@ interface RecruitmentGroup {
 	description: string
 }
 
-export async function fetchRecruitment() {
-	const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/recruitment`, {
-		cache: "no-cache"
-	})
+export async function fetchRecruitment(options?: RequestInit) {
+	const res = await fetch(
+		`${env.NEXT_PUBLIC_API_URL}/api/recruitment`,
+		options ?? {
+			cache: "no-cache"
+		}
+	)
 	const result = await res.json()
 	if (result == null || !Array.isArray(result) || result.length <= 0)
 		return null
 	return result[0] as Recruitment
 }
 
-export function useRecruitment() {
+export function useRecruitment(options?: RequestInit) {
 	return useQuery({
 		queryKey: ["recruitment"],
-		queryFn: fetchRecruitment
+		queryFn: () => fetchRecruitment(options)
 	})
 }

@@ -16,15 +16,18 @@ export interface Person {
 	role: string
 }
 
-export async function fetchOrganization() {
-	const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/api/organization/v2`, {})
+export async function fetchOrganization(options?: RequestInit) {
+	const res = await fetch(
+		`${env.NEXT_PUBLIC_API_URL}/api/organization/v2`,
+		options ?? {}
+	)
 	const result = await res.json()
 	return result as Organization[]
 }
 
-export function useOrganization() {
+export function useOrganization(options?: RequestInit) {
 	return useQuery({
 		queryKey: ["recruitment"],
-		queryFn: fetchOrganization
+		queryFn: () => fetchOrganization(options)
 	})
 }

@@ -58,6 +58,7 @@ export async function fetchExhibitors(options?: { year?: number }) {
 		`${env.NEXT_PUBLIC_API_URL}/api/exhibitors?year=${options?.year ?? defaultYear}`,
 		{
 			next: {
+				revalidate: 3600 * 24, // 24 cache hours
 				tags: [
 					"exhibitors",
 					options?.year?.toString() ?? defaultYear.toString()

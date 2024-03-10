@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 }
 
 export default async function TeamPage() {
-	const organization = await fetchOrganization()
+	const organization = await fetchOrganization({
+		cache: "no-cache"
+	})
 
 	return (
 		<Page.Background withIndents className="justify-start">

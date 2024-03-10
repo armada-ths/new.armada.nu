@@ -13,7 +13,9 @@ import { env } from "@/env"
 import { DateTime } from "luxon"
 
 export function RecruitmentList() {
-	const { data, isLoading } = useRecruitment()
+	const { data, isLoading } = useRecruitment({
+		cache: "no-cache"
+	})
 	if (isLoading) return <p>Loading...</p>
 
 	if (data == null) {

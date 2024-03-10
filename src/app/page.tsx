@@ -1,17 +1,13 @@
+import { FairDates } from "@/app/_components/FairDates"
+import { RecruitmentBanner } from "@/app/_components/Recruitment"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { Page } from "@/components/shared/Page"
-import { fetchDates } from "@/components/shared/hooks/api/useDates"
-import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
-import { ArrowRightIcon, UserRoundIcon } from "lucide-react"
-import { DateTime } from "luxon"
+import { ArrowRightIcon } from "lucide-react"
 import Link from "next/link"
+import { Suspense } from "react"
 
 export default async function HomePage() {
-	const recruitment = await fetchRecruitment()
-	const dates = await fetchDates()
-
 	return (
 		<>
 			<NavigationMenu
@@ -24,17 +20,9 @@ export default async function HomePage() {
 			<Page.Background className="">
 				<div className="mb-5 flex w-full flex-1 justify-center ">
 					<div className="mx-5 w-full max-w-[800px] pt-3 md:mx-10 md:pt-6">
-						{recruitment != null && (
-							<Link href="/student/recruitment">
-								<Alert className="mt-0 cursor-pointer dark:hover:border-melon-700 dark:hover:border-opacity-50">
-									<UserRoundIcon className="h-4 w-4" />
-									<AlertTitle>Recruitment open!</AlertTitle>
-									<AlertDescription>
-										Apply to become a part of Armada 2024
-									</AlertDescription>
-								</Alert>
-							</Link>
-						)}
+						<Suspense>
+							<RecruitmentBanner />
+						</Suspense>
 					</div>
 				</div>
 				<div className="flex w-full flex-1 flex-col gap-y-10 pb-32 md:flex-row">
@@ -61,23 +49,9 @@ export default async function HomePage() {
 										</Button>
 									</a>
 								</div>
-								<div className="mt-5 flex gap-4 font-bebas-neue">
-									<p className="text-2xl uppercase text-stone-400">Fair:</p>
-									<div className="flex">
-										{[
-											// Pick first and last day (ASSUMPTION: days are sorted and continuous)
-											dates.fair.days[0],
-											dates.fair.days[dates.fair.days.length - 1]
-										].map((date, index, list) => (
-											<p key={date} className="text-2xl text-stone-400">
-												{DateTime.fromISO(date).toFormat(
-													// Only add month and year to last
-													`d${index == list.length - 1 ? " MMM" : "-"}${DateTime.fromISO(date).year !== DateTime.now().year ? " YYYY" : ""}`
-												)}
-											</p>
-										))}
-									</div>
-								</div>
+								<Suspense>
+									<FairDates />
+								</Suspense>
 							</div>
 						</div>
 					</div>
