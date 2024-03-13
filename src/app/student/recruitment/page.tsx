@@ -59,10 +59,10 @@ export default async function RecruitmentPage() {
 					<Alert className="my-5">
 						<AlertTitle>Be an Armada volunteer</AlertTitle>
 						<AlertDescription>
-							In Armada over 200 volunteers join together to create one of KTH
-							biggest happenings. Take the opportunity to meet new friends,
-							expand your network and be a part of something you can be really
-							proud of!
+							In Armada over 200 volunteers join together to create one of
+							KTH&apos;s biggest happenings. Take the opportunity to meet new
+							friends, expand your network and be a part of something you can be
+							really proud of!
 						</AlertDescription>
 					</Alert>
 

@@ -44,14 +44,14 @@ export async function CurrentStatus() {
 					<Sparkles size={20} />
 					<AlertTitle>Initial Registration open</AlertTitle>
 					<AlertDescription>
-						In initial registration you apply to be an exhibitor at Armada. When
-						you do so you commit to exhibit, but you don&apos;t have to specify
-						your package yet. Read more about each stage{" "}
+						During the Initial Registration you apply to be an exhibitor at
+						Armada. When you do so you commit to exhibit, but you don&apos;t
+						have to specify your package yet. Read more about each stage{" "}
 						<Link
 							className="text-white underline hover:no-underline"
 							href="/exhibitor/timeline">
 							here
-						</Link>{" "}
+						</Link>
 					</AlertDescription>
 				</Alert>
 			</div>

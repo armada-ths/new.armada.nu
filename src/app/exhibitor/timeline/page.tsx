@@ -14,10 +14,10 @@ export default async function WhyArmadaPage() {
 			<Page.Boundary maxWidth={600} className="pb-20">
 				<Page.Header>Timeline</Page.Header>
 				<p className="mt-4 text-stone-400">
-					Armada Registration is divided into 2 parts, Initial and Final.
-					Initial registration is where you apply to exhibit at Armada, and in
-					Final Registration you choose your package, events and other products.
-					This is so we don’t overfill the fair, and so we can prepare the best
+					The application is divided into 2 parts, Initial and Final. Initial
+					Registration is where you apply to exhibit at Armada, and in Final
+					Registration you choose your package, events and other products. This
+					is so we don&apos;t overfill the fair, and so we can prepare the best
 					possible products for you!
 				</p>
 				<ExhibitorTimeline />
@@ -37,7 +37,7 @@ export default async function WhyArmadaPage() {
 				<div>
 					<h3>Armada is setting up - before 11th of Mars</h3>
 					<p>
-						Before the initial registration can open, we need to make
+						Before the Initial Registration can open, we need to make
 						preparations. We are right now choosing a new project group - 20
 						something students who will work hard all year to make Armada
 						happen.
@@ -84,10 +84,10 @@ export default async function WhyArmadaPage() {
 				<div>
 					<h3>Acceptance date - 7th of June.</h3>
 					<p>
-						We will get back to everyone who made an initial registration by the
+						We will get back to everyone who made an Initial Registration by the
 						7th of June. This is when you will know 100% for sure that you are
 						exhibiting at Armada. You will be informed by email to the person
-						who made the final registration, and it will be visible on the
+						who made the Final Registration, and it will be visible on the
 						dashboard for anyone with a login to your exhibitor's page.
 					</p>
 					<p>

@@ -99,9 +99,10 @@ export default function ForExhibitorsPage() {
 							Skills you need, from all ends of KTH
 						</h2>
 						<p className="text-stone-300">
-							Did you know that there are at least 5 programmes at KTH teaching
-							computer science and students from more than 3 programmes can call
-							themselves “mechanical engineers” when applying for jobs?
+							Did you know that there are at least five programmes at KTH
+							teaching computer science and students from more than three
+							programmes can call themselves “mechanical engineers” when
+							applying for jobs?
 						</p>
 					</div>
 				</section>

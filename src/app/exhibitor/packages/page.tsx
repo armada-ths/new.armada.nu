@@ -23,7 +23,7 @@ export default async function Packages() {
 
 	function formatDate(date: string) {
 		return DateTime.fromISO(date).toFormat(
-			`d MMMM ${DateTime.fromISO(date).year !== DateTime.now().year ? " YYYY" : ""}`
+			`d MMMM${DateTime.fromISO(date).year !== DateTime.now().year ? " YYYY" : ""}`
 		)
 	}
 
@@ -34,10 +34,10 @@ export default async function Packages() {
 					<Page.Header>Packages</Page.Header>
 					<div className="mt-4">
 						<p className="max-w-[500] text-stone-400">
-							Armada has the following packages you can get. The bronze package
-							is all the basics you need to exhibit at Armada. The silver
-							package allows you to expand your presence and the Gold package
-							makes you truly stand out from the rest through extra marketing.
+							Armada has the following packages. The Bronze package is all the
+							basics you need to exhibit at Armada. The Silver package allows
+							you to expand your presence and the Gold package makes you truly
+							stand out from the rest through extra marketing.
 						</p>
 					</div>
 					<Alert className="mt-8">
@@ -56,9 +56,9 @@ export default async function Packages() {
 							<h3 className="font-lato text-2xl text-orange-500">Bronze</h3>
 							<ul className="mt-2 font-lato text-orange-600">
 								<li className="my-2">Host</li>
+								<li className="my-2">Lunch for 4 people</li>
 								<li className="my-2">3x2 m booth</li>
 								<li className="my-2">Armada transport</li>
-								<li className="my-2">Lunch for 4 people</li>
 							</ul>
 							<div className="absolute bottom-4">
 								<p className="text-s">Early bird price:</p>
@@ -70,8 +70,8 @@ export default async function Packages() {
 							<h3 className="font-lato text-2xl text-zinc-400">Silver</h3>
 							<ul className="mt-2 font-lato text-zinc-500">
 								<li className="my-2">Everything from bronze package</li>
-								<li className="my-2">4x2 m booth</li>
 								<li className="my-2">Second priority placement</li>
+								<li className="my-2">4x2 m booth</li>
 								<li className="my-2">Lunch for 6 people</li>
 								<li className="my-2">2 banquet tickets</li>
 								<li className="my-2">
@@ -89,8 +89,8 @@ export default async function Packages() {
 							<h3 className="font-lato text-2xl text-yellow-400">Gold</h3>
 							<ul className="mt-2 font-lato text-yellow-500">
 								<li className="my-2">Everything from silver package</li>
-								<li className="my-2">5x2 m booth</li>
 								<li className="my-2">First priority placement</li>
+								<li className="my-2">5x2 m booth</li>
 								<li className="my-2">Lunch for 8 people</li>
 								<li className="my-2">4 banquet tickets</li>
 								<li className="my-2">
@@ -118,7 +118,7 @@ export default async function Packages() {
 							<CollapsibleTrigger className="mt-2 w-full rounded p-2 pb-4 text-left hover:bg-slate-700">
 								<div className="flex w-full justify-between ">
 									<p className="text-xl">
-										What does &quot;Priority placement&quot; mean?
+										What does &quot;priority placement&quot; mean?
 									</p>
 									<div className="flex h-8 w-8 items-center justify-center rounded-full">
 										<ChevronsUpDown />
@@ -141,7 +141,7 @@ export default async function Packages() {
 							<CollapsibleTrigger className="w-full rounded p-2 pb-4 text-left hover:bg-slate-700">
 								<div className="flex w-full justify-between ">
 									<p className="text-xl">
-										When is the deadline for initial registration?
+										When is the deadline for Initial Registration?
 									</p>
 									<div className="flex h-8 w-8 items-center justify-center rounded-full">
 										<ChevronsUpDown />
@@ -150,7 +150,7 @@ export default async function Packages() {
 							</CollapsibleTrigger>
 							<CollapsibleContent className="p-2 text-stone-400">
 								<p>
-									The initial registration ends {formatDate(dates.ir.end)}. See
+									The Initial Registration ends {formatDate(dates.ir.end)}. See
 									our{" "}
 									<Link
 										className="text-white underline hover:no-underline"
