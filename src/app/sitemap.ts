@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			priority: 1
 		},
 		{
-			url: "https://armada.nu/team",
+			url: "https://armada.nu/about",
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 0.5
