@@ -143,7 +143,7 @@ export function NavigationMenu(
 						</div>
 					))}
 					<Separator className="my-4" />
-					<Link href="/team" onClick={() => setSheetOpen(false)}>
+					<Link href="/about" onClick={() => setSheetOpen(false)}>
 						<p className="font-bebas-neue text-xl text-melon-700">About us</p>
 					</Link>
 				</SheetContent>
@@ -204,7 +204,7 @@ export function NavigationMenu(
 							</NavigationMenuContent>
 						</NavigationMenuItem>
 						<NavigationMenuItem className="hover:text-melon-700 dark:hover:text-melon-700">
-							<Link href="/team" legacyBehavior passHref>
+							<Link href="/about" legacyBehavior passHref>
 								<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 									About us
 								</NavigationMenuLink>
