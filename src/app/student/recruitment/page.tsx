@@ -1,4 +1,5 @@
 import { P } from "@/app/_components/Paragraph"
+import { PhotoQuad } from "@/app/_components/PhotoQuad"
 import { Page } from "@/components/shared/Page"
 import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
 import {
@@ -12,7 +13,6 @@ import { Button } from "@/components/ui/button"
 import { env } from "@/env"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
 export const metadata: Metadata = {
 	title: `Armada Recruitment`,
@@ -25,6 +25,25 @@ export default async function RecruitmentPage() {
 			revalidate: 3600 * 3 // 3 hours
 		}
 	})
+
+	let photoSrc: { source: string; altText: string }[] = [
+		{
+			source: "/fair_pictures/23031965122_efd3a80707_c.jpg",
+			altText: "Students laying down carpet"
+		},
+		{
+			source: "/fair_pictures/52520331777_e86eca961c_c.jpg",
+			altText: "Students carrying Armada gear in the snow"
+		},
+		{
+			source: "/fair_pictures/52521081094_8f551d2114_c.jpg",
+			altText: "Student getting a drink"
+		},
+		{
+			source: "/fair_pictures/52520926612_8f5d642178_c.jpg",
+			altText: "Group of students posing for a photo in formal clothes"
+		}
+	]
 
 	if (data == null) {
 		return (
@@ -49,55 +68,7 @@ export default async function RecruitmentPage() {
 						{DateTime.fromISO(data.start_date).toFormat("d MMM")} -{" "}
 						{DateTime.fromISO(data.end_date).toFormat("d MMM")}
 					</Page.Header>
-					<div>
-						<div className="mt-8 flex flex-wrap justify-between">
-							<Image
-								src={"/fair_pictures/23031965122_efd3a80707_c.jpg"}
-								alt={"temp"}
-								width={800}
-								height={533}
-								className="mb-4 aspect-square object-cover transition-all duration-200 hover:scale-105 md:w-1/4 md:p-1"
-								style={{
-									maxWidth: "48%",
-									height: "auto"
-								}}
-							/>
-							<Image
-								src={"/fair_pictures/52520331777_e86eca961c_c.jpg"}
-								alt={"temp"}
-								width={533}
-								height={800}
-								className="mb-4 aspect-square object-cover transition-all duration-200 hover:scale-105 md:w-1/4 md:p-1"
-								style={{
-									maxWidth: "48%",
-									height: "auto"
-								}}
-							/>
-							<Image
-								src={"/fair_pictures/52521081094_8f551d2114_c.jpg"}
-								alt={"temp"}
-								width={800}
-								height={533}
-								className="mb-4 aspect-square object-cover transition-all duration-200 hover:scale-105 md:w-1/4 md:p-1"
-								style={{
-									maxWidth: "48%",
-									height: "auto"
-								}}
-							/>
-							<Image
-								src={"/fair_pictures/52520926612_8f5d642178_c.jpg"}
-								alt={"temp"}
-								width={800}
-								height={533}
-								className="mb-4 aspect-square object-cover transition-all duration-200 hover:scale-105 md:w-1/4 md:p-1"
-								style={{
-									maxWidth: "48%",
-									height: "auto"
-								}}
-							/>
-						</div>
-					</div>
-
+					<PhotoQuad photoSrc={photoSrc} />
 					<div className="m-8 flex justify-center">
 						<a href={`${env.NEXT_PUBLIC_API_URL}${data.link}`}>
 							<Button size={"lg"}>
