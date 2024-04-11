@@ -15,6 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			priority: 0.5
 		},
 		{
+			url: "https://armada.nu/about/team",
+			lastModified: new Date(),
+			changeFrequency: "monthly",
+			priority: 0.5
+		},
+		{
 			url: "https://armada.nu/student/recruitment",
 			lastModified: new Date(),
 			changeFrequency: "monthly",
