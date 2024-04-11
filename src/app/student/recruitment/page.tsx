@@ -77,9 +77,6 @@ export default async function RecruitmentPage() {
 										<AccordionItem key={role.name} value={role.name}>
 											<AccordionTrigger>{role.name}</AccordionTrigger>
 											<AccordionContent>
-<<<<<<< Updated upstream
-												<P className="leading-7">{role.description}</P>
-=======
 												{role.description.split("\n").map(line =>
 													line.trimStart().startsWith("#") ? (
 														<P
@@ -93,7 +90,6 @@ export default async function RecruitmentPage() {
 														</P>
 													)
 												)}
->>>>>>> Stashed changes
 											</AccordionContent>
 										</AccordionItem>
 									))}
