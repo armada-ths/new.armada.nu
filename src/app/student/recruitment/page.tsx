@@ -1,4 +1,5 @@
 import { P } from "@/app/_components/Paragraph"
+import { PhotoQuad } from "@/app/_components/PhotoQuad"
 import { Page } from "@/components/shared/Page"
 import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
 import {
@@ -12,7 +13,7 @@ import { Button } from "@/components/ui/button"
 import { env } from "@/env"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
-
+import Link from "next/link"
 export const metadata: Metadata = {
 	title: `Armada Recruitment`,
 	description: "See available roles and apply to become a part of Armada"
@@ -24,6 +25,25 @@ export default async function RecruitmentPage() {
 			revalidate: 3600 * 3 // 3 hours
 		}
 	})
+
+	let photoSrc: { source: string; altText: string }[] = [
+		{
+			source: "/fair_pictures/23031965122_efd3a80707_c.jpg",
+			altText: "Students laying down carpet"
+		},
+		{
+			source: "/fair_pictures/52520331777_e86eca961c_c.jpg",
+			altText: "Students carrying Armada gear in the snow"
+		},
+		{
+			source: "/fair_pictures/52521081094_8f551d2114_c.jpg",
+			altText: "Student getting a drink"
+		},
+		{
+			source: "/fair_pictures/52520926612_8f5d642178_c.jpg",
+			altText: "Group of students posing for a photo in formal clothes"
+		}
+	]
 
 	if (data == null) {
 		return (
@@ -48,8 +68,8 @@ export default async function RecruitmentPage() {
 						{DateTime.fromISO(data.start_date).toFormat("d MMM")} -{" "}
 						{DateTime.fromISO(data.end_date).toFormat("d MMM")}
 					</Page.Header>
-
-					<div className="mt-10 flex justify-center">
+					<PhotoQuad photoSrc={photoSrc} />
+					<div className="m-8 flex justify-center">
 						<a href={`${env.NEXT_PUBLIC_API_URL}${data.link}`}>
 							<Button size={"lg"}>
 								Apply for Armada {DateTime.now().year}
@@ -65,7 +85,29 @@ export default async function RecruitmentPage() {
 							really proud of!
 						</AlertDescription>
 					</Alert>
-
+					<div>
+						<P className="mt-4">
+							Armada is a rapidly growing organization that goes from 1 person
+							to over 200 each year. Now you have the chance to be part of this
+							amazing community of ambitious people who want to create something
+							amazing: A huge career fair for all students at KTH!
+						</P>
+						<P className="mt-4">
+							Armada offers you a chance to meet students from all different
+							chapters, get valuable experience on your CV, get closer to the
+							exhibitors and have a lot of fun!
+						</P>
+						<P className="mt-4">
+							Below you can read more about different roles and you can get to
+							know the Armada organization better{" "}
+							<Link
+								className="text-white underline hover:no-underline"
+								href="/about">
+								here
+							</Link>
+							. If you have any questions you can contact the Head of HR.
+						</P>
+					</div>
 					<div className="flex-1">
 						<Accordion type="single" collapsible>
 							{Object.entries(data.groups).map(([name, group], index) => (

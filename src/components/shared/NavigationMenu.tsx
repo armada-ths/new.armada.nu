@@ -63,6 +63,24 @@ const studentLinks: { title: string; href: string; description: string }[] = [
 	}
 ]
 
+const aboutLinks: { title: string; href: string; description: string }[] = [
+	{
+		title: "About",
+		href: "/about",
+		description: `Get to know the Armada organization`
+	},
+	/* 	{
+		title: "Events",
+		href: "/student/events",
+		description: "See the events leading up to the fair"
+	}, */
+	{
+		title: "Team",
+		href: "/about/team",
+		description: `Get to know the team working on Armada ${DateTime.now().year}`
+	}
+]
+
 export function NavigationMenu(
 	props: React.HTMLAttributes<HTMLDivElement> & {
 		aside?: React.ReactNode
@@ -143,7 +161,7 @@ export function NavigationMenu(
 						</div>
 					))}
 					<Separator className="my-4" />
-					<Link href="/team" onClick={() => setSheetOpen(false)}>
+					<Link href="/about" onClick={() => setSheetOpen(false)}>
 						<p className="font-bebas-neue text-xl text-melon-700">About us</p>
 					</Link>
 				</SheetContent>
@@ -204,11 +222,23 @@ export function NavigationMenu(
 							</NavigationMenuContent>
 						</NavigationMenuItem>
 						<NavigationMenuItem className="hover:text-melon-700 dark:hover:text-melon-700">
-							<Link href="/team" legacyBehavior passHref>
-								<NavigationMenuLink className={navigationMenuTriggerStyle()}>
+							<Link href="/about" legacyBehavior passHref>
+								<NavigationMenuTrigger className={navigationMenuTriggerStyle()}>
 									About us
-								</NavigationMenuLink>
+								</NavigationMenuTrigger>
 							</Link>
+							<NavigationMenuContent>
+								<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+									{aboutLinks.map(component => (
+										<ListItem
+											key={component.title}
+											title={component.title}
+											href={component.href}>
+											{component.description}
+										</ListItem>
+									))}
+								</ul>
+							</NavigationMenuContent>
 						</NavigationMenuItem>
 					</NavigationMenuList>
 				</BaseNavigationMenu>
