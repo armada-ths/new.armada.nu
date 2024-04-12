@@ -1,4 +1,5 @@
 import { P } from "@/app/_components/Paragraph"
+import { PhotoQuad } from "@/app/_components/PhotoQuad"
 import { Page } from "@/components/shared/Page"
 import { Metadata } from "next"
 import Link from "next/link"
@@ -9,10 +10,30 @@ export const metadata: Metadata = {
 }
 
 export default async function RecruitmentPage() {
+	let photoSrc: { source: string; altText: string }[] = [
+		{
+			source: "/fair_pictures/23031965122_efd3a80707_c.jpg",
+			altText: "Students laying down carpet"
+		},
+		{
+			source: "/fair_pictures/53396499463_86ddb61379_k.jpg",
+			altText: "Student talking with company representative"
+		},
+		{
+			source: "/fair_pictures/49121988801_f0b111943f_k.jpg",
+			altText: "Crowd walking around the Armada fair"
+		},
+		{
+			source: "/fair_pictures/49122130686_297ea7d00a_o.jpg",
+			altText: "Student interacting with robot"
+		}
+	]
+
 	return (
 		<Page.Background withIndents>
 			<Page.Boundary maxWidth={750}>
 				<Page.Header>About Armada</Page.Header>
+				<PhotoQuad photoSrc={photoSrc} />
 				<P className="mt-4">
 					Armada was founded in 1981 and has since then organized a career fair
 					that has grown to become one of the largest in scandinavia. We exist
