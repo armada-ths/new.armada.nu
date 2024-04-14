@@ -65,7 +65,7 @@ const studentLinks: { title: string; href: string; description: string }[] = [
 
 const aboutLinks: { title: string; href: string; description: string }[] = [
 	{
-		title: "About",
+		title: "About Armada",
 		href: "/about",
 		description: `Get to know the Armada organization`
 	},
@@ -161,9 +161,19 @@ export function NavigationMenu(
 						</div>
 					))}
 					<Separator className="my-4" />
-					<Link href="/about" onClick={() => setSheetOpen(false)}>
-						<p className="font-bebas-neue text-xl text-melon-700">About us</p>
-					</Link>
+					<Page.Header tier="secondary" className="text-2xl">
+						About us
+					</Page.Header>
+					{aboutLinks.map(component => (
+						<div key={component.href} className="mt-2">
+							<Link
+								onClick={() => setSheetOpen(false)}
+								className="font-bebas-neue text-xl text-melon-700"
+								href={component.href}>
+								{component.title}
+							</Link>
+						</div>
+					))}
 				</SheetContent>
 			</Sheet>
 			{/** BaseNavigationMenu is used for desktop navigation  */}
