@@ -47,7 +47,7 @@ export default async function RecruitmentPage() {
 					locations and 20 000 visitors. As Armada is fully owned by{" "}
 					<Link
 						className="text-white underline hover:no-underline"
-						href="/about">
+						href="https://thskth.se/en/">
 						THS
 					</Link>
 					, the student union at KTH, any profit Armada makes goes back to the
