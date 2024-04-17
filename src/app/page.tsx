@@ -30,7 +30,7 @@ export default async function HomePage() {
 						<div className="mx-auto flex max-w-[500px] flex-1">
 							<div className="z-10 mx-10 flex flex-col md:flex-1">
 								<h1 className="max-w-96 font-bebas-neue text-7xl text-melon-700">
-									Shape your future
+									Armada something
 								</h1>
 								<h2 className="my-5 text-stone-300">
 									Where Sweden&apos;s future top engineers come in contact with
