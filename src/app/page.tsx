@@ -1,4 +1,5 @@
 import { FairDates } from "@/app/_components/FairDates"
+import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { Page } from "@/components/shared/Page"
@@ -10,13 +11,7 @@ import { Suspense } from "react"
 export default async function HomePage() {
 	return (
 		<>
-			<NavigationMenu
-				aside={
-					<Link href="https://register.armada.nu/register">
-						<Button>Exhibitor Signup</Button>
-					</Link>
-				}
-			/>
+			<NavigationMenu aside={<CompanyRegistrationButton />} />
 			<Page.Background className="">
 				<div className="mb-5 flex w-full flex-1 justify-center ">
 					<div className="mx-5 w-full max-w-[800px] pt-3 md:mx-10 md:pt-6">
@@ -37,9 +32,8 @@ export default async function HomePage() {
 									innovation and career opportunities
 								</h2>
 								<div className="mt-4 flex flex-wrap gap-2">
-									<a href="https://register.armada.nu/register">
-										<Button>Exhibitor signup</Button>
-									</a>
+									<CompanyRegistrationButton />
+
 									<Link href="/exhibitor/packages">
 										<Button
 											variant={"secondary"}
