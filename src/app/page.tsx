@@ -6,15 +6,15 @@ import { Button } from "@/components/ui/button"
 import { ArrowRightIcon } from "lucide-react"
 import Link from "next/link"
 import { Suspense } from "react"
+import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
+
 
 export default async function HomePage() {
 	return (
 		<>
 			<NavigationMenu
 				aside={
-					<Link href="https://register.armada.nu/register">
-						<Button>Exhibitor Signup</Button>
-					</Link>
+					<CompanyRegistrationButton/>
 				}
 			/>
 			<Page.Background className="">
