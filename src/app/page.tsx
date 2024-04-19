@@ -1,5 +1,6 @@
 import { FairDates } from "@/app/_components/FairDates"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
+import ExhibitorSignupButton from "@/app/exhibitor/_components/ExhibitorSignupButton"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
@@ -10,13 +11,7 @@ import { Suspense } from "react"
 export default async function HomePage() {
 	return (
 		<>
-			<NavigationMenu
-				aside={
-					<Link href="https://register.armada.nu/register">
-						<Button>Exhibitor Signup</Button>
-					</Link>
-				}
-			/>
+			<NavigationMenu aside={<ExhibitorSignupButton />} />
 			<Page.Background className="">
 				<div className="mb-5 flex w-full flex-1 justify-center ">
 					<div className="mx-5 w-full max-w-[800px] pt-3 md:mx-10 md:pt-6">

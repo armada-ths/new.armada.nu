@@ -1,6 +1,5 @@
+import ExhibitorSignupButton from "@/app/exhibitor/_components/ExhibitorSignupButton"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 
 export default function ExhibitorLayout({
 	children
@@ -9,13 +8,7 @@ export default function ExhibitorLayout({
 }>) {
 	return (
 		<>
-			<NavigationMenu
-				aside={
-					<Link href="https://register.armada.nu/register">
-						<Button>Exhibitor signup</Button>
-					</Link>
-				}
-			/>
+			<NavigationMenu aside={<ExhibitorSignupButton />} />
 			{children}
 		</>
 	)
