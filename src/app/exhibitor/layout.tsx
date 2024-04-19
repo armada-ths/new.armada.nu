@@ -1,5 +1,5 @@
+import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export default function ExhibitorLayout({
@@ -12,7 +12,7 @@ export default function ExhibitorLayout({
 			<NavigationMenu
 				aside={
 					<Link href="https://register.armada.nu/register">
-						<Button>Exhibitor signup</Button>
+						<CompanyRegistrationButton />
 					</Link>
 				}
 			/>

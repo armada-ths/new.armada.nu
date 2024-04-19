@@ -1,3 +1,4 @@
+import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
 import { FairDates } from "@/app/_components/FairDates"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
@@ -13,7 +14,7 @@ export default async function HomePage() {
 			<NavigationMenu
 				aside={
 					<Link href="https://register.armada.nu/register">
-						<Button>Exhibitor Signup</Button>
+						<CompanyRegistrationButton />
 					</Link>
 				}
 			/>
