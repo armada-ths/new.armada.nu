@@ -1,3 +1,4 @@
+import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
 import { FairDates } from "@/app/_components/FairDates"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
@@ -10,13 +11,7 @@ import { Suspense } from "react"
 export default async function HomePage() {
 	return (
 		<>
-			<NavigationMenu
-				aside={
-					<Link href="https://register.armada.nu/register">
-						<Button>Exhibitor Signup</Button>
-					</Link>
-				}
-			/>
+			<NavigationMenu aside={<CompanyRegistrationButton />} />
 			<Page.Background className="">
 				<div className="mb-5 flex w-full flex-1 justify-center ">
 					<div className="mx-5 w-full max-w-[800px] pt-3 md:mx-10 md:pt-6">
