@@ -1,5 +1,5 @@
+import { PhotoSlideCarousel } from "@/app/_components/PhotoSlideCarousel"
 import { CurrentStatus } from "@/app/exhibitor/_components/CurrentStatus"
-import { PhotoCarousel } from "@/app/exhibitor/_components/PhotoCarousel"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
 import { Metadata } from "next"
@@ -11,6 +11,24 @@ export const metadata: Metadata = {
 
 export default function ForExhibitorsPage() {
 	const numberFormat = Intl.NumberFormat("sv")
+	const promotionalPhotos: { source: string; altText: string }[] = [
+		{
+			source: "/fair_pictures/49121473038_5876d71e29_b.jpg",
+			altText: "Student talking to company representative"
+		},
+		{
+			source: "/fair_pictures/49121988801_f0b111943f_k.jpg",
+			altText: "Crowded room of students attending the fair"
+		},
+		{
+			source: "/fair_pictures/49122130686_297ea7d00a_o.jpg",
+			altText: "Student interacting with robot"
+		},
+		{
+			source: "/fair_pictures/53396499463_86ddb61379_k.jpg",
+			altText: "Student talking with company representative"
+		}
+	]
 	return (
 		<Page.Background withIndents>
 			<Page.Boundary maxWidth={600} className="pb-20">
@@ -106,9 +124,7 @@ export default function ForExhibitorsPage() {
 						</p>
 					</div>
 				</section>
-				<div className="mt-6 flex justify-center">
-					<PhotoCarousel />
-				</div>
+				<PhotoSlideCarousel photoSrc={promotionalPhotos} />
 			</Page.Boundary>
 		</Page.Background>
 	)
