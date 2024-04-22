@@ -1,10 +1,10 @@
-import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger
-} from "@/components/ui/collapsible"
 import { P } from "@/app/_components/Paragraph"
-import { ChevronsUpDown } from "lucide-react"
+import { cn } from "@/lib/utils"
+import {
+	AccordionItem,
+	AccordionContent,
+	AccordionTrigger
+} from "@/components/ui/accordion"
 
 export function TimelineItem({
 	children,
@@ -15,25 +15,32 @@ export function TimelineItem({
 	title: string
 	dateString: string
 }) {
+	const expandable = children != null
 	return (
-		<>
-			<div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-melon-700"></div>
-			<Collapsible>
-				<CollapsibleTrigger className="hover: w-full rounded px-2 pb-4 text-left hover:bg-slate-700">
+		<AccordionItem
+			key={title}
+			value={title}
+			disabled={!expandable}
+			className="border-none">
+			<div className="absolute -start-1.5 mt-3.5 h-3 w-3 rounded-full border border-white bg-melon-700"></div>
+			<AccordionTrigger
+				disabled={!expandable}
+				className={cn(
+					"mb-2 ml-4 w-full rounded px-2 pb-4 pt-0 text-left font-normal hover:no-underline",
+					expandable && "transition hover:bg-slate-700"
+				)}>
+				<div>
 					<P className="text-stone-400">{dateString}</P>
 					<div className="flex w-full justify-between ">
 						<h3 className="text-2xl md:text-3xl">{title}</h3>
-						<div className="flex h-8 w-8 items-center justify-center rounded-full">
-							<ChevronsUpDown />
-						</div>
 					</div>
-				</CollapsibleTrigger>
-				{children && (
-					<CollapsibleContent className="px-2">
-						<div>{children}</div>
-					</CollapsibleContent>
-				)}
-			</Collapsible>
-		</>
+				</div>
+			</AccordionTrigger>
+			{expandable && (
+				<AccordionContent className="-mt-2 ml-1 px-5 text-base">
+					{children}
+				</AccordionContent>
+			)}
+		</AccordionItem>
 	)
 }

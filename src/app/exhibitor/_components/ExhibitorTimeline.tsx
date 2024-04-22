@@ -2,8 +2,8 @@ import { P } from "@/app/_components/Paragraph"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import { Button } from "@/components/ui/button"
 import { TimelineItem } from "@/app/exhibitor/_components/TimelineItem"
+import { Accordion } from "@/components/ui/accordion"
 
-import { ChevronsUpDown } from "lucide-react"
 import { DateTime } from "luxon"
 import Link from "next/link"
 
@@ -16,27 +16,12 @@ function formatDate(date: string) {
 export async function ExhibitorTimeline() {
 	const dates = await fetchDates()
 
-	//to remove?
-	function titleRow(date: DateTime, title: String) {
-		return (
-			<div>
-				<div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-melon-700"></div>
-				<P className="	text-stone-400">Before {formatDate(dates.ir.start)}</P>
-				<div className="flex w-full justify-between ">
-					<P className="text-2xl md:text-3xl">{title}</P>
-					<div className="flex h-8 w-8 items-center justify-center rounded-full bg-melon-700">
-						<div className="flex h-8 w-8 items-center justify-center rounded-full">
-							<ChevronsUpDown />
-						</div>
-					</div>
-				</div>
-			</div>
-		)
-	}
-
 	//ASSUMPTION: the start date will be first for fair dates
 	return (
-		<ol className="relative mt-10 border-s border-melon-700">
+		<Accordion
+			type="single"
+			collapsible={true}
+			className="relative mt-10 border-s border-melon-700">
 			<TimelineItem
 				dateString={`Before ${formatDate(dates.ir.start)}`}
 				title="Armada is setting up">
@@ -113,8 +98,8 @@ export async function ExhibitorTimeline() {
 						className="text-white underline hover:no-underline"
 						href="mailto:sales@armada.nu">
 						sales@armada.nu
-					</a>
-					. if you have any questions.
+					</a>{" "}
+					if you have any questions.
 				</P>
 			</TimelineItem>
 
@@ -132,7 +117,7 @@ export async function ExhibitorTimeline() {
 					<a href="https://register.armada.nu/register">
 						<Button>Signup to Armada</Button>
 					</a>
-				</div>	
+				</div>
 				<P className="mt-3 text-stone-400">
 					We have many different products that help you reach students at KTH in
 					different ways. If you want help finding the best package for you,
@@ -236,6 +221,6 @@ export async function ExhibitorTimeline() {
 			<TimelineItem
 				dateString={formatDate(dates.fair.days[1])}
 				title="Armada fair ends"></TimelineItem>
-		</ol>
+		</Accordion>
 	)
 }
