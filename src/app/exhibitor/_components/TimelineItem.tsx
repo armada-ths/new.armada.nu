@@ -18,7 +18,6 @@ export function TimelineItem({
 	const expandable = children != null
 	return (
 		<AccordionItem
-			key={title}
 			value={title}
 			disabled={!expandable}
 			className="border-none">
@@ -27,7 +26,7 @@ export function TimelineItem({
 				disabled={!expandable}
 				className={cn(
 					"mb-2 ml-4 w-full rounded px-2 pb-4 pt-0 text-left font-normal hover:no-underline",
-					expandable && "transition hover:bg-slate-700"
+					{ "transition hover:bg-slate-700": expandable }
 				)}>
 				<div>
 					<P className="text-stone-400">{dateString}</P>
@@ -36,11 +35,9 @@ export function TimelineItem({
 					</div>
 				</div>
 			</AccordionTrigger>
-			{expandable && (
-				<AccordionContent className="-mt-2 ml-1 px-5 text-base">
-					{children}
-				</AccordionContent>
-			)}
+			<AccordionContent className="-mt-2 ml-1 px-5 text-base">
+				{children}
+			</AccordionContent>
 		</AccordionItem>
 	)
 }

@@ -27,7 +27,7 @@ function FAQItem({
 	title: string
 }) {
 	return (
-		<AccordionItem key={title} value={title} className="border-none">
+		<AccordionItem value={title} className="border-none">
 			<AccordionTrigger className="mb-0 w-full rounded px-2 py-4 text-left font-normal transition hover:bg-slate-700 hover:no-underline">
 				<h3 className="text-xl">{title}</h3>
 			</AccordionTrigger>
@@ -138,11 +138,11 @@ export default async function Packages() {
 							Priority placement means that we will place you in spots on the
 							fair where there is good footfall. Gold exhibitors take the best
 							spots and silver exhibitors are prioritized next. Contact{" "}
-							<a
+							<Link
 								className="text-white underline hover:no-underline"
 								href="mailto:sales@armada.nu">
 								sales@armada.nu
-							</a>{" "}
+							</Link>{" "}
 							for more information.
 						</FAQItem>
 

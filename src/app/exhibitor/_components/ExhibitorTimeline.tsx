@@ -45,11 +45,11 @@ export async function ExhibitorTimeline() {
 					register you commit to be a part of Armada and if given a spot you are
 					expected to exhibit, so wait with registration until you are sure. If
 					you have any questions, do not hesitate to contact{" "}
-					<a
+					<Link
 						className="text-white underline hover:no-underline"
 						href="mailto:sales@armada.nu">
 						sales@armada.nu
-					</a>
+					</Link>
 					.
 				</P>
 				<P className="mt-3 text-stone-400">
@@ -71,9 +71,9 @@ export async function ExhibitorTimeline() {
 					in the larger packages.
 				</P>
 				<div className="my-4">
-					<a href="https://register.armada.nu/register">
+					<Link href="https://register.armada.nu/register">
 						<Button>Signup to Armada</Button>
-					</a>
+					</Link>
 				</div>
 			</TimelineItem>
 
@@ -94,11 +94,11 @@ export async function ExhibitorTimeline() {
 				<P className="text-stone-400">
 					You can always check the status of your registration on the dashboard,
 					and contact{" "}
-					<a
+					<Link
 						className="text-white underline hover:no-underline"
 						href="mailto:sales@armada.nu">
 						sales@armada.nu
-					</a>{" "}
+					</Link>{" "}
 					if you have any questions.
 				</P>
 			</TimelineItem>
@@ -114,19 +114,19 @@ export async function ExhibitorTimeline() {
 					Initial Registration.
 				</P>
 				<div className="my-4">
-					<a href="https://register.armada.nu/register">
+					<Link href="https://register.armada.nu/register">
 						<Button>Signup to Armada</Button>
-					</a>
+					</Link>
 				</div>
 				<P className="mt-3 text-stone-400">
 					We have many different products that help you reach students at KTH in
 					different ways. If you want help finding the best package for you,
 					please contact{" "}
-					<a
+					<Link
 						className="text-white underline hover:no-underline"
 						href="mailto:sales@armada.nu">
 						sales@armada.nu
-					</a>{" "}
+					</Link>{" "}
 					or your sales representative and they&apos;ll guide you through it.
 					Maybe you want to talk to a few students in a more cozy setting? Or
 					get more exposure at the fair? We can help you do that.

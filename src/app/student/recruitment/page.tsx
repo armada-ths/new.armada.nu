@@ -70,11 +70,11 @@ export default async function RecruitmentPage() {
 					</Page.Header>
 					<PhotoQuad photoSrc={photoSrc} />
 					<div className="m-8 flex justify-center">
-						<a href={`${env.NEXT_PUBLIC_API_URL}${data.link}`}>
+						<Link href={`${env.NEXT_PUBLIC_API_URL}${data.link}`}>
 							<Button size={"lg"}>
 								Apply for Armada {DateTime.now().year}
 							</Button>
-						</a>
+						</Link>
 					</div>
 					<Alert className="my-5">
 						<AlertTitle>Be an Armada volunteer</AlertTitle>
