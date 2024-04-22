@@ -1,13 +1,14 @@
 import { Page } from "@/components/shared/Page"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
+import {
+	AccordionItem,
+	AccordionContent,
+	AccordionTrigger,
+	Accordion
+} from "@/components/ui/accordion"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
-import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger
-} from "@/components/ui/collapsible"
-import { ChevronsUpDown, Sparkles } from "lucide-react"
+import { Sparkles } from "lucide-react"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
 import Link from "next/link"
@@ -16,6 +17,25 @@ export const metadata: Metadata = {
 	title: `Packages - Armada Exhibitor`,
 	description:
 		"The packages we offer for exhibitors at Armada. Choose between bronze, silver and gold."
+}
+
+function FAQItem({
+	children,
+	title
+}: {
+	children: React.ReactNode
+	title: string
+}) {
+	return (
+		<AccordionItem key={title} value={title} className="border-none">
+			<AccordionTrigger className="mb-0 w-full rounded px-2 py-4 text-left font-normal transition hover:bg-slate-700 hover:no-underline">
+				<h3 className="text-xl">{title}</h3>
+			</AccordionTrigger>
+			<AccordionContent className="mt-0 p-2 pt-0 text-base text-stone-400">
+				{children}
+			</AccordionContent>
+		</AccordionItem>
+	)
 }
 
 export default async function Packages() {
@@ -112,83 +132,48 @@ export default async function Packages() {
 				</div>
 				<p className="mt-4 text-sm">*All prices are ex. VAT. </p>
 				<div className="mx-auto mt-10 w-full max-w-[600px]">
-					<h1 className="ml-2 text-2xl">FAQ</h1>
-					<div>
-						<Collapsible>
-							<CollapsibleTrigger className="mt-2 w-full rounded p-2 pb-4 text-left hover:bg-slate-700">
-								<div className="flex w-full justify-between ">
-									<p className="text-xl">
-										What does &quot;priority placement&quot; mean?
-									</p>
-									<div className="flex h-8 w-8 items-center justify-center rounded-full">
-										<ChevronsUpDown />
-									</div>
-								</div>
-							</CollapsibleTrigger>
-							<CollapsibleContent className="mt-2 p-2 text-stone-400">
-								Priority placement means that we will place you in spots on the
-								fair where there is good footfall. Gold exhibitors take the best
-								spots and silver exhibitors are prioritized next. Contact{" "}
-								<a
+					<h1 className="ml-2 mb-2 text-2xl">FAQ</h1>
+					<Accordion type="single" collapsible={true}>
+						<FAQItem title='What does "priority placement" mean?'>
+							Priority placement means that we will place you in spots on the
+							fair where there is good footfall. Gold exhibitors take the best
+							spots and silver exhibitors are prioritized next. Contact{" "}
+							<a
+								className="text-white underline hover:no-underline"
+								href="mailto:sales@armada.nu">
+								sales@armada.nu
+							</a>{" "}
+							for more information.
+						</FAQItem>
+
+						<FAQItem title="When is the deadline for Initial Registration?">
+							The Initial Registration ends {formatDate(dates.ir.end)}. See our{" "}
+							<Link
+								className="text-white underline hover:no-underline"
+								href="/exhibitor/timeline">
+								timeline
+							</Link>{" "}
+							for more information and other important dates.
+						</FAQItem>
+
+						<FAQItem title="How do I sign up for armada?">
+							<p>You can sign up here:</p>
+							<div className="my-4">
+								<Link href="https://register.armada.nu/register">
+									<Button>Signup to Armada</Button>
+								</Link>
+							</div>
+							<p>
+								If you have any questions, you can contact us at{" "}
+								<Link
 									className="text-white underline hover:no-underline"
 									href="mailto:sales@armada.nu">
 									sales@armada.nu
-								</a>{" "}
-								for more information.
-							</CollapsibleContent>
-						</Collapsible>
-						<Collapsible>
-							<CollapsibleTrigger className="w-full rounded p-2 pb-4 text-left hover:bg-slate-700">
-								<div className="flex w-full justify-between ">
-									<p className="text-xl">
-										When is the deadline for Initial Registration?
-									</p>
-									<div className="flex h-8 w-8 items-center justify-center rounded-full">
-										<ChevronsUpDown />
-									</div>
-								</div>
-							</CollapsibleTrigger>
-							<CollapsibleContent className="p-2 text-stone-400">
-								<p>
-									The Initial Registration ends {formatDate(dates.ir.end)}. See
-									our{" "}
-									<Link
-										className="text-white underline hover:no-underline"
-										href="/exhibitor/timeline">
-										timeline
-									</Link>{" "}
-									for more information and other important dates.
-								</p>
-							</CollapsibleContent>
-						</Collapsible>
-						<Collapsible>
-							<CollapsibleTrigger className="w-full rounded p-2 pb-4 text-left hover:bg-slate-700">
-								<div className="flex w-full justify-between ">
-									<p className="text-xl">How do I sign up for armada?</p>
-									<div className="flex h-8 w-8 items-center justify-center rounded-full">
-										<ChevronsUpDown />
-									</div>
-								</div>
-							</CollapsibleTrigger>
-							<CollapsibleContent className="p-2 text-stone-400">
-								<p>You can sign up here:</p>
-								<div className="my-4">
-									<Link href="https://register.armada.nu/register">
-										<Button>Signup to Armada</Button>
-									</Link>
-								</div>
-								<p>
-									If you have any questions, you can contact us at{" "}
-									<Link
-										className="text-white underline hover:no-underline"
-										href="mailto:sales@armada.nu">
-										sales@armada.nu
-									</Link>
-									.
-								</p>
-							</CollapsibleContent>
-						</Collapsible>
-					</div>
+								</Link>
+								.
+							</p>
+						</FAQItem>
+					</Accordion>
 				</div>
 			</Page.Boundary>
 		</Page.Background>
