@@ -40,9 +40,9 @@ export default function ForExhibitorsPage() {
 
 				<div className="flex flex-col space-y-4 py-6">
 					<div className="mt-2 flex flex-row flex-wrap justify-stretch gap-4 ">
-						<a href="https://register.armada.nu/register">
+						<Link href="https://register.armada.nu/register">
 							<Button>Signup to Armada</Button>
-						</a>
+						</Link>
 						<Link href="/exhibitor/packages">
 							<Button variant={"secondary"} className="dark:bg-liqorice-700">
 								Packages
@@ -56,11 +56,11 @@ export default function ForExhibitorsPage() {
 					</div>
 					<p className="text-xs text-slate-400">
 						Or{" "}
-						<a
+						<Link
 							className="text-white underline hover:no-underline"
 							href="mailto:sales@armada.nu">
 							contact sales
-						</a>{" "}
+						</Link>{" "}
 						if you have any questions
 					</p>
 				</div>
