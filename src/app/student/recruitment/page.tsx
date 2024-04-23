@@ -1,5 +1,5 @@
 import { P } from "@/app/_components/Paragraph"
-import { PhotoQuad } from "@/app/_components/PhotoQuad"
+import { PhotoSlideCarousel } from "@/app/_components/PhotoSlideCarousel"
 import { Page } from "@/components/shared/Page"
 import { fetchOrganization } from "@/components/shared/hooks/api/useOrganization"
 import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
@@ -83,7 +83,7 @@ export default async function RecruitmentPage() {
 						{DateTime.fromISO(data.start_date).toFormat("d MMM")} -{" "}
 						{DateTime.fromISO(data.end_date).toFormat("d MMM")}
 					</Page.Header>
-					<PhotoQuad photoSrc={photoSrc} />
+					<PhotoSlideCarousel photoSrc={photoSrc} />
 					<div className="m-8 flex justify-center">
 						<Link href={`${env.NEXT_PUBLIC_API_URL}${data.link}`}>
 							<Button size={"lg"}>

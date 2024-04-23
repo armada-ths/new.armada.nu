@@ -1,5 +1,5 @@
 import { P } from "@/app/_components/Paragraph"
-import { PhotoQuad } from "@/app/_components/PhotoQuad"
+import { PhotoSlideCarousel } from "@/app/_components/PhotoSlideCarousel"
 import { Page } from "@/components/shared/Page"
 import { Metadata } from "next"
 import Link from "next/link"
@@ -33,7 +33,7 @@ export default async function RecruitmentPage() {
 		<Page.Background withIndents>
 			<Page.Boundary maxWidth={750}>
 				<Page.Header>About Armada</Page.Header>
-				<PhotoQuad photoSrc={photoSrc} />
+				<PhotoSlideCarousel photoSrc={photoSrc} />
 				<P className="mt-4">
 					Armada was founded in 1981 and has since then organized a career fair
 					that has grown to become one of the largest in scandinavia. We exist
