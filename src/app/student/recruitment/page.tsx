@@ -1,6 +1,7 @@
 import { P } from "@/app/_components/Paragraph"
 import { PhotoQuad } from "@/app/_components/PhotoQuad"
 import { Page } from "@/components/shared/Page"
+import { fetchOrganization } from "@/components/shared/hooks/api/useOrganization"
 import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
 import {
 	Accordion,
@@ -25,6 +26,20 @@ export default async function RecruitmentPage() {
 			revalidate: 3600 * 3 // 3 hours
 		}
 	})
+
+	const organization = await fetchOrganization({
+		next: {
+			revalidate: 3600 * 24 * 6 // 6 days (S3 caches the images for 7 days exactly, we want to revalidate before that, otherwise the images will not be loaded)
+		}
+	})
+
+	const group = organization.find(group =>
+		group.name.includes("Marketing & Communications")
+	)
+
+	const hrHead = group?.people.find(people =>
+		people.role.includes("Project Group – Head of Human Resources")
+	)
 
 	let photoSrc: { source: string; altText: string }[] = [
 		{
@@ -105,7 +120,17 @@ export default async function RecruitmentPage() {
 								href="/about">
 								here
 							</Link>
-							. If you have any questions you can contact the Head of HR.
+							. If you have any questions you can contact the{" "}
+							{hrHead && hrHead.email ? (
+								<Link
+									className="text-white underline hover:no-underline"
+									href={`mailto:${hrHead.email}`}>
+									Head of HR
+								</Link>
+							) : (
+								"Head of HR"
+							)}
+							.
 						</P>
 					</div>
 					<div className="flex-1">
