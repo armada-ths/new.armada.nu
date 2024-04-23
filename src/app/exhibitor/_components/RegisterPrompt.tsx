@@ -1,19 +1,20 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function RegisterPrompt() {
 	//maybe remove
 	return (
 		<div className="mt-2">
-			<a href="https://register.armada.nu/register">
+			<Link href="https://register.armada.nu/register">
 				<Button>Signup to armada</Button>
-			</a>
+			</Link>
 			<p className="text-xs">
 				Or{" "}
-				<a
+				<Link
 					className="text-blue-600 hover:underline"
 					href="mailto:sales@armada.nu">
 					contact sales
-				</a>{" "}
+				</Link>{" "}
 				if you have any questions
 			</p>
 		</div>
