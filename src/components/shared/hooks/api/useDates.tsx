@@ -1,6 +1,8 @@
 import { env } from "@/env"
 import { useQuery } from "@tanstack/react-query"
 
+//ir: initial registration
+//fr: final registration
 interface FairDate {
 	fair: {
 		description: string
