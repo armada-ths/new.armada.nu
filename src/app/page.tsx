@@ -1,5 +1,5 @@
-import { FairDates } from "@/app/_components/FairDates"
 import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
+import { FairDates } from "@/app/_components/FairDates"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { Page } from "@/components/shared/Page"
@@ -38,7 +38,7 @@ export default async function HomePage() {
 										<Button
 											variant={"secondary"}
 											className="dark:bg-liqorice-700">
-											This Years Packages
+											This Year&apos;s Packages
 											<ArrowRightIcon className="ml-2 h-4 w-4" />
 										</Button>
 									</Link>
