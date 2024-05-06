@@ -1,4 +1,5 @@
 import { PhotoSlideCarousel } from "@/app/_components/PhotoSlideCarousel"
+import { CompanySubmissionPopover } from "@/app/exhibitor/_components/CompanySubmissionPopover"
 import { CurrentStatus } from "@/app/exhibitor/_components/CurrentStatus"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
@@ -125,6 +126,7 @@ export default function ForExhibitorsPage() {
 					</div>
 				</section>
 				<PhotoSlideCarousel photoSrc={promotionalPhotos} />
+				<CompanySubmissionPopover />
 			</Page.Boundary>
 		</Page.Background>
 	)

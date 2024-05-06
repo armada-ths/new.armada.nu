@@ -1,10 +1,11 @@
+import { CompanySubmissionPopover } from "@/app/exhibitor/_components/CompanySubmissionPopover"
 import { Page } from "@/components/shared/Page"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import {
-	AccordionItem,
+	Accordion,
 	AccordionContent,
-	AccordionTrigger,
-	Accordion
+	AccordionItem,
+	AccordionTrigger
 } from "@/components/ui/accordion"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -132,7 +133,7 @@ export default async function Packages() {
 				</div>
 				<p className="mt-4 text-sm">*All prices are ex. VAT. </p>
 				<div className="mx-auto mt-10 w-full max-w-[600px]">
-					<h1 className="ml-2 mb-2 text-2xl">FAQ</h1>
+					<h1 className="mb-2 ml-2 text-2xl">FAQ</h1>
 					<Accordion type="single" collapsible={true}>
 						<FAQItem title='What does "priority placement" mean?'>
 							Priority placement means that we will place you in spots on the
@@ -175,6 +176,7 @@ export default async function Packages() {
 						</FAQItem>
 					</Accordion>
 				</div>
+				<CompanySubmissionPopover />
 			</Page.Boundary>
 		</Page.Background>
 	)
