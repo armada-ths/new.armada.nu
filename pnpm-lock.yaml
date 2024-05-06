@@ -49,21 +49,13 @@ dependencies:
     version: 1.2.2(next@14.1.0)(react@18.2.0)
   '@vercel/flags':
     specifier: ^2.3.0
-<<<<<<< HEAD
     version: 2.5.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
-=======
-    version: 2.3.0(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
->>>>>>> 993b1c8 (fix: Add vercel toolbar to localhost)
   '@vercel/speed-insights':
     specifier: ^1.0.10
     version: 1.0.10(next@14.1.0)(react@18.2.0)
   '@vercel/toolbar':
     specifier: ^0.1.14
-<<<<<<< HEAD
     version: 0.1.15(next@14.1.0)(react@18.2.0)
-=======
-    version: 0.1.14(next@14.1.0)(react@18.2.0)
->>>>>>> 993b1c8 (fix: Add vercel toolbar to localhost)
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -1599,13 +1591,8 @@ packages:
       server-only: 0.0.1
     dev: false
 
-<<<<<<< HEAD
   /@vercel/flags@2.5.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Nwnhrea6OxzJpm+mPHe4eQoFRAJDIWlniaDieH1iEzYDdFtRWLGpf74fhnbe83P5gcfXVmxM57XZEXHIU52e8Q==}
-=======
-  /@vercel/flags@2.3.0(next@14.1.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-jRtq+HA+uCJQJwUmI/gapE52BQ3SyT6a7THVsV9W/BJJ8vDA7ANPZIRRruajEz1hbytCTae/vShP6uI9BGYwCQ==}
->>>>>>> 993b1c8 (fix: Add vercel toolbar to localhost)
     peerDependencies:
       next: '*'
       react: '*'
@@ -1645,13 +1632,8 @@ packages:
       react: 18.2.0
     dev: false
 
-<<<<<<< HEAD
   /@vercel/toolbar@0.1.15(next@14.1.0)(react@18.2.0):
     resolution: {integrity: sha512-YDwRdYM6ij5CbkZm9NgoO1H7uXPuoM5nnzoHYMAZtF0sJylhQ7JIgwLniW71V6RNCKCrJGS1B23BvrQQl8WyrQ==}
-=======
-  /@vercel/toolbar@0.1.14(next@14.1.0)(react@18.2.0):
-    resolution: {integrity: sha512-UNIcVl9LzMuLqAw0Biij8wGLOt8LZNMxEU+J2EMRjjk1hi1yugqAesalRWIjHPX2w6paLNSip2fmYp1oYI51nA==}
->>>>>>> 993b1c8 (fix: Add vercel toolbar to localhost)
     peerDependencies:
       next: '>=11.0.0'
       react: '>=17'
@@ -2933,15 +2915,12 @@ packages:
     dependencies:
       function-bind: 1.1.2
 
-<<<<<<< HEAD
   /hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
     dependencies:
       react-is: 16.13.1
     dev: false
 
-=======
->>>>>>> 993b1c8 (fix: Add vercel toolbar to localhost)
   /human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
@@ -3804,7 +3783,6 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-<<<<<<< HEAD
   /react-async-script@1.2.0(react@18.2.0):
     resolution: {integrity: sha512-bCpkbm9JiAuMGhkqoAiC0lLkb40DJ0HOEJIku+9JDjxX3Rcs+ztEOG13wbrOskt3n2DTrjshhaQ/iay+SnGg5Q==}
     peerDependencies:
@@ -3824,8 +3802,6 @@ packages:
       react: 18.2.0
     dev: false
 
-=======
->>>>>>> 993b1c8 (fix: Add vercel toolbar to localhost)
   /react-dom@18.2.0(react@18.2.0):
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
