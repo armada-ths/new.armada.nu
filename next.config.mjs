@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+import toolbar from "@vercel/toolbar/plugins/next"
+
+const withVercelToolbar = toolbar()
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -27,4 +30,4 @@ const nextConfig = {
   }
 }
 
-export default nextConfig
+export default withVercelToolbar(nextConfig)
