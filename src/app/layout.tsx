@@ -4,6 +4,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { DateTime } from "luxon"
 import type { Metadata } from "next"
 import { Bebas_Neue, Inter, Lato } from "next/font/google"
+
+import { DevToolbar } from "@/components/shared/VercelToolbar"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
@@ -69,6 +71,7 @@ export default function RootLayout({
 				<Analytics />
 				<SpeedInsights />
 				<Providers>{children}</Providers>
+				<DevToolbar />
 			</body>
 		</html>
 	)
