@@ -1,17 +1,10 @@
 import { type ApiData } from "@vercel/flags"
 import { NextResponse } from "next/server"
+import { FEATURE_FLAG_DEFINITIONS } from "../../../../feature_flags"
 
 export async function GET() {
 	const apiData = {
-		definitions: {
-			events: {
-				description: "Show event page",
-				options: [
-					{ value: false, label: "Off" },
-					{ value: true, label: "On" }
-				]
-			}
-		}
+		definitions: FEATURE_FLAG_DEFINITIONS
 	}
 	return NextResponse.json<ApiData>(apiData)
 }
