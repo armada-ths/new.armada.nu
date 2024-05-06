@@ -10,6 +10,7 @@ export function CompanySubmissionPopover() {
 	const [email, setEmail] = useState("")
 	const [company, setCompany] = useState("")
 	const [question, setQuestion] = useState("")
+	const [isOpen, setIsOpen] = useState(false)
 
 	const sendMessage = () => {
 		const message = {
@@ -24,8 +25,7 @@ export function CompanySubmissionPopover() {
 			.post("https://slack.com/api/chat.postMessage", message, {
 				headers: {
 					"Content-Type": "application/json",
-					Authorization:
-						"xoxe.xoxp-1-Mi0yLTY5MTAzOTUwMDgxMzAtNjk1OTQwNDEwOTAyOC03MDg4NjY5OTc2MDY1LTcwNzU4ODkyNTA0MzUtYmI3Y2UyNDFjZmVkNDlhMzkxNzcwYjIwMGNkNTY3NmVkODU1ZDBkYTlmYzUxMTIyYTk0MmNkZGNhNGU2MWFkMA"
+					Authorization: ""
 				}
 			})
 			.then(response => {
@@ -39,16 +39,19 @@ export function CompanySubmissionPopover() {
 			.catch(error => {
 				console.error("Error sending message:", error)
 			})
+		setIsOpen(false)
 	}
 
 	return (
 		<div className="fixed bottom-0 mb-6 ml-auto mr-auto md:left-0 md:m-8 md:mx-auto md:ml-16">
-			<Popover.Root>
+			<Popover.Root open={isOpen}>
 				<Popover.Trigger>
-					<Button className="md:mb-6 md:mr-8 md:mt-6">
+					<div
+						className=" mb-6 mr-8 mt-6 flex flex-row rounded-md bg-white p-2 text-black"
+						onClick={e => setIsOpen(!isOpen)}>
 						<NavigationIcon className="mr-1" />
 						Leave a Contact
-					</Button>
+					</div>
 				</Popover.Trigger>
 				<Popover.Content side="top" side-offset="5">
 					<div className=" rounded-lg p-4 shadow-md filter dark:bg-liqorice-700">
@@ -103,17 +106,13 @@ export function CompanySubmissionPopover() {
 								/>
 							</fieldset>
 							<div className="flex justify-end">
-								<Popover.Close>
-									<Button className="mt-4" onClick={sendMessage}>
-										Connect
-									</Button>
-								</Popover.Close>
+								<Button className="mt-4" onClick={sendMessage}>
+									Connect
+								</Button>
 							</div>
-							<Popover.PopoverClose
-								className="absolute right-[5px] top-[8px] hover:cursor-pointer"
-								aria-label="Close">
-								<X />
-							</Popover.PopoverClose>
+							<X
+								className="absolute right-[5px] top-[5px] cursor-default hover:cursor-pointer"
+								onClick={e => setIsOpen(false)}></X>
 							<Popover.PopoverArrow className="fill-white" />
 						</div>
 					</div>
