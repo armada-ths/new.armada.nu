@@ -1,20 +1,21 @@
 "use client"
+import { sendToSlack } from "@/app/exhibitor/actions"
 import { Button } from "@/components/ui/button"
+import { env } from "@/env"
 import * as Popover from "@radix-ui/react-popover"
-import axios from "axios"
 import { Headset, X } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import ReCAPTCHA from "react-google-recaptcha"
 
 export function CompanySubmissionPopover() {
+	const recaptcha = useRef<any>()
 	const [formData, setFormData] = useState({
 		name: "",
 		company: "",
 		email: "",
 		message: ""
 	})
-	const [formSubmitted, setFormSubmitted] = useState(false)
-	const [captchaFilled, setCaptchaFilled] = useState(false)
+	const [isVerified, setIsVerified] = useState(false)
 	const [formedFilled, setFormFilled] = useState(false)
 	const [isOpen, setIsOpen] = useState(false)
 
@@ -24,39 +25,36 @@ export function CompanySubmissionPopover() {
 			formData.email !== "" &&
 			formData.company !== "" &&
 			formData.message !== "" &&
-			captchaFilled
+			isVerified
 		) {
 			setFormFilled(true)
 		} else {
 			setFormFilled(false)
 		}
-	}, [formData, captchaFilled])
+	}, [formData, isVerified])
 
-	const handleChange = (event: { target: { name: any; value: any } }) => {
+	const handleFieldChange = (event: { target: { name: any; value: any } }) => {
 		const key = event.target.name
 		const updatedFormValue = event.target.value
 		const newFormData = { ...formData, [key]: updatedFormValue }
 		setFormData(newFormData)
 	}
-
-	const sendMessage = () => {
-		const msg = {
-			text: `
-        *Name:* ${formData.name}
-        *Email:* ${formData.email}
-        *Company:* ${formData.company}
-        *Message:* ${formData.message}
-      `
+	const handleVerify = (response: string | null) => {
+		if (response) {
+			setIsVerified(true)
+		} else {
+			setIsVerified(false)
 		}
-		axios
-			.post("https://slack.com/api/chat.postMessage", msg, {
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: ""
-				}
-			})
-			.then(response => {
-				console.log("Message sent successfully:", response.data)
+	}
+
+	const sendMessage = async () => {
+		const captchaValue = recaptcha.current.getValue()
+		if (!captchaValue) {
+			alert("Please verify the reCAPTCHA!")
+			return
+		}
+		await sendToSlack(formData).then(result => {
+			if (result.success) {
 				// Reset form fields
 				setFormData({
 					name: "",
@@ -64,12 +62,12 @@ export function CompanySubmissionPopover() {
 					company: "",
 					message: ""
 				})
-				setFormSubmitted(true)
-			})
-			.catch(error => {
-				console.error("Error sending message:", error)
-			})
-		setIsOpen(false)
+				alert("Submitted! Our sale person will get in touch with you soon!")
+			} else {
+				alert("Submit failed! Please check your email format.")
+			}
+			setIsOpen(false)
+		})
 	}
 
 	return (
@@ -95,7 +93,7 @@ export function CompanySubmissionPopover() {
 									id="name"
 									name="name"
 									value={formData.name}
-									onChange={handleChange}
+									onChange={handleFieldChange}
 									placeholder="Your name"
 									className="rounded-md border px-2 py-1"
 								/>
@@ -109,7 +107,7 @@ export function CompanySubmissionPopover() {
 									id="email"
 									name="email"
 									value={formData.email}
-									onChange={handleChange}
+									onChange={handleFieldChange}
 									placeholder="Your email"
 									className="rounded-md border px-2 py-1"
 								/>
@@ -123,7 +121,7 @@ export function CompanySubmissionPopover() {
 									id="company"
 									name="company"
 									value={formData.company}
-									onChange={handleChange}
+									onChange={handleFieldChange}
 									placeholder="Your company"
 									className="rounded-md border px-2 py-1"
 								/>
@@ -137,7 +135,7 @@ export function CompanySubmissionPopover() {
 									id="message"
 									name="message"
 									value={formData.message}
-									onChange={handleChange}
+									onChange={handleFieldChange}
 									placeholder="Enter your message"
 									rows={5}
 									className="rounded-md border px-2 py-1"
@@ -145,11 +143,10 @@ export function CompanySubmissionPopover() {
 							</fieldset>
 
 							<ReCAPTCHA
+								ref={recaptcha}
 								className="captcha"
-								sitekey="6LdlSPwnAAAAADCALl0tmledXQ2NofF5J0Ssi1wH"
-								onChange={() => {
-									setCaptchaFilled(true)
-								}}
+								sitekey={env.NEXT_PUBLIC_RECAPTCHA_KEY}
+								onChange={handleVerify}
 							/>
 
 							<div className="flex justify-end">
