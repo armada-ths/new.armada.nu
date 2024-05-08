@@ -3,45 +3,80 @@
 import { ExhibitorCard } from "@/app/student/exhibitors/_components/ExhibitorCard"
 import ExhibitorListFilteringHeader from "@/app/student/exhibitors/_components/ExhibitorListFilteringHeader"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue
+} from "@/components/ui/select"
+
+import { useState } from "react"
 import { DateTime } from "luxon"
-import { useSearchParams } from "next/navigation"
-import { Suspense, createContext, useMemo, useState } from "react"
 
-interface ExhibitorFilter {
-	year?: number
-	setYear?: (year: number) => void
-	textSearch?: string
-	setTextSearch?: (text: string) => void
+// TODO:
+// - year select takes a long time to load on initial render (atleast in prod)
+// - everything is generally waay slower in dev than in prod, maybe something with the loading of images?
+// - display modal when clicking on exhibitor card, maintaining scroll and not reloading the page
+// - improve layout on mobile, cards are too big, maybe change to more of a list view
+// - text is janky on scale transition for the cards
+
+function getAllYears() {
+	const currentYear = DateTime.now().year
+	return new Array(currentYear - 2021).fill(0).map((_, i) => currentYear - i)
 }
-
-export const ExhibitorContext = createContext<ExhibitorFilter>({})
 
 export function ExhibitorList({
 	exhibitorYears
 }: {
 	exhibitorYears: { year: string; exhibitors: Exhibitor[] }[]
 }) {
-	const { get } = useSearchParams()
-	const year =
-		get("year") ?? DateTime.now().minus({ months: 6 }).year.toString()
-
-	const exhibitors = useMemo(
-		() =>
-			exhibitorYears.find(x => x.year === year)?.exhibitors ??
-			exhibitorYears[0].exhibitors,
-		[exhibitorYears, year]
+	const [year, setYear] = useState(
+		DateTime.now().minus({ months: 6 }).year.toString()
 	)
+	const allYears = getAllYears()
 
+	function getExhibitorsForYear(year: string) {
+		return (
+			exhibitorYears.find(x => x.year === year)?.exhibitors ??
+			exhibitorYears[0].exhibitors
+		)
+	}
+
+	const exhibitors = getExhibitorsForYear(year)
 	const [filteredExhibitors, setFilteredExhibitors] = useState(exhibitors)
+
+	function onYearSelectChange(year: string) {
+		setYear(year)
+		setFilteredExhibitors(getExhibitorsForYear(year))
+	}
 
 	return (
 		<div className="mt-10">
-			<Suspense>
-				<ExhibitorListFilteringHeader
-					exhibitors={exhibitors} onChange={setFilteredExhibitors}
-				/>
-			</Suspense>
-			<div className="mt-10 grid auto-rows-[200px] grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
+			<Select value={year} onValueChange={onYearSelectChange}>
+				<SelectTrigger className="mb-2 w-[100px]">
+					<SelectValue placeholder="Fair Year" />
+				</SelectTrigger>
+				<SelectContent>
+					{allYears.map(year => (
+						<SelectItem key={year} value={year.toString()}>
+							{year}
+						</SelectItem>
+					))}
+				</SelectContent>
+			</Select>
+
+			<ExhibitorListFilteringHeader
+				key={year} // reset filters when year changes
+				exhibitors={exhibitors}
+				onChange={setFilteredExhibitors}
+			/>
+
+			<p className="mt-8">
+				Showing {filteredExhibitors.length} out of {exhibitors.length}
+			</p>
+
+			<div className="mt-4 grid auto-rows-[200px] grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
 				{filteredExhibitors.map(exhibitor => (
 					<ExhibitorCard key={exhibitor.id} year={year} exhibitor={exhibitor} />
 				))}

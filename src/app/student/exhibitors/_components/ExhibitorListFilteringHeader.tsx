@@ -1,15 +1,18 @@
 import MultiSelect from "@/app/student/exhibitors/_components/MultiSelect"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue
-} from "@/components/ui/select"
-import { DateTime } from "luxon"
+
 import { useState, useMemo } from "react"
+
+// Filtering assumptions:
+// - selecting multiple options for a filter gives the union (not intersection) of those options
+// - selecting no options is the same as selecting all options
+// - filters are ignored when using the search bar
+
+// TODO: 
+// - filters/search/options are not reset when rerendering with new exhibitor list
+//     note that only time the list changes is when the selected year changes in ExhibitorList
+// - clear filters button, both for individual filters and all filters
 
 export type FilterKey = "employments" | "industries"
 export type FilterItem = Exhibitor[FilterKey][number]
@@ -32,6 +35,12 @@ function applyFilters(exhibitors: Exhibitor[], filters: Filter[]) {
 	return exhibitors.filter(e => filters.every(f => satisfiesFilter(e, f)))
 }
 
+function filterBySearch(exhibitors: Exhibitor[], text: string) {
+	return exhibitors.filter(e =>
+		e.name.toLowerCase().includes(text.toLowerCase())
+	)
+}
+
 // Gets all the possible options by looping over each exhibitor
 // Ideally we would just get this info from the api but couldnt find any endpoint for it
 function getAllFilterOptions(
@@ -42,12 +51,7 @@ function getAllFilterOptions(
 	exhibitors.forEach(e => {
 		e[key].forEach(item => distinct.set(item.id, item))
 	})
-	return Array.from(distinct.values())
-}
-
-function getAllYears() {
-	const currentYear = DateTime.now().year
-	return new Array(currentYear - 2021).fill(0).map((_, i) => currentYear - i)
+	return Array.from(distinct.values()).sort((a, b) => a.name.localeCompare(b.name))
 }
 
 export default function ExhibitorListFilteringHeader({
@@ -58,10 +62,6 @@ export default function ExhibitorListFilteringHeader({
 	onChange: (filtered: Exhibitor[]) => void
 }) {
 	const [searchText, setSearchText] = useState("")
-	const [year, setYear] = useState(
-		DateTime.now().minus({ months: 6 }).year.toString()
-	)
-	const allYears = getAllYears()
 
 	function makeFilter(key: FilterKey, label: string): Filter {
 		return {
@@ -77,53 +77,38 @@ export default function ExhibitorListFilteringHeader({
 		industries: makeFilter("industries", "Industries")
 	})
 
-	const [numFiltered, setNumFiltered] = useState(exhibitors.length)
-
 	function onFilterChange(filter: Filter, newSelections: FilterItem[]) {
 		const newFilters = {
 			...filters,
 			[filter.key]: { ...filter, selected: newSelections }
 		}
 		setFilters(newFilters)
-		const filteredExhibitors = applyFilters(exhibitors, Object.values(newFilters))
-		setNumFiltered(filteredExhibitors.length)
-		onChange(filteredExhibitors)
+		onChange(applyFilters(exhibitors, Object.values(newFilters))) // do filtering and notify the parent
+	}
+
+	function onSearchChange(text: string) {
+		setSearchText(text)
+		if (text.trim() !== "") onChange(filterBySearch(exhibitors, text))
+		else onChange(applyFilters(exhibitors, Object.values(filters))) // apply filters again when input is cleared
 	}
 
 	return (
 		<div className="flex flex-col">
-			<div className="flex w-full flex-wrap gap-3 items-center">
-				<Select value={year} onValueChange={setYear}>
-					<SelectTrigger className="w-[120px]">
-						<SelectValue placeholder="Fair Year" />
-					</SelectTrigger>
-					<SelectContent>
-						{allYears.map(year => (
-							<SelectItem key={year} value={year.toString()}>
-								{year}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
-
+			<div className="flex w-full flex-wrap items-center gap-3">
+				<Input
+					type="text"
+					placeholder="Search all"
+					className="w-[150px] transition"
+					value={searchText}
+					onChange={e => onSearchChange(e.target.value)}
+				/>
 				{Object.values(filters).map(f => (
 					<MultiSelect
 						key={f.key}
 						filter={f}
 						onChange={selected => onFilterChange(f, selected)}></MultiSelect>
 				))}
-
-				<Input
-					type="text"
-					placeholder="Search all"
-					className="w-[200px]"
-					value={searchText}
-					onChange={e => setSearchText(e.target.value)}
-				/>
 			</div>
-			<p className="mt-4">
-				{numFiltered} out of {exhibitors.length}
-			</p>
 		</div>
 	)
 }
