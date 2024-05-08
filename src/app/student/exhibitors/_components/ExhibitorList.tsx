@@ -1,10 +1,11 @@
 "use client"
+
 import { ExhibitorCard } from "@/app/student/exhibitors/_components/ExhibitorCard"
 import ExhibitorListFilteringHeader from "@/app/student/exhibitors/_components/ExhibitorListFilteringHeader"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { DateTime } from "luxon"
 import { useSearchParams } from "next/navigation"
-import { Suspense, createContext, useMemo } from "react"
+import { Suspense, createContext, useMemo, useState } from "react"
 
 interface ExhibitorFilter {
 	year?: number
@@ -23,7 +24,6 @@ export function ExhibitorList({
 	const { get } = useSearchParams()
 	const year =
 		get("year") ?? DateTime.now().minus({ months: 6 }).year.toString()
-	const search = get("search")
 
 	const exhibitors = useMemo(
 		() =>
@@ -32,23 +32,16 @@ export function ExhibitorList({
 		[exhibitorYears, year]
 	)
 
-	const filteredExhibitors = useMemo(
-		() =>
-			exhibitors?.filter(exhibitor =>
-				exhibitor.name.toLowerCase().includes(search?.toLowerCase() ?? "")
-			),
-		[exhibitors, search]
-	)
+	const [filteredExhibitors, setFilteredExhibitors] = useState(exhibitors)
 
 	return (
 		<div className="mt-10">
 			<Suspense>
 				<ExhibitorListFilteringHeader
-					filtered={filteredExhibitors.length}
-					total={exhibitors.length}
+					exhibitors={exhibitors} onChange={setFilteredExhibitors}
 				/>
 			</Suspense>
-			<div className="mt-10 flex flex-wrap justify-center gap-4">
+			<div className="mt-10 grid auto-rows-[200px] grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
 				{filteredExhibitors.map(exhibitor => (
 					<ExhibitorCard key={exhibitor.id} year={year} exhibitor={exhibitor} />
 				))}
