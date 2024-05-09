@@ -39,6 +39,7 @@ export function CompanySubmissionPopover() {
 		const newFormData = { ...formData, [key]: updatedFormValue }
 		setFormData(newFormData)
 	}
+
 	const handleVerify = (response: string | null) => {
 		if (response) {
 			setIsVerified(true)
@@ -145,7 +146,7 @@ export function CompanySubmissionPopover() {
 							<ReCAPTCHA
 								ref={recaptcha}
 								className="captcha"
-								sitekey={env.NEXT_PUBLIC_RECAPTCHA_KEY}
+								sitekey={env.RECAPTCHA_KEY}
 								onChange={handleVerify}
 							/>
 

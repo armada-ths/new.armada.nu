@@ -19,16 +19,13 @@ export async function sendToSlack(
 	}
 	const msg = {
 		text: `
-        *New External Contact Message:*
-• *Name:* ${args.name}
-• *Email:* ${args.email}
-• *Company:* ${args.company}
-• *Description:*
-${args.message}
-		  `
+        # New External Contact Message #\n*Name:* ${args.name}\n*Email:* ${args.email}\n*Company:* ${args.company}\n*Description:*\n${args.message
+					.split("\n")
+					.map(line => `>${line}`)
+					.join("\n")}\n`
 	}
 	axios
-		.post(env.NEXT_PUBLIC_SLACK_SALES_HOOK_URL, msg, {
+		.post(env.SLACK_SALES_HOOK_URL, msg, {
 			headers: {
 				"Content-Type": "application/json"
 			}
