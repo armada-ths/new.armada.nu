@@ -146,7 +146,7 @@ export function CompanySubmissionPopover() {
 							<ReCAPTCHA
 								ref={recaptcha}
 								className="captcha"
-								sitekey={env.RECAPTCHA_KEY}
+								sitekey={env.NEXT_PUBLIC_RECAPTCHA_KEY}
 								onChange={handleVerify}
 							/>
 
