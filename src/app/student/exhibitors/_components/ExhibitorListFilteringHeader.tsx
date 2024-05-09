@@ -9,11 +9,6 @@ import { useState, useMemo } from "react"
 // - selecting no options is the same as selecting all options
 // - filters are ignored when using the search bar
 
-// TODO: 
-// - filters/search/options are not reset when rerendering with new exhibitor list
-//     note that only time the list changes is when the selected year changes in ExhibitorList
-// - clear filters button, both for individual filters and all filters
-
 export type FilterKey = "employments" | "industries"
 export type FilterItem = Exhibitor[FilterKey][number]
 
@@ -77,10 +72,10 @@ export default function ExhibitorListFilteringHeader({
 		industries: makeFilter("industries", "Industries")
 	})
 
-	function onFilterChange(filter: Filter, newSelections: FilterItem[]) {
+	function onFilterChange(filter: Filter, newSelection: FilterItem[]) {
 		const newFilters = {
 			...filters,
-			[filter.key]: { ...filter, selected: newSelections }
+			[filter.key]: { ...filter, selected: newSelection }
 		}
 		setFilters(newFilters)
 		onChange(applyFilters(exhibitors, Object.values(newFilters))) // do filtering and notify the parent

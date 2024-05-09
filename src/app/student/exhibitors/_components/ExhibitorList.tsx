@@ -11,13 +11,10 @@ import {
 	SelectValue
 } from "@/components/ui/select"
 
-import { useState } from "react"
 import { DateTime } from "luxon"
+import { useState } from "react"
 
 // TODO:
-// - year select takes a long time to load on initial render (atleast in prod)
-// - everything is generally waay slower in dev than in prod, maybe something with the loading of images?
-// - display modal when clicking on exhibitor card, maintaining scroll and not reloading the page
 // - improve layout on mobile, cards are too big, maybe change to more of a list view
 // - text is janky on scale transition for the cards
 
@@ -27,9 +24,9 @@ function getAllYears() {
 }
 
 export function ExhibitorList({
-	exhibitorYears
+	exhibitorsByYear
 }: {
-	exhibitorYears: { year: string; exhibitors: Exhibitor[] }[]
+	exhibitorsByYear: { year: string; exhibitors: Exhibitor[] }[]
 }) {
 	const [year, setYear] = useState(
 		DateTime.now().minus({ months: 6 }).year.toString()
@@ -38,8 +35,8 @@ export function ExhibitorList({
 
 	function getExhibitorsForYear(year: string) {
 		return (
-			exhibitorYears.find(x => x.year === year)?.exhibitors ??
-			exhibitorYears[0].exhibitors
+			exhibitorsByYear.find(x => x.year === year)?.exhibitors ??
+			exhibitorsByYear[0].exhibitors
 		)
 	}
 
@@ -59,7 +56,11 @@ export function ExhibitorList({
 				</SelectTrigger>
 				<SelectContent>
 					{allYears.map(year => (
-						<SelectItem key={year} value={year.toString()}>
+						<SelectItem
+							key={year}
+							value={year.toString()}
+							// until we have data for 2024
+							disabled={year === 2024}>
 							{year}
 						</SelectItem>
 					))}
@@ -72,7 +73,7 @@ export function ExhibitorList({
 				onChange={setFilteredExhibitors}
 			/>
 
-			<p className="mt-8">
+			<p className="mt-8 text-stone-400">
 				Showing {filteredExhibitors.length} out of {exhibitors.length}
 			</p>
 

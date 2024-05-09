@@ -21,7 +21,7 @@ export default async function ExhibitorListPage() {
 			<Page.Boundary>
 				<Page.Header>Exhibitors</Page.Header>
 				<Suspense>
-					<ExhibitorList exhibitorYears={exhibitors} />
+					<ExhibitorList exhibitorsByYear={exhibitors} />
 				</Suspense>
 			</Page.Boundary>
 		</Page.Background>
