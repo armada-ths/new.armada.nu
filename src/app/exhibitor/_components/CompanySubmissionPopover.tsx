@@ -31,14 +31,14 @@ export function CompanySubmissionPopover() {
 		[formData, isVerified]
 	)
 
-	const handleFieldChange = (event: { target: { name: any; value: any } }) => {
+	function handleFieldChange(event: { target: { name: any; value: any } }) {
 		const key = event.target.name
 		const updatedFormValue = event.target.value
 		const newFormData = { ...formData, [key]: updatedFormValue }
 		setFormData(newFormData)
 	}
 
-	const handleVerify = (response: string | null) => {
+	function handleVerify(response: string | null) {
 		if (response) {
 			setIsVerified(true)
 		} else {
@@ -46,29 +46,28 @@ export function CompanySubmissionPopover() {
 		}
 	}
 
-	const sendMessage = async () => {
+	async function sendMessage() {
 		const captchaValue = recaptcha.current.getValue()
 		if (!captchaValue) {
 			toast.warning("Please verify the reCAPTCHA!")
 			return
 		}
-		await sendToSlack(formData).then(result => {
-			if (result.success) {
-				// Reset form fields
-				setFormData({
-					name: "",
-					email: "",
-					company: "",
-					message: ""
-				})
-				toast.success(
-					"Submitted! Our sale person will get in touch with you soon!"
-				)
-			} else {
-				toast.error("Submit failed! Please check your email format.")
-			}
-			setIsOpen(false)
-		})
+		const result = await sendToSlack(formData)
+
+		if (result.success) {
+			// Reset form fields
+			setFormData({
+				name: "",
+				email: "",
+				company: "",
+				message: ""
+			})
+			toast.success(
+				"Submitted! Our sale person will get in touch with you soon!"
+			)
+		} else {
+			toast.error("Submit failed! Please check your email format.")
+		}
 	}
 
 	return (
