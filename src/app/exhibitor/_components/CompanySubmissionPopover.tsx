@@ -1,11 +1,14 @@
 "use client"
 import { sendToSlack } from "@/app/exhibitor/actions"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { env } from "@/env"
 import * as Popover from "@radix-ui/react-popover"
 import { Headset, X } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import ReCAPTCHA from "react-google-recaptcha"
+import { toast } from "sonner"
 
 export function CompanySubmissionPopover() {
 	const recaptcha = useRef<any>()
@@ -16,22 +19,17 @@ export function CompanySubmissionPopover() {
 		message: ""
 	})
 	const [isVerified, setIsVerified] = useState(false)
-	const [formedFilled, setFormFilled] = useState(false)
 	const [isOpen, setIsOpen] = useState(false)
 
-	useEffect(() => {
-		if (
+	const formFilled = useMemo(
+		() =>
 			formData.name !== "" &&
 			formData.email !== "" &&
 			formData.company !== "" &&
 			formData.message !== "" &&
-			isVerified
-		) {
-			setFormFilled(true)
-		} else {
-			setFormFilled(false)
-		}
-	}, [formData, isVerified])
+			isVerified,
+		[formData, isVerified]
+	)
 
 	const handleFieldChange = (event: { target: { name: any; value: any } }) => {
 		const key = event.target.name
@@ -51,7 +49,7 @@ export function CompanySubmissionPopover() {
 	const sendMessage = async () => {
 		const captchaValue = recaptcha.current.getValue()
 		if (!captchaValue) {
-			alert("Please verify the reCAPTCHA!")
+			toast.warning("Please verify the reCAPTCHA!")
 			return
 		}
 		await sendToSlack(formData).then(result => {
@@ -63,98 +61,96 @@ export function CompanySubmissionPopover() {
 					company: "",
 					message: ""
 				})
-				alert("Submitted! Our sale person will get in touch with you soon!")
+				toast.success(
+					"Submitted! Our sale person will get in touch with you soon!"
+				)
 			} else {
-				alert("Submit failed! Please check your email format.")
+				toast.error("Submit failed! Please check your email format.")
 			}
 			setIsOpen(false)
 		})
 	}
 
 	return (
-		<div className="fixed bottom-0 mb-6 ml-auto mr-auto md:left-0 md:m-8 md:mx-auto md:ml-16">
+		<div className="fixed bottom-0 z-50 mb-4 scale-75 transform md:mb-8 md:ml-8 md:scale-90">
 			<Popover.Root open={isOpen}>
 				<Popover.Trigger>
 					<div
-						className=" mb-6 mr-8 mt-6 flex flex-row rounded-md bg-white p-2 text-black"
-						onClick={e => setIsOpen(!isOpen)}>
+						className="mt-4 flex flex-row rounded-md bg-white p-2 text-black"
+						onClick={() => setIsOpen(!isOpen)}>
 						<Headset className="mr-1" />
 						Contact Sales
 					</div>
 				</Popover.Trigger>
-				<Popover.Content side="top" side-offset="5">
-					<div className=" rounded-lg p-4 shadow-md filter dark:bg-liqorice-700">
+				<Popover.Content
+					side="top"
+					className="z-0 ml-4 max-h-[80vh] w-auto md:h-fit">
+					<div className="rounded-lg bg-zinc-800 p-4 shadow-md filter">
 						<div className="flex flex-col gap-2 p-2">
 							<p className="text-l font-semibold">Contact</p>
 							<fieldset className="flex flex-col">
-								<label className="text-sm" htmlFor="name">
+								<label className="mb-1 text-sm" htmlFor="name">
 									Name
 								</label>
-								<input
+								<Input
 									id="name"
 									name="name"
 									value={formData.name}
 									onChange={handleFieldChange}
 									placeholder="Your name"
-									className="rounded-md border px-2 py-1"
 								/>
 							</fieldset>
 
 							<fieldset className="flex flex-col">
-								<label className="text-sm" htmlFor="email">
+								<label className="mb-1 text-sm" htmlFor="email">
 									Email
 								</label>
-								<input
+								<Input
 									id="email"
 									name="email"
 									value={formData.email}
 									onChange={handleFieldChange}
 									placeholder="Your email"
-									className="rounded-md border px-2 py-1"
 								/>
 							</fieldset>
 
 							<fieldset className="flex flex-col">
-								<label className="text-sm" htmlFor="company">
+								<label className="mb-1 text-sm" htmlFor="company">
 									Company
 								</label>
-								<input
+								<Input
 									id="company"
 									name="company"
 									value={formData.company}
 									onChange={handleFieldChange}
 									placeholder="Your company"
-									className="rounded-md border px-2 py-1"
 								/>
 							</fieldset>
 
 							<fieldset className="flex flex-col">
-								<label className="text-sm" htmlFor="message">
+								<label className="mb-1 text-sm" htmlFor="message">
 									Message
 								</label>
-								<textarea
+								<Textarea
 									id="message"
 									name="message"
 									value={formData.message}
 									onChange={handleFieldChange}
 									placeholder="Enter your message"
-									rows={5}
-									className="rounded-md border px-2 py-1"
 								/>
 							</fieldset>
 
 							<ReCAPTCHA
 								ref={recaptcha}
-								className="captcha"
 								sitekey={env.NEXT_PUBLIC_RECAPTCHA_KEY}
 								onChange={handleVerify}
 							/>
 
 							<div className="flex justify-end">
 								<Button
-									className="mt-4"
+									className="mt-2"
 									onClick={sendMessage}
-									disabled={!formedFilled}>
+									disabled={!formFilled}>
 									Send
 								</Button>
 							</div>
@@ -162,7 +158,6 @@ export function CompanySubmissionPopover() {
 							<X
 								className="absolute right-[5px] top-[5px] cursor-default hover:cursor-pointer"
 								onClick={e => setIsOpen(false)}></X>
-							<Popover.PopoverArrow className="fill-white" />
 						</div>
 					</div>
 				</Popover.Content>

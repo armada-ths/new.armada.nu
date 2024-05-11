@@ -1,6 +1,5 @@
 "use server"
 import { env } from "@/env"
-import axios from "axios"
 import { z } from "zod"
 
 const ContactSalesSlackSchema = z.object({
@@ -24,18 +23,16 @@ export async function sendToSlack(
 					.map(line => `>${line}`)
 					.join("\n")}\n`
 	}
-	axios
-		.post(env.SLACK_SALES_HOOK_URL, msg, {
+	try {
+		await fetch(env.SLACK_SALES_HOOK_URL, {
+			method: "POST",
+			body: JSON.stringify(msg),
 			headers: {
 				"Content-Type": "application/json"
 			}
 		})
-		.then(response => {
-			console.log("Message sent successfully:", response.data)
-		})
-		.catch(error => {
-			console.error("Error sending message:", error)
-		})
-
-	return { success: true }
+		return { success: true }
+	} catch (error) {
+		return { success: false }
+	}
 }

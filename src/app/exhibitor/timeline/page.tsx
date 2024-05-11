@@ -1,4 +1,3 @@
-import { CompanySubmissionPopover } from "@/app/exhibitor/_components/CompanySubmissionPopover"
 import { ExhibitorTimeline } from "@/app/exhibitor/_components/ExhibitorTimeline"
 import { Page } from "@/components/shared/Page"
 import { Metadata } from "next"
@@ -23,7 +22,6 @@ export default async function WhyArmadaPage() {
 				</p>
 				<ExhibitorTimeline />
 				<div className="h-5" />
-				<CompanySubmissionPopover />
 			</Page.Boundary>
 		</Page.Background>
 	)

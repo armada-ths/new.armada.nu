@@ -1,4 +1,3 @@
-import { CompanySubmissionPopover } from "@/app/exhibitor/_components/CompanySubmissionPopover"
 import { Page } from "@/components/shared/Page"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import {
@@ -176,7 +175,6 @@ export default async function Packages() {
 						</FAQItem>
 					</Accordion>
 				</div>
-				<CompanySubmissionPopover />
 			</Page.Boundary>
 		</Page.Background>
 	)
