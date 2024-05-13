@@ -79,7 +79,7 @@ export function ExhibitorList({
 
 			<div className="mt-4 grid auto-rows-[200px] grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
 				{filteredExhibitors.map(exhibitor => (
-					<ExhibitorCard key={exhibitor.id} year={year} exhibitor={exhibitor} />
+					<ExhibitorCard key={exhibitor.id} exhibitor={exhibitor} />
 				))}
 			</div>
 		</div>

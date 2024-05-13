@@ -15,6 +15,10 @@ import { Badge } from "@/components/ui/badge"
 import { useRef, useState } from "react"
 import { ChevronDown, X } from "lucide-react"
 
+// TODO:
+// - keyboard navigation?
+// - aria stuff
+
 function Badges({ items }: { items: FilterItem[] }) {
 	return (
 		<div className="flex gap-1">
@@ -46,7 +50,6 @@ export default function MultiSelect({
 	}
 
 	function onSelectionChange(item: FilterItem) {
-		console.log(item)
 		if (isSelected(item)) {
 			onChange(selected.filter(s => s.id !== item.id)) // remove item
 		} else {
@@ -55,7 +58,10 @@ export default function MultiSelect({
 	}
 
 	return (
-		<Popover>
+		<Popover
+			// want to clear the input field when popover closes, but if we do it right away it causes the popover to rerender and it looks bad
+			// so add delay to allow the close transition to play, but probably there is a better way to do this
+			onOpenChange={open => !open && setTimeout(() => setSearchText(""), 300)}>
 			<PopoverTrigger asChild>
 				<Button
 					variant={"outline"}
@@ -78,13 +84,14 @@ export default function MultiSelect({
 			</PopoverTrigger>
 
 			<PopoverContent
-				className="z-10 w-auto p-0"
+				className="z-10 w-auto border-none p-0"
 				align="start"
+				sideOffset={5}
 				onOpenAutoFocus={e => {
 					e.preventDefault()
 					inputRef.current?.focus()
 				}}>
-				<div className="rounded-md border border-emerald-800 bg-stone-950 p-0 text-sm text-stone-200 shadow-lg">
+				<div className="w-max rounded-md border border-emerald-800 bg-zinc-950 p-0 text-sm text-stone-300 shadow-lg">
 					<Input
 						ref={inputRef}
 						placeholder={label}
@@ -99,7 +106,7 @@ export default function MultiSelect({
 								searchedItems.map(item => (
 									<button
 										key={item.id}
-										className="flex min-w-32 cursor-default items-center gap-2 p-2 pl-3 hover:bg-emerald-950 text-stone-200hover:text-melon-700"
+										className="flex min-w-32 cursor-default items-center gap-2 p-2 pl-3  hover:bg-emerald-950 hover:text-melon-700"
 										onClick={() => onSelectionChange(item)}>
 										<input
 											type="checkbox"

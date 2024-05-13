@@ -2,7 +2,7 @@ import MultiSelect from "@/app/student/exhibitors/_components/MultiSelect"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"
 
-import { useState, useMemo } from "react"
+import { useState } from "react"
 
 // Filtering assumptions:
 // - selecting multiple options for a filter gives the union (not intersection) of those options
@@ -88,12 +88,11 @@ export default function ExhibitorListFilteringHeader({
 	}
 
 	return (
-		<div className="flex flex-col">
-			<div className="flex w-full flex-wrap items-center gap-3">
+			<div className="flex flex-wrap gap-3">
 				<Input
 					type="text"
 					placeholder="Search all"
-					className="w-[150px] transition"
+					className="w-[150px]"
 					value={searchText}
 					onChange={e => onSearchChange(e.target.value)}
 				/>
@@ -104,6 +103,5 @@ export default function ExhibitorListFilteringHeader({
 						onChange={selected => onFilterChange(f, selected)}></MultiSelect>
 				))}
 			</div>
-		</div>
 	)
 }
