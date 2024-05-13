@@ -11,15 +11,9 @@ import { useState, useEffect } from "react"
 
 // TODO:
 // - optimize logo image loading somehow
-// - use position relative container around image and set filled attr on image since we dont know width/height
+// - decide width/height
 
-export function ExhibitorCard({
-	exhibitor,
-	year
-}: {
-	exhibitor: Exhibitor
-	year: string
-}) {
+export function ExhibitorCard({ exhibitor }: { exhibitor: Exhibitor }) {
 	const searchParams = useSearchParams()
 	const router = useRouter()
 
@@ -27,7 +21,6 @@ export function ExhibitorCard({
 
 	useEffect(() => {
 		const queryId = searchParams.get("id")
-
 		if (queryId === exhibitor.id.toString()) setModalOpen(true)
 		else setModalOpen(false)
 	}, [exhibitor, searchParams])
@@ -44,22 +37,19 @@ export function ExhibitorCard({
 				<ExhibitorDetails exhibitor={exhibitor} />
 			</Modal>
 
-			<Link
-				href={`/student/exhibitors?id=${exhibitor.id}`}
-				scroll={false}>
+			<Link href={`/student/exhibitors?id=${exhibitor.id}`} scroll={false}>
 				<div className="to-liqorice-950 group relative flex h-full flex-col rounded-lg border-2 border-solid border-emerald-900 bg-gradient-to-b from-emerald-900 via-emerald-950 filter transition hover:scale-[1.05] hover:brightness-95">
-					{exhibitor.logo_freesize != null ||
-						(exhibitor.logo_squared != null && (
-							<div className="flex justify-center p-4">
-								<Image
-									className="max-h-[100px] w-auto object-contain"
-									src={exhibitor.logo_squared ?? exhibitor.logo_freesize}
-									alt={exhibitor.name}
-									width={100}
-									height={100}
-								/>
-							</div>
-						))}
+					{(exhibitor.logo_squared || exhibitor.logo_freesize) && (
+						<div className="flex justify-center p-4">
+							<Image
+								className="max-h-[80px] w-auto object-contain"
+								src={exhibitor.logo_squared ?? exhibitor.logo_freesize ?? ""}
+								alt={exhibitor.name}
+								width={100}
+								height={100}
+							/>
+						</div>
+					)}
 					<div className="flex-1" />
 					<h3 className="my-2 text-center font-bebas-neue text-xl text-emerald-100 antialiased transition group-hover:text-melon-700">
 						{exhibitor.name}
