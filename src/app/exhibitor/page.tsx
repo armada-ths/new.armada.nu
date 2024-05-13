@@ -1,5 +1,6 @@
 import { PhotoSlideCarousel } from "@/app/_components/PhotoSlideCarousel"
 import { CurrentStatus } from "@/app/exhibitor/_components/CurrentStatus"
+import { NumberCountUp } from "@/app/exhibitor/_components/NumberCountUp"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
 import { Metadata } from "next"
@@ -38,19 +39,15 @@ export default function ForExhibitorsPage() {
 				<div className="flex w-full flex-col space-y-4">
 					<div className="mt-2 flex w-full flex-row flex-wrap justify-between gap-4 rounded bg-melon-700 p-6 text-center md:text-2xl">
 						<div className="w-3/12  font-bebas-neue font-medium text-stone-900">
-							<p className="text-2xl md:text-4xl">
-								{numberFormat.format(20000)}+
-							</p>
+							<NumberCountUp start={0} end={20000} duration={2} isVisit/>
 							<p>visits</p>
 						</div>
 						<div className=" w-3/12  font-bebas-neue font-medium text-stone-900">
-							<p className="text-2xl md:text-4xl">
-								{numberFormat.format(15000)}
-							</p>
+							<NumberCountUp start={0} end={15000} duration={2} />
 							<p>Students</p>
 						</div>
 						<div className=" w-3/12 font-bebas-neue font-medium text-stone-900">
-							<p className="text-2xl md:text-4xl">2 days</p>
+							<NumberCountUp start={0} end={2} duration={2} isDays/>
 							<p>of networking</p>
 						</div>
 					</div>
