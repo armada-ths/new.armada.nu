@@ -14,9 +14,6 @@ import {
 import { DateTime } from "luxon"
 import { useState } from "react"
 
-// TODO:
-// - improve layout on mobile, cards are too big, maybe change to more of a list view
-// - text is janky on scale transition for the cards
 
 function getAllYears() {
 	const currentYear = DateTime.now().year

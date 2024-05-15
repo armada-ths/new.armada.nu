@@ -2,7 +2,7 @@ import MultiSelect from "@/app/student/exhibitors/_components/MultiSelect"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 
 // Filtering assumptions:
 // - selecting multiple options for a filter gives the union (not intersection) of those options
@@ -21,8 +21,8 @@ export type Filter = {
 
 function satisfiesFilter(exhibitor: Exhibitor, filter: Filter) {
 	if (filter.selected.length === 0) return true
-	return exhibitor[filter.key].some(({ id }) =>
-		filter.selected.map(s => s.id).includes(id)
+	return exhibitor[filter.key].some(x =>
+		filter.selected.some(y => x.id === y.id)
 	)
 }
 
@@ -37,7 +37,6 @@ function filterBySearch(exhibitors: Exhibitor[], text: string) {
 }
 
 // Gets all the possible options by looping over each exhibitor
-// Ideally we would just get this info from the api but couldnt find any endpoint for it
 function getAllFilterOptions(
 	key: FilterKey,
 	exhibitors: Exhibitor[]
@@ -46,7 +45,9 @@ function getAllFilterOptions(
 	exhibitors.forEach(e => {
 		e[key].forEach(item => distinct.set(item.id, item))
 	})
-	return Array.from(distinct.values()).sort((a, b) => a.name.localeCompare(b.name))
+	return Array.from(distinct.values()).sort((a, b) =>
+		a.name.localeCompare(b.name)
+	)
 }
 
 export default function ExhibitorListFilteringHeader({
@@ -57,6 +58,8 @@ export default function ExhibitorListFilteringHeader({
 	onChange: (filtered: Exhibitor[]) => void
 }) {
 	const [searchText, setSearchText] = useState("")
+
+	const inputRef = useRef<HTMLInputElement>(null)
 
 	function makeFilter(key: FilterKey, label: string): Filter {
 		return {
@@ -88,20 +91,22 @@ export default function ExhibitorListFilteringHeader({
 	}
 
 	return (
-			<div className="flex flex-wrap gap-3">
-				<Input
-					type="text"
-					placeholder="Search all"
-					className="w-[150px]"
-					value={searchText}
-					onChange={e => onSearchChange(e.target.value)}
-				/>
-				{Object.values(filters).map(f => (
-					<MultiSelect
-						key={f.key}
-						filter={f}
-						onChange={selected => onFilterChange(f, selected)}></MultiSelect>
-				))}
-			</div>
+		<div className="flex flex-wrap gap-3">
+			<Input
+				ref={inputRef}
+				type="text"
+				placeholder="Search all"
+				className="w-full xs:w-[200px]"
+				value={searchText}
+				onChange={e => onSearchChange(e.target.value)}
+				onKeyDown={e => e.key === "Enter" && inputRef.current?.blur()}
+			/>
+			{Object.values(filters).map(f => (
+				<MultiSelect
+					key={f.key}
+					filter={f}
+					onChange={selected => onFilterChange(f, selected)}></MultiSelect>
+			))}
+		</div>
 	)
 }

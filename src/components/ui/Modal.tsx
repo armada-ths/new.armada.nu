@@ -43,7 +43,7 @@ export default function Modal({
 	}
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
-			<DrawerContent className={cn("max-h-[75%] pt-0 border border-stone-500 focus-visible:outline-none", className)}>
+			<DrawerContent className={cn("max-h-[75%] min-h-[50%] pt-0 border border-stone-500 focus-visible:outline-none", className)}>
 				{children}
 			</DrawerContent>
 		</Drawer>
