@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 const config = {
 	darkMode: ["class"],
@@ -16,6 +17,10 @@ const config = {
 			screens: {
 				"2xl": "1400px"
 			}
+		},
+		screens: {
+			"xs": "470px",
+			...defaultTheme.screens
 		},
 		extend: {
 			colors: {
@@ -47,7 +52,7 @@ const config = {
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out"
-			}
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")]

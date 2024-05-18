@@ -1,3 +1,4 @@
+import ExhibitorDetails from "@/app/student/exhibitors/_components/ExhibitorDetails"
 import { Page } from "@/components/shared/Page"
 import {
 	fetchAllYearExhibitors,
@@ -76,47 +77,7 @@ export default async function ExhibitorPage({
 	return (
 		<Page.Background withIndents>
 			<Page.Boundary>
-				<Page.Header>{exhibitor.name}</Page.Header>
-				<div className="flex flex-col-reverse items-center gap-4 md:flex-row">
-					<p className="flex-1 text-stone-300">{exhibitor.about}</p>
-					{(exhibitor.logo_squared != null ||
-						exhibitor.logo_freesize != null) && (
-						<Image
-							className="h-32 w-52"
-							src={
-								(exhibitor.logo_squared ?? exhibitor.logo_freesize) as string
-							}
-							style={{
-								objectFit: "contain"
-							}}
-							alt={exhibitor.name}
-							width={300}
-							height={300}
-						/>
-					)}
-				</div>
-				<div className="mt-10 grid grid-cols-1 gap-y-5 sm:grid-cols-2">
-					<div>
-						<Page.Header tier="secondary" className="mt-2">
-							Industries
-						</Page.Header>
-						{exhibitor.industries.map(industry => (
-							<Badge key={industry.id} className="m-1">
-								{industry.name}
-							</Badge>
-						))}
-					</div>
-					<div>
-						<Page.Header tier="secondary" className="mt-2">
-							Employments
-						</Page.Header>
-						{exhibitor.employments.map(employments => (
-							<Badge key={employments.id} className="m-1">
-								{employments.name}
-							</Badge>
-						))}
-					</div>
-				</div>
+				<ExhibitorDetails exhibitor={exhibitor} />
 			</Page.Boundary>
 		</Page.Background>
 	)
