@@ -35,7 +35,7 @@ export default function ForExhibitorsPage() {
 				<Page.Header tier="primary">Why Armada</Page.Header>
 				<div className="h-4" />
 
-				<div className="flex w-full flex-col space-y-4">
+				<div className="flex w-full flex-col space-y-4 rounded">
 					<div className="mt-2 flex w-full flex-row flex-wrap justify-between gap-4 bg-melon-700 p-6 text-center md:text-2xl">
 						<div className="w-3/12  font-bebas-neue font-medium text-stone-900">
 							<p className="text-2xl md:text-4xl">
