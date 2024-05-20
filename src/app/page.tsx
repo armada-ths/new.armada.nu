@@ -28,8 +28,7 @@ export default async function HomePage() {
 									Shape your future
 								</h1>
 								<h2 className="my-5 text-stone-300">
-									Where Sweden&apos;s future top engineers come in contact with
-									innovation and career opportunities
+									The No. 1 career fair at KTH Royal Institute of Technology. Where future engineers come in contact with career opportunities and shape their future
 								</h2>
 								<div className="mt-4 flex flex-wrap gap-2">
 									<CompanyRegistrationButton />
