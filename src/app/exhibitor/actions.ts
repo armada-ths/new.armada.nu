@@ -5,6 +5,7 @@ import { z } from "zod"
 const ContactSalesSlackSchema = z.object({
 	name: z.string(),
 	email: z.string().email(),
+	phone: z.string(),
 	company: z.string(),
 	message: z.string()
 })
@@ -18,7 +19,7 @@ export async function sendToSlack(
 	}
 	const msg = {
 		text: `
-        # New External Contact Message #\n*Name:* ${args.name}\n*Email:* ${args.email}\n*Company:* ${args.company}\n*Description:*\n${args.message
+        # New External Contact Message #\n*Name:* ${args.name}\n*Email:* ${args.email}\n*Phone Number:* ${args.phone}\n*Company:* ${args.company}\n*Description:*\n${args.message
 					.split("\n")
 					.map(line => `>${line}`)
 					.join("\n")}\n`
