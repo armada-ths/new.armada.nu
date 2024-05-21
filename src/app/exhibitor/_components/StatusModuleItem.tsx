@@ -8,7 +8,6 @@ export function StatusModuleItem({
 	children?: React.ReactNode
 	title: string
 }) {
-	const expandable = children != null
 	return (
 		<div>
 			<Alert className="mt-5">

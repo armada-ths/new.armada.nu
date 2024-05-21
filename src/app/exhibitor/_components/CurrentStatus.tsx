@@ -61,7 +61,7 @@ export async function CurrentStatus() {
 			</StatusModuleItem>
 		)
 	} else if (
-		new Date(dates.fr.start).getTime() < today &&
+		today > new Date(dates.fr.start).getTime() &&
 		today < new Date(dates.fr.end).getTime()
 	) {
 		return (
