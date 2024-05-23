@@ -9,7 +9,7 @@ export interface InputProps
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-	({ className, type, searchIcon = true, ...props }, ref) => {
+	({ className, type, searchIcon = false, ...props }, ref) => {
 		return (
 			<div 
 			  tabIndex={0}
