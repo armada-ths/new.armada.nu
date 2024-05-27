@@ -1,14 +1,13 @@
+import { StatusModuleItem } from "@/app/exhibitor/_components/StatusModuleItem"
 import { Page } from "@/components/shared/Page"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import {
-	AccordionItem,
+	Accordion,
 	AccordionContent,
-	AccordionTrigger,
-	Accordion
+	AccordionItem,
+	AccordionTrigger
 } from "@/components/ui/accordion"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
-import { Sparkles } from "lucide-react"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
 import Link from "next/link"
@@ -60,15 +59,11 @@ export default async function Packages() {
 							stand out from the rest through extra marketing.
 						</p>
 					</div>
-					<Alert className="mt-8">
-						<Sparkles size={20} />
-						<AlertTitle>Did you know?</AlertTitle>
-						<AlertDescription>
-							When we asked the students after the fair which exhibitors they
-							remembered, Gold exhibitors were 3 times as likely to be
-							remembered compared to Bronze exhibitors!
-						</AlertDescription>
-					</Alert>
+					<StatusModuleItem title="Did you know?">
+						When we asked the students after the fair which exhibitors they
+						remembered, Gold exhibitors were 3 times as likely to be remembered
+						compared to Bronze exhibitors!
+					</StatusModuleItem>
 				</div>
 				<div className="mt-10 flex flex-1 flex-col">
 					<div className="mt-2 flex flex-col-reverse justify-stretch gap-10 md:flex-row">
@@ -132,7 +127,7 @@ export default async function Packages() {
 				</div>
 				<p className="mt-4 text-sm">*All prices are ex. VAT. </p>
 				<div className="mx-auto mt-10 w-full max-w-[600px]">
-					<h1 className="ml-2 mb-2 text-2xl">FAQ</h1>
+					<h1 className="mb-2 ml-2 text-2xl">FAQ</h1>
 					<Accordion type="single" collapsible={true}>
 						<FAQItem title='What does "priority placement" mean?'>
 							Priority placement means that we will place you in spots on the

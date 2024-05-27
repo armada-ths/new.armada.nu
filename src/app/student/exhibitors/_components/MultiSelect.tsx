@@ -10,23 +10,15 @@ import {
 	PopoverContent,
 	PopoverTrigger
 } from "@/components/ui/popover"
-import { Badge } from "@/components/ui/badge"
+import { Checkbox } from "@/components/ui/checkbox"
+import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
+import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 
 import { useRef, useState } from "react"
 import { ChevronDown, X } from "lucide-react"
 
 // TODO:
 // - keyboard navigation?
-// - aria stuff
-
-function Badges({ items }: { items: FilterItem[] }) {
-	return (
-		<div className="flex gap-1">
-			<Badge variant="square">{items[0].name}</Badge>
-			{items.length > 1 && <Badge variant="square">+{items.length - 1}</Badge>}
-		</div>
-	)
-}
 
 export default function MultiSelect({
 	filter,
@@ -57,41 +49,55 @@ export default function MultiSelect({
 		}
 	}
 
+	// we have more space for the badges on mobile layout since trigger button expands to full width
+	// might be better to calculate based on the actual width of the trigger button
+	const { width } = useScreenSize()
+	const maxDisplayed = width && width < 470 ? 2 : 1
+
 	return (
 		<Popover
 			// want to clear the input field when popover closes, but if we do it right away it causes the popover to rerender and it looks bad
 			// so add delay to allow the close transition to play, but probably there is a better way to do this
 			onOpenChange={open => !open && setTimeout(() => setSearchText(""), 300)}>
 			<PopoverTrigger asChild>
-				<Button
-					variant={"outline"}
-					className="h-10 rounded-md bg-stone-950 p-3 text-sm font-normal hover:dark:bg-stone-950">
+				<div className="flex h-10 w-full cursor-pointer items-center rounded-md bg-stone-950 p-2 text-sm text-stone-300 xs:w-auto">
 					{selected.length === 0 ? (
 						<>
 							<span>{label}</span>
-							<ChevronDown size={16} className="ml-4 opacity-50" />
+							<ChevronDown size={16} className="ml-auto opacity-50 xs:ml-3" />
 						</>
 					) : (
 						<>
-							<Badges items={selected} />
-							<X
-								size={16}
-								className="ml-4 opacity-50 transition hover:opacity-80"
-								onClick={() => onChange([])}></X>
+							<BadgeCollection
+								items={selected}
+								maxDisplayed={maxDisplayed}
+								className="overflow-auto"
+							/>
+							<Button
+								title="Clear"
+								className="ml-auto aspect-square h-fit border-none p-1 xs:ml-3 "
+								variant="outline"
+								onClick={e => {
+									e.stopPropagation()
+									onChange([])
+								}}>
+								<X size={16} className="opacity-50"></X>
+							</Button>
 						</>
 					)}
-				</Button>
+				</div>
 			</PopoverTrigger>
 
 			<PopoverContent
-				className="z-10 w-auto border-none p-0"
+				className="z-10 w-full border-none p-0"
 				align="start"
 				sideOffset={5}
+				collisionPadding={10}
 				onOpenAutoFocus={e => {
 					e.preventDefault()
-					inputRef.current?.focus()
+					// inputRef.current?.focus() // not great on mobile
 				}}>
-				<div className="w-max rounded-md border border-emerald-800 bg-zinc-950 p-0 text-sm text-stone-300 shadow-lg">
+				<div className="w-[--radix-popover-trigger-width] rounded-md border border-emerald-800 bg-stone-950 p-0 text-sm text-stone-300 shadow-lg xs:w-max">
 					<Input
 						ref={inputRef}
 						placeholder={label}
@@ -99,21 +105,18 @@ export default function MultiSelect({
 						value={searchText}
 						onChange={e => setSearchText(e.target.value)}></Input>
 					<ScrollArea>
-						<div className="flex max-h-[300px] flex-col">
+						<div className="flex max-h-[33vh] flex-col" role="listbox">
 							{searchedItems.length === 0 ? (
 								<span className="p-1 text-stone-400">No results</span>
 							) : (
 								searchedItems.map(item => (
 									<button
+										role="option"
+										aria-selected={isSelected(item)}
 										key={item.id}
-										className="flex min-w-32 cursor-default items-center gap-2 p-2 pl-3  hover:bg-emerald-950 hover:text-melon-700"
+										className="flex min-w-32 cursor-default items-center gap-2 p-2 pl-3 hover:bg-emerald-950 hover:text-melon-700"
 										onClick={() => onSelectionChange(item)}>
-										<input
-											type="checkbox"
-											readOnly
-											checked={isSelected(item)}
-											className="accent-melon-700"
-										/>
+										<Checkbox checked={isSelected(item)} tabIndex={-1}/>
 										<span>{item.name}</span>
 									</button>
 								))
