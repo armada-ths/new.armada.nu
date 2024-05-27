@@ -93,6 +93,7 @@ export default function ExhibitorListFilteringHeader({
 	return (
 		<div className="flex flex-wrap gap-3">
 			<Input
+				searchIcon={true}
 				ref={inputRef}
 				type="text"
 				placeholder="Search all"
