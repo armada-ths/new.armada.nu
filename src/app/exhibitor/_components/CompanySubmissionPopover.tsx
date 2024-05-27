@@ -14,8 +14,9 @@ export function CompanySubmissionPopover() {
 	const recaptcha = useRef<any>()
 	const [formData, setFormData] = useState({
 		name: "",
-		company: "",
 		email: "",
+		phone: "",
+		company: "",
 		message: ""
 	})
 	const [isVerified, setIsVerified] = useState(false)
@@ -25,6 +26,7 @@ export function CompanySubmissionPopover() {
 		() =>
 			formData.name !== "" &&
 			formData.email !== "" &&
+			formData.phone !== "" &&
 			formData.company !== "" &&
 			formData.message !== "" &&
 			isVerified,
@@ -59,12 +61,14 @@ export function CompanySubmissionPopover() {
 			setFormData({
 				name: "",
 				email: "",
+				phone: "",
 				company: "",
 				message: ""
 			})
 			toast.success(
 				"Submitted! Our sale person will get in touch with you soon!"
 			)
+			setIsOpen(false)
 		} else {
 			toast.error("Submit failed! Please check your email format.")
 		}
@@ -95,6 +99,7 @@ export function CompanySubmissionPopover() {
 									id="name"
 									name="name"
 									value={formData.name}
+									searchIcon={false}
 									onChange={handleFieldChange}
 									placeholder="Your name"
 								/>
@@ -107,9 +112,26 @@ export function CompanySubmissionPopover() {
 								<Input
 									id="email"
 									name="email"
+									type="email"
 									value={formData.email}
+									searchIcon={false}
 									onChange={handleFieldChange}
 									placeholder="Your email"
+								/>
+							</fieldset>
+
+							<fieldset className="flex flex-col">
+								<label className="mb-1 text-sm" htmlFor="phone">
+									Phone
+								</label>
+								<Input
+									id="phone"
+									name="phone"
+									type="phone"
+									value={formData.phone}
+									searchIcon={false}
+									onChange={handleFieldChange}
+									placeholder="+46"
 								/>
 							</fieldset>
 
@@ -121,6 +143,7 @@ export function CompanySubmissionPopover() {
 									id="company"
 									name="company"
 									value={formData.company}
+									searchIcon={false}
 									onChange={handleFieldChange}
 									placeholder="Your company"
 								/>
