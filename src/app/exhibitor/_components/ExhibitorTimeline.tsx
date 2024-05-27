@@ -1,29 +1,21 @@
 import { P } from "@/app/_components/Paragraph"
-import { fetchDates } from "@/components/shared/hooks/api/useDates"
-import { Button } from "@/components/ui/button"
 import { TimelineItem } from "@/app/exhibitor/_components/TimelineItem"
+import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import { Accordion } from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
+import { formatDate } from "@/lib/utils"
 
-import { DateTime } from "luxon"
 import Link from "next/link"
-
-function formatDate(date: string) {
-	return DateTime.fromISO(date).toFormat(
-		`d MMMM ${DateTime.fromISO(date).year !== DateTime.now().year ? " YYYY" : ""}`
-	)
-}
 
 export async function ExhibitorTimeline() {
 	const dates = await fetchDates()
 
 	//ASSUMPTION: the start date will be first for fair dates
 	return (
-		<Accordion
-			type="single"
-			collapsible={true}
-			className="relative mt-10 border-s border-melon-700">
+		<Accordion type="single" collapsible={true} className="relative mt-10">
 			<TimelineItem
-				dateString={`Before ${formatDate(dates.ir.start)}`}
+				dateStringISO={dates.ir.start}
+				dateStringHuman={`Before ${formatDate(dates.ir.start)}`}
 				title="Armada is setting up">
 				<P className="mt-3 text-stone-400">
 					Before the Initial Registration can open, we need to make
@@ -38,7 +30,7 @@ export async function ExhibitorTimeline() {
 			</TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.ir.start)}
+				dateStringISO={dates.ir.start}
 				title="Initial Registration starts">
 				<P className="mt-3 text-stone-400">
 					Initial Registration is where you apply to be an exhibitor. When you
@@ -78,11 +70,11 @@ export async function ExhibitorTimeline() {
 			</TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.ir.end)}
+				dateStringISO={dates.ir.end}
 				title="Initial Registration ends"></TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.ir.acceptance)}
+				dateStringISO={dates.ir.acceptance}
 				title="Acceptance date">
 				<P className="text-stone-400">
 					We will get back to everyone who made an Initial Registration by{" "}
@@ -104,7 +96,7 @@ export async function ExhibitorTimeline() {
 			</TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.fr.start)}
+				dateStringISO={dates.fr.start}
 				title="Final Registration starts">
 				<P className="mt-3 text-stone-400">
 					During the Final Registration you choose your package, if you want to
@@ -134,11 +126,11 @@ export async function ExhibitorTimeline() {
 			</TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.fr.end)}
+				dateStringISO={dates.fr.end}
 				title="Final Registration ends"></TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.fr.end)}
+				dateStringISO={dates.fr.end}
 				title="Fair preparations start">
 				<P className="mt-3 text-stone-400">
 					Once Final Registration is complete, there are a few things that need
@@ -163,7 +155,7 @@ export async function ExhibitorTimeline() {
 			</TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.events.start)}
+				dateStringISO={dates.events.start}
 				title="Event period starts">
 				<P className="mt-3 text-stone-400">
 					Before the fair we have three weeks filled with events to build up the
@@ -177,11 +169,11 @@ export async function ExhibitorTimeline() {
 			</TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.events.end)}
+				dateStringISO={dates.events.end}
 				title="Event period ends"></TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.fair.days[0])}
+				dateStringISO={dates.fair.days[0]}
 				title="Armada fair starts">
 				<P className="mt-3 text-stone-400">
 					The days we all have waited for! For days Armada have worked together
@@ -204,7 +196,7 @@ export async function ExhibitorTimeline() {
 			</TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.fair.days[0])}
+				dateStringISO={dates.fair.days[0]}
 				title="The Grand Banquet">
 				<P className="mt-3 text-stone-400">
 					On the eve of the first fair day, Armada organizes a Grand Banquet, a
@@ -219,7 +211,7 @@ export async function ExhibitorTimeline() {
 			</TimelineItem>
 
 			<TimelineItem
-				dateString={formatDate(dates.fair.days[1])}
+				dateStringISO={dates.fair.days[1]}
 				title="Armada fair ends"></TimelineItem>
 		</Accordion>
 	)
