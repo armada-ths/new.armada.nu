@@ -42,11 +42,11 @@ export function ExhibitorCard({ exhibitor }: { exhibitor: Exhibitor }) {
 
 			<Link href={`/student/exhibitors?id=${exhibitor.id}`} scroll={false}>
 				<div className="to-liqorice-950 group relative flex h-full flex-col rounded-lg border-2 border-solid border-emerald-900 bg-gradient-to-b from-emerald-900 via-emerald-950 filter transition hover:scale-[1.05] hover:brightness-95">
-					<h3 className="my-2 text-center font-bebas-neue text-2xl xs:text-xl text-emerald-100 antialiased transition group-hover:text-melon-700">
+					<h3 className="my-2 text-center font-bebas-neue text-2xl text-emerald-100 antialiased transition group-hover:text-melon-700 xs:text-xl">
 						{exhibitor.name}
 					</h3>
 					{(exhibitor.logo_squared || exhibitor.logo_freesize) && (
-						<div className="relative mx-4 mt-2 flex flex-initial h-[70px] justify-center">
+						<div className="relative mt-2 flex h-[70px] w-full flex-initial justify-center px-4">
 							<Image
 								className="h-full w-full object-contain"
 								src={exhibitor.logo_squared ?? exhibitor.logo_freesize ?? ""}
@@ -59,7 +59,7 @@ export function ExhibitorCard({ exhibitor }: { exhibitor: Exhibitor }) {
 					<BadgeCollection
 						items={exhibitor.industries}
 						maxDisplayed={maxDisplayedBadges}
-						className="mt-auto p-2.5 pt-0 justify-center flex-nowrap overflow-hidden"
+						className="mt-auto flex-nowrap justify-center overflow-hidden p-2.5 pt-0"
 						badgeClassName="text-[0.65em] flex-initial truncate inline-block"
 					/>
 				</div>

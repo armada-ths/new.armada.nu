@@ -71,7 +71,7 @@ export default function MultiSelect({
 							<BadgeCollection
 								items={selected}
 								maxDisplayed={maxDisplayed}
-								className="overflow-auto"
+								className="overflow-auto flex-nowrap"
 							/>
 							<Button
 								title="Clear"
@@ -99,6 +99,7 @@ export default function MultiSelect({
 				}}>
 				<div className="w-[--radix-popover-trigger-width] rounded-md border border-emerald-800 bg-stone-950 p-0 text-sm text-stone-300 shadow-lg xs:w-max">
 					<Input
+						searchIcon={true}
 						ref={inputRef}
 						placeholder={label}
 						className="mb-1 rounded-none rounded-t-md border-0 border-b dark:border-emerald-800"
