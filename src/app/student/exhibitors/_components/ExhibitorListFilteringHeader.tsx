@@ -1,99 +1,113 @@
-"use client"
-import { useDebounce } from "@/components/shared/hooks/useDebounce"
+import MultiSelect from "@/app/student/exhibitors/_components/MultiSelect"
+import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue
-} from "@/components/ui/select"
-import { DateTime } from "luxon"
-import { useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useState } from "react"
+
+import { useState, useRef } from "react"
+
+// Filtering assumptions:
+// - selecting multiple options for a filter gives the union (not intersection) of those options
+// - selecting no options is the same as selecting all options
+// - filters are ignored when using the search bar
+
+export type FilterKey = "employments" | "industries"
+export type FilterItem = Exhibitor[FilterKey][number]
+
+export type Filter = {
+	key: FilterKey
+	items: FilterItem[]
+	selected: FilterItem[]
+	label: string
+}
+
+function satisfiesFilter(exhibitor: Exhibitor, filter: Filter) {
+	if (filter.selected.length === 0) return true
+	return exhibitor[filter.key].some(x =>
+		filter.selected.some(y => x.id === y.id)
+	)
+}
+
+function applyFilters(exhibitors: Exhibitor[], filters: Filter[]) {
+	return exhibitors.filter(e => filters.every(f => satisfiesFilter(e, f)))
+}
+
+function filterBySearch(exhibitors: Exhibitor[], text: string) {
+	return exhibitors.filter(e =>
+		e.name.toLowerCase().includes(text.toLowerCase())
+	)
+}
+
+// Gets all the possible options by looping over each exhibitor
+function getAllFilterOptions(
+	key: FilterKey,
+	exhibitors: Exhibitor[]
+): FilterItem[] {
+	const distinct = new Map<FilterItem["id"], FilterItem>()
+	exhibitors.forEach(e => {
+		e[key].forEach(item => distinct.set(item.id, item))
+	})
+	return Array.from(distinct.values()).sort((a, b) =>
+		a.name.localeCompare(b.name)
+	)
+}
 
 export default function ExhibitorListFilteringHeader({
-	filtered,
-	total
+	exhibitors,
+	onChange
 }: {
-	filtered: number
-	total: number
+	exhibitors: Exhibitor[]
+	onChange: (filtered: Exhibitor[]) => void
 }) {
-	const { get } = useSearchParams()
-	const router = useRouter()
+	const [searchText, setSearchText] = useState("")
 
-	const year =
-		get("year") ?? DateTime.now().minus({ months: 6 }).year.toString()
-	const search = get("search") ?? ""
+	const inputRef = useRef<HTMLInputElement>(null)
 
-	const [searchText, setSearchText] = useState(search)
+	function makeFilter(key: FilterKey, label: string): Filter {
+		return {
+			key,
+			label,
+			selected: [],
+			items: getAllFilterOptions(key, exhibitors)
+		}
+	}
 
-	// Since setting attributes in the URL is slow, we debounce the search
-	// to not interrupt the user while typing
-	useDebounce(searchText, value =>
-		router.replace(
-			`?${new URLSearchParams({
-				year,
-				search: value
-			})}`
-		)
-	)
+	const [filters, setFilters] = useState<{ [K in FilterKey]: Filter }>({
+		employments: makeFilter("employments", "Employments"),
+		industries: makeFilter("industries", "Industries")
+	})
 
-	const SelectGroupCallback = useCallback(
-		() => (
-			<SelectGroup>
-				{new Array(DateTime.now().year - 2021).fill(0).map((_, i) => (
-					<SelectItem key={i} value={(DateTime.now().year - i).toString()}>
-						{DateTime.now().year - i}
-					</SelectItem>
-				))}
-			</SelectGroup>
-		),
-		[]
-	)
+	function onFilterChange(filter: Filter, newSelection: FilterItem[]) {
+		const newFilters = {
+			...filters,
+			[filter.key]: { ...filter, selected: newSelection }
+		}
+		setFilters(newFilters)
+		onChange(applyFilters(exhibitors, Object.values(newFilters))) // do filtering and notify the parent
+	}
+
+	function onSearchChange(text: string) {
+		setSearchText(text)
+		if (text.trim() !== "") onChange(filterBySearch(exhibitors, text))
+		else onChange(applyFilters(exhibitors, Object.values(filters))) // apply filters again when input is cleared
+	}
 
 	return (
-		<div className="flex flex-col">
-			<div className="flex w-full flex-wrap gap-1">
-				<Select
-					value={year}
-					onValueChange={year =>
-						router.replace(
-							`?${new URLSearchParams({
-								year,
-								search
-							})}`
-						)
-					}>
-					<SelectTrigger className="w-[120px]">
-						<SelectValue placeholder="Fair Year" />
-					</SelectTrigger>
-					<SelectContent>
-						<SelectGroupCallback />
-					</SelectContent>
-				</Select>
-				<Select disabled>
-					<SelectTrigger className="w-[100px]">
-						<SelectValue placeholder="Location" />
-					</SelectTrigger>
-				</Select>
-				<Select disabled>
-					<SelectTrigger className="w-[180px]">
-						<SelectValue placeholder="Industry" />
-					</SelectTrigger>
-				</Select>
-				<Input
-					type="text"
-					placeholder="Search..."
-					className="max-w-[400px]"
-					value={searchText}
-					onChange={e => setSearchText(e.target.value)}
-				/>
-			</div>
-			<p className="mt-4">
-				{filtered} out of {total}
-			</p>
+		<div className="flex flex-wrap gap-3">
+			<Input
+				searchIcon={true}
+				ref={inputRef}
+				type="text"
+				placeholder="Search all"
+				className="w-full xs:w-[200px]"
+				value={searchText}
+				onChange={e => onSearchChange(e.target.value)}
+				onKeyDown={e => e.key === "Enter" && inputRef.current?.blur()}
+			/>
+			{Object.values(filters).map(f => (
+				<MultiSelect
+					key={f.key}
+					filter={f}
+					onChange={selected => onFilterChange(f, selected)}></MultiSelect>
+			))}
 		</div>
 	)
 }

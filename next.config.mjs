@@ -27,6 +27,15 @@ const nextConfig = {
         permanent: true
       }
     ]
+  },
+  redirects: async () => {
+    return [
+      {
+        source: "/team",
+        destination: "/about/team",
+        permanent: true
+      }
+    ]
   }
 }
 
