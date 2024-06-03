@@ -65,7 +65,7 @@ export default async function Packages() {
 						compared to Bronze exhibitors!
 					</StatusModuleItem>
 				</div>
-				<div className="mt-10 flex flex-1 flex-col">
+				<div className="mt-10 flex flex-col">
 					<div className="mt-2 flex flex-col-reverse justify-stretch gap-10 md:flex-row">
 						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-orange-950 p-5 pb-20">
 							<h3 className="font-lato text-2xl text-orange-500">Bronze</h3>
