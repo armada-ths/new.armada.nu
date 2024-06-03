@@ -1,3 +1,4 @@
+import { OrganisationMembersGraphic } from "@/app/_components/OrganisationMembersGraphic"
 import { P } from "@/app/_components/Paragraph"
 import { PhotoSlideCarousel } from "@/app/_components/PhotoSlideCarousel"
 import { Page } from "@/components/shared/Page"
@@ -53,6 +54,7 @@ export default async function RecruitmentPage() {
           , the student union at KTH, any profit Armada makes goes back to the
           students, funding THS initiatives for a better student life.
         </P>
+        <OrganisationMembersGraphic />
       </Page.Boundary>
     </Page.Background>
   )
