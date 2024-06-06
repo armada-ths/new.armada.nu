@@ -46,6 +46,10 @@
 		"vaul": "^0.9.0",
 		"zod": "^3.22.4"
 	},
+	"engines": {
+		"node": "20.12",
+		"pnpm": "8.15"
+	},
 	"devDependencies": {
 		"@total-typescript/ts-reset": "^0.5.1",
 		"@types/luxon": "^3.4.2",
