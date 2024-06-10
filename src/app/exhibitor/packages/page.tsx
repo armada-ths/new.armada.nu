@@ -76,8 +76,7 @@ export default async function Packages() {
 								<li className="my-2">Armada transport</li>
 							</ul>
 							<div className="absolute bottom-4">
-								<p className="text-s">Early bird price:</p>
-								<p>46 000 SEK*</p>
+								<p>48 000 SEK*</p>
 							</div>
 							{/* 							<p className="absolute bottom-4">46 000 SEK*</p> */}
 						</div>
@@ -95,8 +94,7 @@ export default async function Packages() {
 								</li>
 							</ul>
 							<div className="absolute bottom-4">
-								<p className="text-s">Early bird price:</p>
-								<p>71 500 SEK*</p>
+								<p>75 000 SEK*</p>
 							</div>
 							{/* 							<p className="absolute bottom-4">71 500 SEK*</p> */}
 						</div>
@@ -118,8 +116,7 @@ export default async function Packages() {
 								</li>
 							</ul>
 							<div className="absolute bottom-4">
-								<p className="text-s">Early bird price:</p>
-								<p>114 500 SEK*</p>
+								<p>116 000 SEK*</p>
 							</div>
 							{/* 							<p className="absolute bottom-4">108 500 SEK*</p> */}
 						</div>
