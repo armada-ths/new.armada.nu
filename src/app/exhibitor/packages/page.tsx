@@ -67,7 +67,7 @@ export default async function Packages() {
 				</div>
 				<div className="mt-10 flex flex-col">
 					<div className="mt-2 flex flex-col-reverse justify-stretch gap-10 md:flex-row">
-						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-orange-950 p-5 pb-20">
+						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-orange-950 p-5 pb-32">
 							<h3 className="font-lato text-2xl text-orange-500">Bronze</h3>
 							<ul className="mt-2 font-lato text-orange-600">
 								<li className="my-2">Host</li>
@@ -76,11 +76,14 @@ export default async function Packages() {
 								<li className="my-2">Armada transport</li>
 							</ul>
 							<div className="absolute bottom-4">
+								<p className="text-sm">Early bird price:</p>
+								<p>46 000 SEK*</p>
+								<p className="text-sm">Final registration price:</p>
 								<p>48 000 SEK*</p>
 							</div>
 							{/* 							<p className="absolute bottom-4">46 000 SEK*</p> */}
 						</div>
-						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-zinc-800 p-5 pb-20">
+						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-zinc-800 p-5 pb-32">
 							<h3 className="font-lato text-2xl text-zinc-400">Silver</h3>
 							<ul className="mt-2 font-lato text-zinc-500">
 								<li className="my-2">Everything from bronze package</li>
@@ -94,11 +97,14 @@ export default async function Packages() {
 								</li>
 							</ul>
 							<div className="absolute bottom-4">
+								<p className="text-sm">Early bird price:</p>
+								<p>71 500 SEK*</p>
+								<p className="text-sm">Final registration price:</p>
 								<p>75 000 SEK*</p>
 							</div>
 							{/* 							<p className="absolute bottom-4">71 500 SEK*</p> */}
 						</div>
-						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-yellow-800 p-5 pb-20">
+						<div className="relative flex min-w-48 flex-1 flex-col rounded-lg bg-yellow-800 p-5 pb-32">
 							<h3 className="font-lato text-2xl text-yellow-400">Gold</h3>
 							<ul className="mt-2 font-lato text-yellow-500">
 								<li className="my-2">Everything from silver package</li>
@@ -116,6 +122,9 @@ export default async function Packages() {
 								</li>
 							</ul>
 							<div className="absolute bottom-4">
+								<p className="text-sm">Early bird price:</p>
+								<p>114 500 SEK*</p>
+								<p className="text-sm">Final registration price:</p>
 								<p>116 000 SEK*</p>
 							</div>
 							{/* 							<p className="absolute bottom-4">108 500 SEK*</p> */}
