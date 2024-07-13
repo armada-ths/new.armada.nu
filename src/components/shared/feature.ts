@@ -16,4 +16,3 @@ export function feature(feature: keyof typeof featureFlags) {
 	}
 	return false
 }
-const test = "test"
