@@ -68,6 +68,48 @@ export default async function RecruitmentPage() {
 					<Page.Header tier="secondary">
 						No available roles at the moment
 					</Page.Header>
+					<Alert className="my-5">
+						<AlertTitle>Be an Armada volunteer</AlertTitle>
+						<AlertDescription>
+							In Armada over 200 volunteers join together to create one of
+							KTH&apos;s biggest happenings. Take the opportunity to meet new
+							friends, expand your network and be a part of something you can be
+							really proud of!
+						</AlertDescription>
+					</Alert>
+					<div>
+						<P className="mt-4">
+							Armada is a rapidly growing organization that goes from 1 person
+							to over 200 each year. Now you have the chance to be part of this
+							amazing community of ambitious people who want to create something
+							amazing: A huge career fair for all students at KTH!
+						</P>
+						<P className="mt-4">
+							Armada offers you a chance to meet students from all different
+							chapters, get valuable experience on your CV, get closer to the
+							exhibitors and have a lot of fun!
+						</P>
+						<P className="mt-4">
+							Below you can read more about different roles and you can get to
+							know the Armada organization better{" "}
+							<Link
+								className="text-white underline hover:no-underline"
+								href="/about">
+								here
+							</Link>
+							. If you have any questions you can contact the{" "}
+							{hrHead && hrHead.email ? (
+								<Link
+									className="text-white underline hover:no-underline"
+									href={`mailto:${hrHead.email}`}>
+									Head of HR
+								</Link>
+							) : (
+								"Head of HR"
+							)}
+							.
+						</P>
+					</div>
 				</Page.Boundary>
 			</Page.Background>
 		)
