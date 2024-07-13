@@ -128,7 +128,7 @@ export function NavigationMenu(
 					</SheetTrigger>
 					{props.aside != null && <>{props.aside}</>}
 				</div>
-				<SheetContent className="md:hidden">
+				<SheetContent className="md:hidden" side={"left"}>
 					<Link href="/" onClick={() => setSheetOpen(false)}>
 						<p className="font-bebas-neue text-xl text-melon-700">Home</p>
 					</Link>
