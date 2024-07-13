@@ -1,8 +1,7 @@
+import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
 import { CompanySubmissionPopover } from "@/app/exhibitor/_components/CompanySubmissionPopover"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
-import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
-import Link from "next/link"
 
 export default function ExhibitorLayout({
 	children
@@ -11,13 +10,7 @@ export default function ExhibitorLayout({
 }>) {
 	return (
 		<>
-			<NavigationMenu
-				aside={
-					<Link href="https://register.armada.nu/register">
-						<Button>Exhibitor signup</Button>
-					</Link>
-				}
-			/>
+			<NavigationMenu aside={<CompanyRegistrationButton />} />
 			{children}
 			<CompanySubmissionPopover />
 			<Toaster expand={true} richColors closeButton />
