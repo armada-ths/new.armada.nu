@@ -121,12 +121,12 @@ export function NavigationMenu(
 			{/** Sheet is used for mobile navigation */}
 			<Sheet open={sheetOpen}>
 				<div className="flex w-full justify-between md:hidden">
-					{props.aside != null && <>{props.aside}</>}
 					<SheetTrigger
 						className="md:hidden"
 						onClick={() => setSheetOpen(true)}>
 						<HamburgerMenuIcon width={30} height={30} />
 					</SheetTrigger>
+					{props.aside != null && <>{props.aside}</>}
 				</div>
 				<SheetContent className="md:hidden">
 					<Link href="/" onClick={() => setSheetOpen(false)}>
