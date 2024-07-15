@@ -68,6 +68,9 @@ dependencies:
   embla-carousel-react:
     specifier: ^8.0.0
     version: 8.0.0(react@18.2.0)
+  js-cookie:
+    specifier: ^3.0.5
+    version: 3.0.5
   lucide-react:
     specifier: ^0.323.0
     version: 0.323.0(react@18.2.0)
@@ -118,6 +121,9 @@ devDependencies:
   '@total-typescript/ts-reset':
     specifier: ^0.5.1
     version: 0.5.1
+  '@types/js-cookie':
+    specifier: ^3.0.6
+    version: 3.0.6
   '@types/luxon':
     specifier: ^3.4.2
     version: 3.4.2
@@ -1473,6 +1479,10 @@ packages:
 
   /@total-typescript/ts-reset@0.5.1:
     resolution: {integrity: sha512-AqlrT8YA1o7Ff5wPfMOL0pvL+1X+sw60NN6CcOCqs658emD6RfiXhF7Gu9QcfKBH7ELY2nInLhKSCWVoNL70MQ==}
+    dev: true
+
+  /@types/js-cookie@3.0.6:
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
     dev: true
 
   /@types/json5@0.0.29:
@@ -3175,6 +3185,11 @@ packages:
 
   /jose@5.2.1:
     resolution: {integrity: sha512-qiaQhtQRw6YrOaOj0v59h3R6hUY9NvxBmmnMfKemkqYmBB0tEc97NbLP7ix44VP5p9/0YHG8Vyhzuo5YBNwviA==}
+    dev: false
+
+  /js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
     dev: false
 
   /js-tokens@4.0.0:
