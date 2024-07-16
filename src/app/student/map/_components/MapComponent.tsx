@@ -1,20 +1,21 @@
 "use client"
 
+import { BoothPopup } from "@/app/student/map/_components/BoothPopup"
+import { boothData } from "@/app/student/map/data/data"
+import { BoothMap, GeoJsonBooth } from "@/app/student/map/lib/types"
+import { getPolygonCenter } from "@/app/student/map/lib/utils"
 import "maplibre-gl/dist/maplibre-gl.css"
+import { useMemo, useRef, useState } from "react"
 import {
-	Map,
-	Source,
-	Layer,
 	BackgroundLayer,
 	FillLayer,
-	MapRef,
+	Layer,
+	Map,
 	MapLayerMouseEvent,
-	Popup
+	MapRef,
+	Source
 } from "react-map-gl/maplibre"
-import { useRef, useState } from "react"
-import boothData from "../data/booths.json"
-import { Feature, Polygon } from "geojson"
-import { centerOfMass } from "@turf/center-of-mass"
+import { BoothMarkers } from "./BoothMarkers"
 
 const boothLayerStyle: FillLayer = {
 	source: "data",
@@ -42,14 +43,13 @@ const backgroundLayerStyle: BackgroundLayer = {
 	}
 }
 
-function getCenter(feature: Feature<Polygon>) {
-	return centerOfMass(feature).geometry.coordinates as [number, number]
-}
-
-export default function MapComponent() {
+export function MapComponent({ boothMap }: { boothMap: BoothMap }) {
 	const mapRef = useRef<MapRef>(null)
-	const [activeFeature, setActiveFeature] = useState<Feature<Polygon> | null>(
-		null
+	const [activeFeature, setActiveFeature] = useState<GeoJsonBooth | null>(null)
+
+	const markers = useMemo(
+		() => BoothMarkers({ boothMap: boothMap }),
+		[boothMap]
 	)
 
 	function onMapClick(e: MapLayerMouseEvent) {
@@ -61,16 +61,16 @@ export default function MapComponent() {
 			setActiveFeature(null)
 		}
 
-		const feature = e.features?.[0] as Feature<Polygon>
+		const feature = e.features?.[0] as GeoJsonBooth | undefined // no other features for now
 		if (!feature) return
 		mapRef.current?.setFeatureState(
-			{ source: "data", id: feature.id },
+			{ source: "data", id: feature.properties.id },
 			{ active: true }
 		)
 		setActiveFeature(feature)
 
 		mapRef.current?.flyTo({
-			center: getCenter(feature),
+			center: getPolygonCenter(feature) as [number, number],
 			zoom: 18.5,
 			speed: 0.8
 		})
@@ -101,15 +101,10 @@ export default function MapComponent() {
 					<Layer {...boothLayerStyle}></Layer>
 				</Source>
 
+				{markers}
+
 				{activeFeature && (
-					<Popup
-						key={Math.random()} // force rerender (TODO: wtf)
-						anchor="bottom"
-						longitude={getCenter(activeFeature)[0]}
-						latitude={getCenter(activeFeature)[1]}
-						closeButton={false}>
-						<div className="text-black">ID: {activeFeature.properties?.id}</div>
-					</Popup>
+					<BoothPopup booth={boothMap.get(activeFeature.properties.id)!} />
 				)}
 			</Map>
 		</div>
