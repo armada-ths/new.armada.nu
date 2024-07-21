@@ -1,7 +1,7 @@
 "use client"
 
-import { Booth } from "@/app/student/map/lib/types"
 import { Popup } from "react-map-gl/maplibre"
+import { Booth } from "../lib/booths"
 
 export function BoothPopup({ booth }: { booth: Booth }) {
 	return (
