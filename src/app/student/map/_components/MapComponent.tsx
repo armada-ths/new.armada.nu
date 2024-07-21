@@ -1,8 +1,7 @@
 "use client"
 
 import { BoothPopup } from "@/app/student/map/_components/BoothPopup"
-import { boothData } from "@/app/student/map/data/data"
-import { BoothMap, GeoJsonBooth } from "@/app/student/map/lib/types"
+import { boothData } from "@/app/student/map/lib/booths"
 import { getPolygonCenter } from "@/app/student/map/lib/utils"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { useMemo, useRef, useState } from "react"
@@ -10,26 +9,27 @@ import {
 	BackgroundLayer,
 	FillLayer,
 	Layer,
-	Map,
+	Map as MapboxMap,
 	MapLayerMouseEvent,
 	MapRef,
 	Source
 } from "react-map-gl/maplibre"
+import { BoothMap, GeoJsonBooth } from "../lib/booths"
 import { BoothMarkers } from "./BoothMarkers"
 
 const boothLayerStyle: FillLayer = {
-	source: "data",
-	id: "data",
+	source: "booths",
+	id: "booths",
 	type: "fill",
 	paint: {
-		"fill-color": "#9053be",
-		"fill-outline-color": "#000000",
-		// from https://docs.mapbox.com/mapbox-gl-js/example/hover-styles/
-		"fill-opacity": [
+		"fill-outline-color": "#0e3e08",
+		"fill-color": [
 			"case",
 			["boolean", ["feature-state", "active"], false],
-			1,
-			0.5
+			"#21c00d",
+			["boolean", ["feature-state", "hover"], false],
+			"#a0df98",
+			"#89bc82"
 		]
 	}
 }
@@ -46,25 +46,37 @@ const backgroundLayerStyle: BackgroundLayer = {
 export function MapComponent({ boothMap }: { boothMap: BoothMap }) {
 	const mapRef = useRef<MapRef>(null)
 	const [activeFeature, setActiveFeature] = useState<GeoJsonBooth | null>(null)
+	const [hoveredFeature, setHoveredFeature] = useState<GeoJsonBooth | null>(
+		null
+	)
+	const [markerScale, setMarkerScale] = useState(1)
 
 	const markers = useMemo(
-		() => BoothMarkers({ boothMap: boothMap }),
-		[boothMap]
+		() => BoothMarkers({ boothMap: boothMap, scale: markerScale }),
+		[boothMap, markerScale]
 	)
 
 	function onMapClick(e: MapLayerMouseEvent) {
 		if (activeFeature) {
 			mapRef.current?.setFeatureState(
-				{ source: "data", id: activeFeature?.id },
+				{ source: "booths", id: activeFeature?.id },
 				{ active: false }
 			)
 			setActiveFeature(null)
 		}
+		if (hoveredFeature) {
+			mapRef.current?.setFeatureState(
+				{ source: "booths", id: hoveredFeature?.id },
+				{ hover: false }
+			)
+			setHoveredFeature(null)
+		}
 
 		const feature = e.features?.[0] as GeoJsonBooth | undefined // no other features for now
 		if (!feature) return
+
 		mapRef.current?.setFeatureState(
-			{ source: "data", id: feature.properties.id },
+			{ source: "booths", id: feature.id },
 			{ active: true }
 		)
 		setActiveFeature(feature)
@@ -76,16 +88,49 @@ export function MapComponent({ boothMap }: { boothMap: BoothMap }) {
 		})
 	}
 
+	function onBoothMouseEnter(e: MapLayerMouseEvent) {
+		const feature = e.features?.[0] as GeoJsonBooth | undefined
+		if (!feature) return
+
+		mapRef.current?.setFeatureState(
+			{ source: "booths", id: feature.id },
+			{ hover: true }
+		)
+		setHoveredFeature(feature)
+	}
+
+	function onBoothMouseLeave(e: MapLayerMouseEvent) {
+		const feature = e.features?.[0] as GeoJsonBooth | undefined
+		if (!feature) return
+		
+		mapRef.current?.setFeatureState(
+			{ source: "booths", id: feature.id },
+			{ hover: false }
+		)
+		setHoveredFeature(null)
+	}
+
+	function onZoomChange() {
+		const zoom = mapRef.current?.getZoom()
+		if (zoom === undefined) return
+		const scale = Math.max(0.3, Math.min(2, 1 + (zoom - 18) * 0.3))
+		console.log(zoom, scale)
+		setMarkerScale(scale)
+	}
+
 	return (
 		<div className="h-full w-full">
-			<Map
+			<MapboxMap
 				ref={mapRef}
 				onClick={onMapClick}
-				interactiveLayerIds={["data"]}
+				onMouseEnter={onBoothMouseEnter}
+				onMouseLeave={onBoothMouseLeave}
+				onZoom={onZoomChange}
+				interactiveLayerIds={["booths"]}
 				initialViewState={{
 					longitude: 18.070567,
 					latitude: 59.34726,
-					zoom: 17
+					zoom: 18
 				}}
 				cursor={"auto"}
 				minZoom={16}
@@ -97,7 +142,7 @@ export function MapComponent({ boothMap }: { boothMap: BoothMap }) {
 				mapStyle="https://api.maptiler.com/maps/977e9770-60b4-4b8a-94e9-a9fa8db4c68d/style.json?key=57xj41WPFBbOEWiVSSwL">
 				<Layer {...backgroundLayerStyle}></Layer>
 
-				<Source id="data" type="geojson" data={boothData}>
+				<Source id="booths" type="geojson" data={boothData}>
 					<Layer {...boothLayerStyle}></Layer>
 				</Source>
 
@@ -106,7 +151,7 @@ export function MapComponent({ boothMap }: { boothMap: BoothMap }) {
 				{activeFeature && (
 					<BoothPopup booth={boothMap.get(activeFeature.properties.id)!} />
 				)}
-			</Map>
+			</MapboxMap>
 		</div>
 	)
 }
