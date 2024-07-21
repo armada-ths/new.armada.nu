@@ -1,3 +1,32 @@
+"use client"
+
+import { MapComponent } from "@/app/student/map/_components/MapComponent"
+import Sidebar from "@/app/student/map/_components/Sidebar"
+import { useState } from "react"
+import { BoothMap } from "../lib/booths"
+import { LocationId, locations, Location } from "../lib/locations"
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue
+} from "@/components/ui/select"
+import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
+
+export default function MainView({ boothMap, exhibitors }: { boothMap: BoothMap, exhibitors: Exhibitor[] }) {
+	const [locationId, setLocationId] = useState<LocationId>("nymble/1")
+	const location = locations.find(loc => loc.id === locationId)!
+
+	return (
+		<div className="flex h-full w-full flex-col relative">
+			<Sidebar exhibitors={exhibitors} />
+			<MapComponent boothMap={boothMap} />
+			<SelectLocation locationId={locationId} setLocationId={setLocationId} />
+		</div>
+	)
+}
+
 function SelectLocation({
 	locationId,
 	setLocationId
