@@ -1,19 +1,25 @@
 import MainView from "@/app/student/map/_components/MainView"
-import { boothData, BoothID } from "@/app/student/map/lib/booths"
+import {
+	BoothID,
+	geoJsonBoothData,
+	Booth,
+	BoothMap,
+	GeoJsonBooth
+} from "@/app/student/map/lib/booths"
 import { getPolygonCenter } from "@/app/student/map/lib/utils"
 import {
 	Exhibitor,
 	fetchExhibitors
 } from "@/components/shared/hooks/api/useExhibitors"
-import { Booth, BoothMap, GeoJsonBooth } from "./lib/booths"
-import { locations } from "./lib/locations"
+import { LocationId, locations } from	"@/app/student/map/lib/locations"
 
 export default async function MapPage() {
 	const boothIDToExhibitorID: { [key: BoothID]: Exhibitor["id"] } = {
 		0: 1434,
 		1: 1323,
 		2: 1324,
-		3: 1325
+		3: 1325,
+		4: 1326,
 	} // will come from a file later
 
 	const exhibitors = await fetchExhibitors({
@@ -27,6 +33,9 @@ export default async function MapPage() {
 		const { id, location } = data.properties
 		const exhibitorID = boothIDToExhibitorID[id]
 		const exhibitor = exhibitorsByID.get(exhibitorID)
+
+		console.log(id, location, exhibitorID)
+
 		if (!exhibitor) {
 			throw new Error(
 				`No exhibitor found for booth with id ${id} (exhibitor id ${exhibitorID})`
@@ -48,13 +57,20 @@ export default async function MapPage() {
 	}
 
 	const boothsByID: BoothMap = new Map(
-		boothData.features.map(feat => [feat.properties.id, makeBooth(feat)])
+		geoJsonBoothData.features.map(feat => [feat.properties.id, makeBooth(feat)])
 	)
+
+	const boothsByLocation: Map<LocationId, BoothMap> = new Map(
+		locations.map(loc => [loc.id, new Map()])
+	)
+	boothsByID.forEach((booth, id) => {
+		boothsByLocation.get(booth.location)!.set(id, booth)
+	})
 
 	return (
 		// TODO: pt-16 is to account for the navbar, will break if navbar size changes
 		<div className="h-screen pt-16">
-			<MainView boothMap={boothsByID} exhibitors={exhibitors} />
+			<MainView boothsByLocation={boothsByLocation} exhibitors={exhibitors} />
 		</div>
 	)
 }
