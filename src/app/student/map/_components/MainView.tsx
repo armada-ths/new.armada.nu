@@ -2,9 +2,7 @@
 
 import { MapComponent } from "@/app/student/map/_components/MapComponent"
 import Sidebar from "@/app/student/map/_components/Sidebar"
-import { useState } from "react"
-import { BoothMap } from "../lib/booths"
-import { LocationId, locations, Location } from "../lib/locations"
+import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import {
 	Select,
 	SelectContent,
@@ -12,16 +10,29 @@ import {
 	SelectTrigger,
 	SelectValue
 } from "@/components/ui/select"
-import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
+import { useState } from "react"
+import { BoothMap } from "../lib/booths"
+import { LocationId, locations } from "../lib/locations"
 
-export default function MainView({ boothMap, exhibitors }: { boothMap: BoothMap, exhibitors: Exhibitor[] }) {
+export default function MainView({
+	boothsByLocation,
+	exhibitors
+}: {
+	boothsByLocation: Map<LocationId, BoothMap>
+	exhibitors: Exhibitor[]
+}) {
 	const [locationId, setLocationId] = useState<LocationId>("nymble/1")
 	const location = locations.find(loc => loc.id === locationId)!
+	const currentLocationBoothsById = boothsByLocation.get(locationId)!
 
 	return (
-		<div className="flex h-full w-full flex-col relative">
+		<div className="relative flex h-full w-full">
 			<Sidebar exhibitors={exhibitors} />
-			<MapComponent boothMap={boothMap} />
+			<MapComponent
+				// key={locationId}
+				boothsById={currentLocationBoothsById}
+				location={location}
+			/>
 			<SelectLocation locationId={locationId} setLocationId={setLocationId} />
 		</div>
 	)
@@ -35,7 +46,7 @@ function SelectLocation({
 	setLocationId: (id: LocationId) => void
 }) {
 	return (
-		<div className="absolute top-2 sm:right-2 self-center rounded-full">
+		<div className="absolute top-2 justify-self-center rounded-full sm:right-2">
 			<Select
 				value={locationId}
 				onValueChange={(id: LocationId) => setLocationId(id)}>

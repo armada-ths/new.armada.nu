@@ -3,9 +3,9 @@
 import { cn } from "@/lib/utils"
 import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
-import { Drawer, DrawerContent } from "@/components/ui/drawer"
+import { Drawer, DrawerContent, DrawerPortal } from "@/components/ui/drawer"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 
 export default function Sidebar({ exhibitors }: { exhibitors: Exhibitor[] }) {
@@ -14,6 +14,7 @@ export default function Sidebar({ exhibitors }: { exhibitors: Exhibitor[] }) {
 
 	return (
 		<SidebarContainer isMobile={isMobile}>
+			<div className="h-[72px] text-2xl">Filters and stuff</div>
 			<ul className="p-2">
 				{exhibitors.map(exhibitor => (
 					<li key={exhibitor.id}>{exhibitor.name}</li>
@@ -31,6 +32,7 @@ function SidebarContainer({
 	children: React.ReactNode
 }) {
 	const [open, setOpen] = useState<boolean>(true)
+	const drawerRef = useRef<HTMLDivElement>(null)
 
 	if (!open) {
 		return (
@@ -53,18 +55,17 @@ function SidebarContainer({
 			setBackgroundColorOnScale={false}
 			shouldScaleBackground={false}
 			open={open}
-			// snapPoints={[0.5]}
-			onOpenChange={open => {
-				setOpen(open)
-			}}
+			snapPoints={isMobile ? ["100px", 0.8] : undefined}
+			onOpenChange={setOpen}
 			direction={isMobile ? "bottom" : "left"}>
 			<DrawerContent
+				ref={drawerRef}
 				withHandle={isMobile}
 				className={cn(
 					"z-10 focus-visible:outline-none",
 					isMobile
-						? "h-[50%] w-full"
-						: "top-16 h-full w-[50%] max-w-[600px] rounded-none rounded-e-[10px] pb-16 pr-2"
+						? "h-full w-full"
+						: "top-16 h-full w-[40%] max-w-[600px] rounded-none rounded-e-[10px] pb-16 pr-2"
 				)}>
 				<ScrollArea className="h-full">
 					{children}

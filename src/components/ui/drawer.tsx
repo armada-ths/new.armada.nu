@@ -35,13 +35,18 @@ const DrawerOverlay = React.forwardRef<
 ))
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
 
+type DrawerProps = React.ComponentPropsWithoutRef<
+  typeof DrawerPrimitive.Content
+> & {
+  withHandle?: boolean
+  container?: HTMLElement | null
+}
+
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> & {
-    withHandle?: boolean
-  }
->(({ className, children, withHandle = true, ...props }, ref) => (
-  <DrawerPortal>
+  DrawerProps
+>(({ className, children, withHandle = true, container, ...props }, ref) => (
+  <DrawerPortal container={container}>
     <DrawerOverlay />
     <DrawerPrimitive.Content
       ref={ref}
