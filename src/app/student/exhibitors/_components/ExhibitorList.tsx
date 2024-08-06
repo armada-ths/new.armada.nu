@@ -14,7 +14,6 @@ import {
 import { DateTime } from "luxon"
 import { useState } from "react"
 
-
 function getAllYears() {
 	const currentYear = DateTime.now().year
 	return new Array(currentYear - 2021).fill(0).map((_, i) => currentYear - i)
@@ -47,28 +46,25 @@ export function ExhibitorList({
 
 	return (
 		<div className="mt-10">
-			<Select value={year} onValueChange={onYearSelectChange}>
-				<SelectTrigger className="mb-2 w-[100px]">
-					<SelectValue placeholder="Fair Year" />
-				</SelectTrigger>
-				<SelectContent>
-					{allYears.map(year => (
-						<SelectItem
-							key={year}
-							value={year.toString()}
-							// until we have data for 2024
-							disabled={year === 2024}>
-							{year}
-						</SelectItem>
-					))}
-				</SelectContent>
-			</Select>
-
-			<ExhibitorListFilteringHeader
-				key={year} // reset filters when year changes
-				exhibitors={exhibitors}
-				onChange={setFilteredExhibitors}
-			/>
+			<div className="flex justify-between">
+				<ExhibitorListFilteringHeader
+					key={year} // reset filters when year changes
+					exhibitors={exhibitors}
+					onChange={setFilteredExhibitors}
+				/>
+				<Select value={year} onValueChange={onYearSelectChange}>
+					<SelectTrigger className="mb-2 w-32">
+						<SelectValue placeholder="Fair Year" />
+					</SelectTrigger>
+					<SelectContent>
+						{allYears.map(year => (
+							<SelectItem key={year} value={year.toString()}>
+								{year}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
+			</div>
 
 			<p className="mt-8 text-stone-400">
 				Showing {filteredExhibitors.length} out of {exhibitors.length}
