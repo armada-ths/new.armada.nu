@@ -1,8 +1,7 @@
 import { P } from "@/app/_components/Paragraph"
+import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
 import { Page } from "@/components/shared/Page"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
-import { Badge } from "@/components/ui/badge"
-import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
 import { cn } from "@/lib/utils"
 
 import { Globe } from "lucide-react"

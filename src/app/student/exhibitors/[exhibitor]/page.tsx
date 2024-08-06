@@ -4,10 +4,8 @@ import {
 	fetchAllYearExhibitors,
 	fetchExhibitors
 } from "@/components/shared/hooks/api/useExhibitors"
-import { Badge } from "@/components/ui/badge"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
-import Image from "next/image"
 import { notFound } from "next/navigation"
 
 interface RouteProps {

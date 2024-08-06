@@ -2,7 +2,7 @@ import MultiSelect from "@/app/student/exhibitors/_components/MultiSelect"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"
 
-import { useState, useRef } from "react"
+import { useRef, useState } from "react"
 
 // Filtering assumptions:
 // - selecting multiple options for a filter gives the union (not intersection) of those options

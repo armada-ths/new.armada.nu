@@ -41,7 +41,7 @@ export default async function RecruitmentPage() {
 		people.role.includes("Project Group – Head of Human Resources")
 	)
 
-	let photoSrc: { source: string; altText: string }[] = [
+	const photoSrc: { source: string; altText: string }[] = [
 		{
 			source: "/fair_pictures/23031965122_efd3a80707_c.jpg",
 			altText: "Students laying down carpet"

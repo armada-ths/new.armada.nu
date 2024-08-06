@@ -33,7 +33,8 @@ export async function sendToSlack(
 			}
 		})
 		return { success: true }
-	} catch (error) {
+	} catch (e) {
+		console.warn(e)
 		return { success: false }
 	}
 }

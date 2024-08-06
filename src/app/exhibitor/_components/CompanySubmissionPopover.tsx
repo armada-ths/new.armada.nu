@@ -11,7 +11,7 @@ import ReCAPTCHA from "react-google-recaptcha"
 import { toast } from "sonner"
 
 export function CompanySubmissionPopover() {
-	const recaptcha = useRef<any>()
+	const recaptcha = useRef<{ getValue: () => string }>()
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -33,7 +33,9 @@ export function CompanySubmissionPopover() {
 		[formData, isVerified]
 	)
 
-	function handleFieldChange(event: { target: { name: any; value: any } }) {
+	function handleFieldChange(event: {
+		target: { name: string; value: string }
+	}) {
 		const key = event.target.name
 		const updatedFormValue = event.target.value
 		const newFormData = { ...formData, [key]: updatedFormValue }
@@ -49,7 +51,7 @@ export function CompanySubmissionPopover() {
 	}
 
 	async function sendMessage() {
-		const captchaValue = recaptcha.current.getValue()
+		const captchaValue = recaptcha.current?.getValue()
 		if (!captchaValue) {
 			toast.warning("Please verify the reCAPTCHA!")
 			return
@@ -179,7 +181,7 @@ export function CompanySubmissionPopover() {
 
 							<X
 								className="absolute right-[5px] top-[5px] cursor-default hover:cursor-pointer"
-								onClick={e => setIsOpen(false)}></X>
+								onClick={() => setIsOpen(false)}></X>
 						</div>
 					</div>
 				</Popover.Content>

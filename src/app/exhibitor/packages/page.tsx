@@ -8,10 +8,9 @@ import {
 	AccordionTrigger
 } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
-import { DateTime } from "luxon"
+import { formatDate } from "@/lib/utils"
 import { Metadata } from "next"
 import Link from "next/link"
-import { formatDate } from "@/lib/utils"
 
 export const metadata: Metadata = {
 	title: `Packages - Armada Exhibitor`,

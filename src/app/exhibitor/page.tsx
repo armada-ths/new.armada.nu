@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 }
 
 export default function ForExhibitorsPage() {
-	const numberFormat = Intl.NumberFormat("sv")
 	const promotionalPhotos: { source: string; altText: string }[] = [
 		{
 			source: "/fair_pictures/49121473038_5876d71e29_b.jpg",

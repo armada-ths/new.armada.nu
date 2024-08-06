@@ -19,9 +19,6 @@ export function useDebounce<T>(
 		clearTimeout(timeout.current)
 		timeout.current = setTimeout(() => callback(value), options?.timeout ?? 150)
 		return () => clearTimeout(timeout.current)
-
-		// We don't want to include the callback in the dependecy array
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [value, options?.timeout])
 }
 

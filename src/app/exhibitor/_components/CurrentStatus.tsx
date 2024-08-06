@@ -1,6 +1,5 @@
 import { StatusModuleItem } from "@/app/exhibitor/_components/StatusModuleItem"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
-import { DateTime } from "luxon"
 import Link from "next/link"
 
 //ASSUMPTION: the start date will be first for fair dates
