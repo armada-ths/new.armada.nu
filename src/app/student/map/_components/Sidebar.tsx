@@ -7,6 +7,7 @@ import { Drawer, DrawerContent, DrawerPortal } from "@/components/ui/drawer"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
+import { ChevronsLeft, ChevronsRight } from "lucide-react"
 
 export default function Sidebar({ exhibitors }: { exhibitors: Exhibitor[] }) {
 	const { width } = useScreenSize()
@@ -34,44 +35,46 @@ function SidebarContainer({
 	const [open, setOpen] = useState<boolean>(true)
 	const drawerRef = useRef<HTMLDivElement>(null)
 
-	if (!open) {
+	if (isMobile) {
 		return (
-			<Button
-				variant="secondary"
-				onClick={() => setOpen(true)}
-				className={cn(
-					"absolute z-10 dark:bg-transparent",
-					isMobile ? "bottom-1 mx-auto self-center" : "left-1 top-1"
-				)}>
-				Open sidebar
-			</Button>
+			<Drawer
+				noBodyStyles={true}
+				modal={false}
+				setBackgroundColorOnScale={false}
+				shouldScaleBackground={false}
+				open={open}
+				snapPoints={["100px", 0.8]}
+				onOpenChange={setOpen}
+				direction={"bottom"}>
+				<DrawerContent
+					ref={drawerRef}
+					withHandle={true}
+					className={"z-10 h-full w-full focus-visible:outline-none"}>
+					<ScrollArea className="h-full">
+						{children}
+						<ScrollBar></ScrollBar>
+					</ScrollArea>
+				</DrawerContent>
+			</Drawer>
 		)
 	}
 
 	return (
-		<Drawer
-			noBodyStyles={true}
-			modal={false}
-			setBackgroundColorOnScale={false}
-			shouldScaleBackground={false}
-			open={open}
-			snapPoints={isMobile ? ["100px", 0.8] : undefined}
-			onOpenChange={setOpen}
-			direction={isMobile ? "bottom" : "left"}>
-			<DrawerContent
-				ref={drawerRef}
-				withHandle={isMobile}
-				className={cn(
-					"z-10 focus-visible:outline-none",
-					isMobile
-						? "h-full w-full"
-						: "top-16 h-full w-[40%] max-w-[600px] rounded-none rounded-e-[10px] pb-16 pr-2"
-				)}>
-				<ScrollArea className="h-full">
-					{children}
-					<ScrollBar></ScrollBar>
-				</ScrollArea>
-			</DrawerContent>
-		</Drawer>
+		<div className={cn("relative h-full", open ? "w-[400px]" : "w-0")}>
+			<ScrollArea className="h-full">
+				{children}
+				<ScrollBar></ScrollBar>
+			</ScrollArea>
+
+			<div className="absolute right-[-38px] top-0 z-20">
+				<Button
+					variant="ghost"
+					className="rounded-s-none border-none p-1"
+					onClick={() => setOpen(!open)}
+					title={open ? "Close sidebar" : "Open sidebar"}>
+					{open ? <ChevronsLeft size={30} /> : <ChevronsRight size={30} />}
+				</Button>
+			</div>
+		</div>
 	)
 }

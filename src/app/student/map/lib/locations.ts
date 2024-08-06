@@ -39,4 +39,4 @@ export const locations: Location[] = [
 		label: "Library",
 		center: libraryCenter
 	}
-] as const
+]
