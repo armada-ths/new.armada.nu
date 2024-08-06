@@ -26,4 +26,4 @@ jobs:
           version: 9
 
       - run: pnpm install
-      - run: prettier .
+      - run: pnpx prettier . --check
