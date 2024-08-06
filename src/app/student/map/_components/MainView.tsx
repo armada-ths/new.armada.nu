@@ -13,6 +13,8 @@ import {
 import { useState } from "react"
 import { BoothMap } from "../lib/booths"
 import { LocationId, locations } from "../lib/locations"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 export default function MainView({
 	boothsByLocation,
@@ -28,11 +30,15 @@ export default function MainView({
 	return (
 		<div className="relative flex h-full w-full">
 			<Sidebar exhibitors={exhibitors} />
-			<MapComponent
-				// key={locationId}
-				boothsById={currentLocationBoothsById}
-				location={location}
-			/>
+
+			<div className="flex-grow" >
+				<MapComponent
+					// key={locationId}
+					boothsById={currentLocationBoothsById}
+					location={location}
+				/>
+			</div>
+
 			<SelectLocation locationId={locationId} setLocationId={setLocationId} />
 		</div>
 	)
