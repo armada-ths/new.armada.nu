@@ -71,7 +71,7 @@ export default function MultiSelect({
 							<BadgeCollection
 								items={selected}
 								maxDisplayed={maxDisplayed}
-								className="overflow-auto flex-nowrap"
+								className="flex-nowrap overflow-auto"
 							/>
 							<Button
 								title="Clear"
@@ -117,7 +117,7 @@ export default function MultiSelect({
 										key={item.id}
 										className="flex min-w-32 cursor-default items-center gap-2 p-2 pl-3 hover:bg-emerald-950 hover:text-melon-700"
 										onClick={() => onSelectionChange(item)}>
-										<Checkbox checked={isSelected(item)} tabIndex={-1}/>
+										<Checkbox checked={isSelected(item)} tabIndex={-1} />
 										<span>{item.name}</span>
 									</button>
 								))

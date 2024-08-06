@@ -23,7 +23,7 @@ export default function BadgeCollection({
 				<Badge
 					key={id}
 					variant="square"
-					className={cn("shadow-lg w-max flex-none", badgeClassName)}>
+					className={cn("w-max flex-none shadow-lg", badgeClassName)}>
 					{name}
 				</Badge>
 			))}
@@ -31,7 +31,7 @@ export default function BadgeCollection({
 				<Badge
 					variant="square"
 					title={tooltip}
-					className={cn("shadow-lg w-max", badgeClassName, "flex-none")}>
+					className={cn("w-max shadow-lg", badgeClassName, "flex-none")}>
 					+{items.length - maxDisplayed}
 				</Badge>
 			)}

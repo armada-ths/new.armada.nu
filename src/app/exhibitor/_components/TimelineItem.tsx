@@ -32,7 +32,7 @@ export function TimelineItem({
 			<div
 				className={cn(
 					"absolute -start-1.5  size-3.5 rounded-full border border-melon-700/50 bg-slate-600",
-					{ "bg-melon-700" : isPastDate }
+					{ "bg-melon-700": isPastDate }
 				)}></div>
 			<AccordionTrigger
 				disabled={!expandable}

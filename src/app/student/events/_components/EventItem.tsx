@@ -11,7 +11,7 @@ import { useEffect, useState } from "react"
 
 export function EventItem({ event }: { event: Event }) {
 	const { id, name, event_start, registration_end, image_url } = event
-	
+
 	const router = useRouter()
 	const searchParams = useSearchParams()
 	const [modalOpen, setModalOpen] = useState(false)

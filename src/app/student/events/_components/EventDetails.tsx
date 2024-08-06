@@ -87,7 +87,10 @@ export default function EventDetails({
 						icon={<Coins size={16} />}></InfoBoxItem>
 
 					{event.open_for_signup && event.registration_end && (
-						<p className="text-stone-400 mt-3 text-xs -mb-1">Registration closes {formatTimestampAsDate(event.registration_end)}</p>
+						<p className="-mb-1 mt-3 text-xs text-stone-400">
+							Registration closes{" "}
+							{formatTimestampAsDate(event.registration_end)}
+						</p>
 					)}
 
 					{/* Signup */}
