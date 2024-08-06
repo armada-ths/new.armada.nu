@@ -48,8 +48,8 @@
 		"zod": "^3.22.4"
 	},
 	"engines": {
-		"node": "20.12",
-		"pnpm": "9.6"
+		"node": "20.x",
+		"pnpm": "9.x"
 	},
 	"devDependencies": {
 		"@total-typescript/ts-reset": "^0.5.1",
