@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function ExhibitorListPage() {
 	const exhibitors = await fetchAllYearExhibitors({
 		next: {
-			revalidate: 3600 * 24 * 6 // 6 days
+			revalidate: 3600 / 2 // every 30 minutes
 		}
 	})
 
