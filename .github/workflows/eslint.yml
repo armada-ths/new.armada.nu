@@ -1,15 +1,11 @@
-name: Lint
+name: CI
 on: push
 jobs:
-  eslint:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v1
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.15
-
-      - run: pnpm install
-      - run: pnpm run lint
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: pnpm install
+      - name: Run ESLint
+        run: eslint .
