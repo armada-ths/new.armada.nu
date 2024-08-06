@@ -1,13 +1,14 @@
-name: CI
+name: linting
 on: push
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: pnpm/action-setup@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: 9
-      - name: Install modules
-        run: pnpm install
-      - name: Run ESLint
-        run: eslint .
+
+      - run: pnpm install
+      - run: eslint .
+      - run: prettier .
