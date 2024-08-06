@@ -5,22 +5,22 @@ import { Toaster } from "@/components/ui/sonner"
 import Link from "next/link"
 
 export default function ExhibitorLayout({
-	children
+  children
 }: Readonly<{
-	children: React.ReactNode
+  children: React.ReactNode
 }>) {
-	return (
-		<>
-			<NavigationMenu
-				aside={
-					<Link href="https://register.armada.nu/register">
-						<Button>Exhibitor signup</Button>
-					</Link>
-				}
-			/>
-			{children}
-			<CompanySubmissionPopover />
-			<Toaster expand={true} richColors closeButton />
-		</>
-	)
+  return (
+    <>
+      <NavigationMenu
+        aside={
+          <Link href="https://register.armada.nu/register">
+            <Button>Exhibitor signup</Button>
+          </Link>
+        }
+      />
+      {children}
+      <CompanySubmissionPopover />
+      <Toaster expand={true} richColors closeButton />
+    </>
+  )
 }

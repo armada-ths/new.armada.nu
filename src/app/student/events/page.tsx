@@ -5,17 +5,17 @@ import { fetchEvents } from "@/components/shared/hooks/api/useEvents"
 import { notFound } from "next/navigation"
 
 export default async function StudentEventPage() {
-	if (!feature("EVENT_PAGE")) {
-		return notFound()
-	}
-	const events = await fetchEvents()
+  if (!feature("EVENT_PAGE")) {
+    return notFound()
+  }
+  const events = await fetchEvents()
 
-	return (
-		<Page.Background withIndents>
-			<Page.Boundary>
-				<Page.Header>Events</Page.Header>
-				<EventsTimeline events={events} />
-			</Page.Boundary>
-		</Page.Background>
-	)
+  return (
+    <Page.Background withIndents>
+      <Page.Boundary>
+        <Page.Header>Events</Page.Header>
+        <EventsTimeline events={events} />
+      </Page.Boundary>
+    </Page.Background>
+  )
 }

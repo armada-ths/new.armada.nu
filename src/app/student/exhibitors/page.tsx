@@ -5,25 +5,25 @@ import { Metadata } from "next"
 import { Suspense } from "react"
 
 export const metadata: Metadata = {
-	title: `Armada exhibitors`,
-	description: "See all the companies that are exhibiting at Armada"
+  title: `Armada exhibitors`,
+  description: "See all the companies that are exhibiting at Armada"
 }
 
 export default async function ExhibitorListPage() {
-	const exhibitors = await fetchAllYearExhibitors({
-		next: {
-			revalidate: 3600 / 2 // every 30 minutes
-		}
-	})
+  const exhibitors = await fetchAllYearExhibitors({
+    next: {
+      revalidate: 3600 / 2 // every 30 minutes
+    }
+  })
 
-	return (
-		<Page.Background withIndents>
-			<Page.Boundary>
-				<Page.Header>Exhibitors</Page.Header>
-				<Suspense>
-					<ExhibitorList exhibitorsByYear={exhibitors} />
-				</Suspense>
-			</Page.Boundary>
-		</Page.Background>
-	)
+  return (
+    <Page.Background withIndents>
+      <Page.Boundary>
+        <Page.Header>Exhibitors</Page.Header>
+        <Suspense>
+          <ExhibitorList exhibitorsByYear={exhibitors} />
+        </Suspense>
+      </Page.Boundary>
+    </Page.Background>
+  )
 }
