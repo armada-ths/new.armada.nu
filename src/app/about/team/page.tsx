@@ -1,4 +1,4 @@
-import TeamUpdate from "@/app/about/_components/TeamUpdate"
+import OrganizationList from "@/app/about/_components/OrganizationList"
 import { Page } from "@/components/shared/Page"
 import { fetchOrganization } from "@/components/shared/hooks/api/useOrganization"
 import { Metadata } from "next"
@@ -21,9 +21,7 @@ export default async function TeamPage() {
 				<Page.Header>Meet the team</Page.Header>
 				<div className="">
 					{organization.map(group => (
-						<>
-							<TeamUpdate name={group.name} people={group.people} />
-						</>
+						<OrganizationList key={group.name} group={group} />
 					))}
 				</div>
 			</Page.Boundary>

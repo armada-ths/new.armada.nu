@@ -4,10 +4,9 @@ import { LinkedinIcon, MailIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-const TeamUpdateList = (person: Person) => {
+const PersonCard = ({ person }: { person: Person }) => {
 	return (
 		<>
-			{" "}
 			<div key={person.id} className="w-52">
 				{person.picture == null || person.picture.includes("no-image") ? (
 					<div className="flex aspect-square w-52 flex-1 items-center justify-center">
@@ -51,4 +50,4 @@ const TeamUpdateList = (person: Person) => {
 		</>
 	)
 }
-export default TeamUpdateList
+export default PersonCard
