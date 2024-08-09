@@ -25,11 +25,7 @@ const nextConfig = {
         source: "/recruitment",
         destination: "/student/recruitment",
         permanent: true
-      }
-    ]
-  },
-  redirects: async () => {
-    return [
+      },
       {
         source: "/team",
         destination: "/about/team",

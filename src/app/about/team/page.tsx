@@ -4,17 +4,17 @@ import { fetchOrganization } from "@/components/shared/hooks/api/useOrganization
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-	title: `Armada Organization`,
-	description: "Meet all the volunteers that make Armada possible"
+  title: `Armada Organization`,
+  description: "Meet all the volunteers that make Armada possible"
 }
 
 export default async function TeamPage() {
-	const organization = await fetchOrganization({
-		next: {
-			revalidate: 3600 * 24 * 6 // 6 days (S3 caches the images for 7 days exactly, we want to revalidate before that, otherwise the images will not be loaded)
-		}
-	})
-
+  const organization = await fetchOrganization({
+    next: {
+      revalidate: 3600 * 24 * 6 // 6 days (S3 caches the images for 7 days exactly, we want to revalidate before that, otherwise the images will not be loaded)
+    }
+  })
+  
 	return (
 		<Page.Background withIndents className="justify-start">
 			<Page.Boundary>
@@ -28,4 +28,5 @@ export default async function TeamPage() {
 			<div className="h-20" />
 		</Page.Background>
 	)
+
 }
