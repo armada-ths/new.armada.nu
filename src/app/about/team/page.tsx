@@ -14,19 +14,18 @@ export default async function TeamPage() {
       revalidate: 3600 * 24 * 6 // 6 days (S3 caches the images for 7 days exactly, we want to revalidate before that, otherwise the images will not be loaded)
     }
   })
-  
-	return (
-		<Page.Background withIndents className="justify-start">
-			<Page.Boundary>
-				<Page.Header>Meet the team</Page.Header>
-				<div className="">
-					{organization.map(group => (
-						<OrganizationList key={group.name} group={group} />
-					))}
-				</div>
-			</Page.Boundary>
-			<div className="h-20" />
-		</Page.Background>
-	)
 
+  return (
+    <Page.Background withIndents className="justify-start">
+      <Page.Boundary>
+        <Page.Header>Meet the team</Page.Header>
+        <div className="">
+          {organization.map(group => (
+            <OrganizationList key={group.name} group={group} />
+          ))}
+        </div>
+      </Page.Boundary>
+      <div className="h-20" />
+    </Page.Background>
+  )
 }
