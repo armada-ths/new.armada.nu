@@ -5,7 +5,7 @@ import boothDataRaw from "../data/booths.json"
 
 export type BoothID = number
 
-export type GeoJsonBoothProperties = { id: BoothID; location: LocationId }
+export type GeoJsonBoothProperties = { id: BoothID; location: LocationId, exhibitorId: number }
 
 export type GeoJsonBooth = Feature<Polygon, GeoJsonBoothProperties>
 

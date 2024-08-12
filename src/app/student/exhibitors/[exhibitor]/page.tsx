@@ -1,13 +1,11 @@
-import ExhibitorDetails from "@/app/student/exhibitors/_components/ExhibitorDetails"
+import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
 import { Page } from "@/components/shared/Page"
 import {
 	fetchAllYearExhibitors,
 	fetchExhibitors
 } from "@/components/shared/hooks/api/useExhibitors"
-import { Badge } from "@/components/ui/badge"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
-import Image from "next/image"
 import { notFound } from "next/navigation"
 
 interface RouteProps {

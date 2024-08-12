@@ -8,17 +8,42 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronsLeft, ChevronsRight } from "lucide-react"
+import { BoothID, BoothMap } from "@/app/student/map/lib/booths"
+import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
 
-export default function Sidebar({ exhibitors }: { exhibitors: Exhibitor[] }) {
+export default function Sidebar({
+	boothsById,
+	activeBoothId
+}: {
+	boothsById: BoothMap
+	activeBoothId: BoothID | null
+}) {
 	const { width } = useScreenSize()
-	const isMobile = width ? width <= 640 : false
+	const smallScreen = width ? width <= 800 : false
+
+	if (activeBoothId != null) {
+		const exhibitor = boothsById.get(activeBoothId)?.exhibitor
+		if (!exhibitor) {
+			console.error(`No exhibitor found for booth with id ${activeBoothId}`)
+			return null
+		}
+		return (
+			<SidebarContainer smallScreen={smallScreen}>
+				<div className="p-2">
+					<ExhibitorDetails exhibitor={exhibitor} />
+				</div>
+			</SidebarContainer>
+		)
+	}
 
 	return (
-		<SidebarContainer isMobile={isMobile}>
+		<SidebarContainer smallScreen={smallScreen}>
 			<div className="h-[72px] text-2xl">Filters and stuff</div>
 			<ul className="p-2">
-				{exhibitors.map(exhibitor => (
-					<li key={exhibitor.id}>{exhibitor.name}</li>
+				{Array.from(boothsById.values()).map(({ id, exhibitor }) => (
+					<li key={id} className="py-1">
+						{exhibitor.name}
+					</li>
 				))}
 			</ul>
 		</SidebarContainer>
@@ -26,10 +51,10 @@ export default function Sidebar({ exhibitors }: { exhibitors: Exhibitor[] }) {
 }
 
 function SidebarContainer({
-	isMobile,
+	smallScreen: isMobile,
 	children
 }: {
-	isMobile: boolean
+	smallScreen: boolean
 	children: React.ReactNode
 }) {
 	const [open, setOpen] = useState<boolean>(true)
@@ -38,12 +63,13 @@ function SidebarContainer({
 	if (isMobile) {
 		return (
 			<Drawer
+				dismissible={false}
 				noBodyStyles={true}
 				modal={false}
 				setBackgroundColorOnScale={false}
 				shouldScaleBackground={false}
 				open={open}
-				snapPoints={["100px", 0.8]}
+				snapPoints={["120px", 0.8]}
 				onOpenChange={setOpen}
 				direction={"bottom"}>
 				<DrawerContent
@@ -60,7 +86,7 @@ function SidebarContainer({
 	}
 
 	return (
-		<div className={cn("relative h-full", open ? "w-[400px]" : "w-0")}>
+		<div className={cn("relative h-full", open ? "w-[500px]" : "w-0")}>
 			<ScrollArea className="h-full">
 				{children}
 				<ScrollBar></ScrollBar>

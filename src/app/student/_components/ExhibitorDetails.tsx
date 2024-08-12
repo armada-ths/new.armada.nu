@@ -17,19 +17,19 @@ export default function ExhibitorDetails({
 	const hasIndustries = exhibitor.industries?.length > 0
 	const hasEmployments = exhibitor.employments?.length > 0
 	return (
-		<div className="p-5 sm:p-10">
-			<div className="flex flex-col items-center gap-6 sm:h-[100px] sm:flex-row">
+		<div className="@container">
+			<div className="flex flex-col-reverse items-center gap-6 @sm:h-[100px] @sm:flex-row">
 				{(exhibitor.logo_squared || exhibitor.logo_freesize) && (
 					<Image
-						className="h-20 w-auto object-contain sm:h-full sm:min-w-28 sm:max-w-[25%]"
+						className="h-20 w-auto object-contain @sm:h-full @sm:min-w-28 @sm:max-w-[25%]"
 						src={exhibitor.logo_squared ?? exhibitor.logo_freesize ?? ""}
 						alt={exhibitor.name}
 						width={300}
 						height={300}
 					/>
 				)}
-				<div className="flex flex-col items-center sm:ml-2 sm:block">
-					<Page.Header className="text-center sm:text-start">
+				<div className="flex flex-col items-center @sm:ml-2 @sm:block">
+					<Page.Header className="text-center @sm:text-start">
 						{exhibitor.name}
 					</Page.Header>
 					{exhibitor.company_website && (

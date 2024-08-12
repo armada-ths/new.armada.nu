@@ -5,7 +5,8 @@
 			"type": "Feature",
 			"properties": {
 				"id": 2,
-				"location": "nymble/1"
+				"location": "nymble/1",
+				"exhibitorId": 1480
 			},
 			"geometry": {
 				"coordinates": [
@@ -25,7 +26,8 @@
 			"type": "Feature",
 			"properties": {
 				"id": 3,
-				"location": "nymble/2"
+				"location": "nymble/2",
+				"exhibitorId": 1481
 			},
 			"geometry": {
 				"coordinates": [
@@ -47,7 +49,8 @@
 			"type": "Feature",
 			"properties": {
 				"id": 0,
-				"location": "nymble/1"
+				"location": "nymble/1",
+				"exhibitorId": 1519
 			},
 			"geometry": {
 				"coordinates": [
@@ -68,7 +71,8 @@
 			"type": "Feature",
 			"properties": {
 				"id": 1,
-				"location": "nymble/1"
+				"location": "nymble/1",
+				"exhibitorId": 1530
 			},
 			"geometry": {
 				"coordinates": [
@@ -91,7 +95,8 @@
 			"type": "Feature",
 			"properties": {
 				"id": 4,
-				"location": "library"
+				"location": "library",
+				"exhibitorId": 1531
 			},
 			"geometry": {
 				"coordinates": [

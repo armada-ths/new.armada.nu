@@ -11,10 +11,11 @@ function BoothMarker({ booth, scale }: { booth: Booth; scale: number }) {
 			key={booth.id}
 			longitude={booth.center[0]}
 			latitude={booth.center[1]}>
-			<div className="size-[50px]" style={{ transform: `scale(${scale})` }}>
+			<div style={{ transform: `scale(${scale})` }}>
 				{logoSrc ? (
-					<div>
+					<div className="size-[60px] flex" >
 						<Image
+							className="my-auto"
 							src={logoSrc}
 							alt={booth.exhibitor.name}
 							width={300}

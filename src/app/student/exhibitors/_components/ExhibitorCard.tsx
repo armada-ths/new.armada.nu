@@ -1,15 +1,15 @@
 "use client"
 
-import ExhibitorDetails from "@/app/student/exhibitors/_components/ExhibitorDetails"
+import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
+import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import Modal from "@/components/ui/Modal"
-import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
 
+import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import Image from "next/image"
 import Link from "next/link"
-import { useSearchParams, useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
-import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 
 // TODO:
 // - text is janky on scale transition for the cards
@@ -37,7 +37,9 @@ export function ExhibitorCard({ exhibitor }: { exhibitor: Exhibitor }) {
 					router.push("/student/exhibitors", { scroll: false })
 				}}
 				className="max-w-[1000px] bg-gradient-to-br from-emerald-950 via-stone-900 to-stone-900 p-0">
-				<ExhibitorDetails exhibitor={exhibitor} />
+				<div className="sm:p-10 p-4">
+					<ExhibitorDetails exhibitor={exhibitor} />
+				</div>
 			</Modal>
 
 			<Link href={`/student/exhibitors?id=${exhibitor.id}`} scroll={false}>
