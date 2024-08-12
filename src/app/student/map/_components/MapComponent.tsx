@@ -49,16 +49,22 @@ const backgroundLayerStyle: BackgroundLayer = {
 
 export function MapComponent({
 	boothsById,
-	location
+	location,
+	activeBoothId,
+	setActiveBoothId,
+	hoveredBoothId,
+	setHoveredBoothId
 }: {
 	boothsById: BoothMap
 	location: Location
+	activeBoothId: BoothID | null
+	hoveredBoothId: BoothID | null
+	setActiveBoothId: (id: BoothID | null) => void
+	setHoveredBoothId: (id: BoothID | null) => void
 }) {
 	const mapRef = useRef<MapRef>(null)
 
 	const [markerScale, setMarkerScale] = useState(1)
-	const [activeBoothId, setActiveBoothId] = useState<BoothID | null>(null)
-	const [hoveredBoothId, setHoveredBoothId] = useState<BoothID | null>(null)
 
 	// Fly to location center on change
 	useEffect(() => {
