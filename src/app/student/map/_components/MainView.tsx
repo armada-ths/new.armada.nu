@@ -4,6 +4,7 @@ import { MapComponent } from "@/app/student/map/_components/MapComponent"
 import Sidebar from "@/app/student/map/_components/Sidebar"
 import EditorMapComponent from "@/app/student/map/editor/EditorMapComponent"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
+
 import {
   Select,
   SelectContent,
