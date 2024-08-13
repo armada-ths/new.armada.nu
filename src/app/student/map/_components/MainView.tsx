@@ -2,7 +2,6 @@
 
 import { MapComponent } from "@/app/student/map/_components/MapComponent"
 import Sidebar from "@/app/student/map/_components/Sidebar"
-import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import {
 	Select,
 	SelectContent,
@@ -30,7 +29,11 @@ export default function MainView({
 
 	return (
 		<div className="relative flex h-full w-full">
-			<Sidebar boothsById={boothsById} activeBoothId={activeBoothId} />
+			<Sidebar
+				boothsById={boothsById}
+				activeBoothId={activeBoothId}
+				onBoothClick={() => {}}
+			/>
 
 			<div className="flex-grow">
 				<MapComponent

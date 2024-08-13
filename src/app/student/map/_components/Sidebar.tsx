@@ -1,26 +1,28 @@
 "use client"
-
-import { cn } from "@/lib/utils"
-import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
-import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
-import { Drawer, DrawerContent, DrawerPortal } from "@/components/ui/drawer"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { useState, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { ChevronsLeft, ChevronsRight } from "lucide-react"
-import { BoothID, BoothMap } from "@/app/student/map/lib/booths"
 import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
-
+import { BoothListItem } from "@/app/student/map/_components/BoothListItem"
+import MapListFilteringHeader from "@/app/student/map/_components/MapListFilteringHeader"
+import { BoothID, BoothMap } from "@/app/student/map/lib/booths"
+import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
+import { Button } from "@/components/ui/button"
+import { Drawer, DrawerContent } from "@/components/ui/drawer"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { cn } from "@/lib/utils"
+import { ChevronsLeft, ChevronsRight } from "lucide-react"
+import { useRef, useState } from "react"
 export default function Sidebar({
 	boothsById,
-	activeBoothId
+	activeBoothId,
+	onBoothClick
 }: {
 	boothsById: BoothMap
 	activeBoothId: BoothID | null
+	onBoothClick: (boothId: BoothID) => void
 }) {
 	const { width } = useScreenSize()
 	const smallScreen = width ? width <= 800 : false
-
+	const booths = Array.from(boothsById.values())
+	const [filteredBooths, setFilteredBooths] = useState(booths)
 	if (activeBoothId != null) {
 		const exhibitor = boothsById.get(activeBoothId)?.exhibitor
 		if (!exhibitor) {
@@ -35,21 +37,18 @@ export default function Sidebar({
 			</SidebarContainer>
 		)
 	}
-
 	return (
 		<SidebarContainer smallScreen={smallScreen}>
-			<div className="h-[72px] text-2xl">Filters and stuff</div>
-			<ul className="p-2">
-				{Array.from(boothsById.values()).map(({ id, exhibitor }) => (
-					<li key={id} className="py-1">
-						{exhibitor.name}
-					</li>
-				))}
-			</ul>
+			<div className="h-[72px] p-2 text-2xl">Search for the booths</div>
+			<div className="p-2">
+				<MapListFilteringHeader booths={booths} onChange={setFilteredBooths} />
+			</div>
+			{filteredBooths.map(booth => (
+				<BoothListItem key={booth.id} booth={booth} />
+			))}
 		</SidebarContainer>
 	)
 }
-
 function SidebarContainer({
 	smallScreen: isMobile,
 	children
@@ -59,7 +58,6 @@ function SidebarContainer({
 }) {
 	const [open, setOpen] = useState<boolean>(true)
 	const drawerRef = useRef<HTMLDivElement>(null)
-
 	if (isMobile) {
 		return (
 			<Drawer
@@ -84,14 +82,12 @@ function SidebarContainer({
 			</Drawer>
 		)
 	}
-
 	return (
 		<div className={cn("relative h-full", open ? "w-[500px]" : "w-0")}>
 			<ScrollArea className="h-full">
 				{children}
 				<ScrollBar></ScrollBar>
 			</ScrollArea>
-
 			<div className="absolute right-[-38px] top-0 z-20">
 				<Button
 					variant="ghost"
