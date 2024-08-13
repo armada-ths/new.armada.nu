@@ -3,8 +3,8 @@ import { NextResponse } from "next/server"
 import { FEATURE_FLAG_DEFINITIONS } from "../../../../feature_flags"
 
 export async function GET() {
-	const apiData = {
-		definitions: FEATURE_FLAG_DEFINITIONS
-	}
-	return NextResponse.json<ApiData>(apiData)
+  const apiData = {
+    definitions: FEATURE_FLAG_DEFINITIONS
+  }
+  return NextResponse.json<ApiData>(apiData)
 }

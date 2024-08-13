@@ -4,23 +4,23 @@ import { UserRoundIcon } from "lucide-react"
 import Link from "next/link"
 
 export async function RecruitmentBanner() {
-	const recruitment = await fetchRecruitment({
-		next: {
-			revalidate: 3600 * 3 // 3 hours
-		}
-	})
+  const recruitment = await fetchRecruitment({
+    next: {
+      revalidate: 3600 * 3 // 3 hours
+    }
+  })
 
-	if (recruitment == null) return null
+  if (recruitment == null) return null
 
-	return (
-		<Link href="/student/recruitment">
-			<Alert className="mt-0 cursor-pointer dark:hover:border-melon-700 dark:hover:border-opacity-50">
-				<UserRoundIcon className="h-4 w-4" />
-				<AlertTitle>Recruitment open!</AlertTitle>
-				<AlertDescription>
-					Apply to become a part of Armada 2024
-				</AlertDescription>
-			</Alert>
-		</Link>
-	)
+  return (
+    <Link href="/student/recruitment">
+      <Alert className="mt-0 cursor-pointer dark:hover:border-melon-700 dark:hover:border-opacity-50">
+        <UserRoundIcon className="h-4 w-4" />
+        <AlertTitle>Recruitment open!</AlertTitle>
+        <AlertDescription>
+          Apply to become a part of Armada 2024
+        </AlertDescription>
+      </Alert>
+    </Link>
+  )
 }

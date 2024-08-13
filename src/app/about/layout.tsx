@@ -1,14 +1,14 @@
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 
 export default function ExhibitorLayout({
-	children
+  children
 }: Readonly<{
-	children: React.ReactNode
+  children: React.ReactNode
 }>) {
-	return (
-		<>
-			<NavigationMenu />
-			{children}
-		</>
-	)
+  return (
+    <>
+      <NavigationMenu />
+      {children}
+    </>
+  )
 }
