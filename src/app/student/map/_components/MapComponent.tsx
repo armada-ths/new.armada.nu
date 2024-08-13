@@ -75,6 +75,20 @@ export function MapComponent({
 		})
 	}, [location])
 
+	useEffect(() => {
+		if (activeBoothId == null) return
+		const booth = boothsById.get(activeBoothId)
+		if (!booth) {
+			console.error(`No booth found for id ${activeBoothId}`)
+			return
+		}
+
+		mapRef.current?.flyTo({
+			center: booth.center as [number, number],
+			zoom: 18.5
+		})
+	}, [activeBoothId, boothsById])
+
 	// Keep mapbox feature state in sync with activeBoothId and hoveredBoothId
 	// (to allow for styling of the features)
 	function useFeatureState(
@@ -119,11 +133,11 @@ export function MapComponent({
 		if (feature) {
 			setActiveBoothId(feature.properties.id)
 
-			mapRef.current?.flyTo({
-				center: getPolygonCenter(feature) as [number, number],
-				zoom: 18.5,
-				speed: 0.8
-			})
+			// mapRef.current?.flyTo({
+			// 	center: getPolygonCenter(feature) as [number, number],
+			// 	zoom: 18.5,
+			// 	speed: 0.8
+			// })
 		} else {
 			setActiveBoothId(null) // outside click
 		}
