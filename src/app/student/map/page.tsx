@@ -20,8 +20,6 @@ export default async function MapPage() {
 		next: { revalidate: 3600 * 24 * 6 /* 6 days */ }
 	})
 
-	console.log("exhibitors", exhibitors)
-
 	const exhibitorsByID = new Map(exhibitors.map(e => [e.id, e]))
 
 	function makeBooth(data: GeoJsonBooth): Booth {

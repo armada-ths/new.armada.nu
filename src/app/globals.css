@@ -7,4 +7,7 @@
     .maplibregl-popup-content {
         padding: 0;
     }
+    .maplibregl-ctrl-attrib {
+        display: none !important;
+    }
 }

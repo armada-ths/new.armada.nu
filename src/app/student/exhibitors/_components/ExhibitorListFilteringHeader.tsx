@@ -1,7 +1,6 @@
-import MultiSelect from "@/app/student/exhibitors/_components/MultiSelect"
+import MultiSelect from "@/app/student/_components/MultiSelect"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"
-
 import { useRef, useState } from "react"
 
 // Filtering assumptions:
