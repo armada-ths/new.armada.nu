@@ -1,23 +1,43 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
-import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
-import { Drawer, DrawerContent, DrawerPortal } from "@/components/ui/drawer"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { useState, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { ChevronsLeft, ChevronsRight } from "lucide-react"
-import { BoothID, BoothMap } from "@/app/student/map/lib/booths"
 import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
+import { Booth, BoothID, BoothMap } from "@/app/student/map/lib/booths"
+import { LocationId, locations } from "@/app/student/map/lib/locations"
+import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
+import { Button } from "@/components/ui/button"
+import { Drawer, DrawerContent } from "@/components/ui/drawer"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { cn } from "@/lib/utils"
+import { ChevronsLeft, ChevronsRight } from "lucide-react"
+import { useRef, useState } from "react"
+
 
 export default function Sidebar({
 	boothsById,
-	activeBoothId
+	activeBoothId,
+	hoveredBoothId,
+	setActiveBoothId,
+	setHoveredBoothId,
+	currentLocation
 }: {
 	boothsById: BoothMap
 	activeBoothId: BoothID | null
+	hoveredBoothId: BoothID | null
+	setActiveBoothId: (id: BoothID | null) => void
+	setHoveredBoothId: (id: BoothID | null) => void
+	currentLocation: LocationId
 }) {
+
+	// First show the booths in the current location, then sort by location
+	function sortBooths(booths: Booth[]) {
+		return booths.sort((a, b) => {
+			const x = (b.location === currentLocation ? 1 : 0) - (a.location === currentLocation ? 1 : 0)
+			if (x !== 0) return x
+			return a.location.localeCompare(b.location)
+		})	
+	}
+	const sortedBooths = sortBooths(Array.from(boothsById.values()))
+
 	const { width } = useScreenSize()
 	const smallScreen = width ? width <= 800 : false
 
@@ -38,11 +58,19 @@ export default function Sidebar({
 
 	return (
 		<SidebarContainer smallScreen={smallScreen}>
-			<div className="h-[72px] text-2xl">Filters and stuff</div>
-			<ul className="p-2">
-				{Array.from(boothsById.values()).map(({ id, exhibitor }) => (
-					<li key={id} className="py-1">
-						{exhibitor.name}
+			<div className="h-[100px] text-2xl">Filters and stuff</div>
+			<ul className="divide-y divide-neutral-400">
+				{sortedBooths.map(({ id, exhibitor, location }) => (
+					<li	
+						key={id}
+						onClick={() => setActiveBoothId(id)}
+						onMouseEnter={() => setHoveredBoothId(id)}
+						onMouseLeave={() => setHoveredBoothId(null)}
+						className="flex cursor-default px-1 py-2 hover:bg-slate-800">
+						<div>{exhibitor.name}</div>
+						<div className="ml-auto text-sm text-neutral-400">
+							{locations.find(loc => loc.id === location)?.label}
+						</div>
 					</li>
 				))}
 			</ul>

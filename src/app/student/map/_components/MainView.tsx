@@ -30,7 +30,14 @@ export default function MainView({
 
 	return (
 		<div className="relative flex h-full w-full">
-			<Sidebar boothsById={boothsById} activeBoothId={activeBoothId} />
+			<Sidebar
+				boothsById={boothsById}
+				activeBoothId={activeBoothId}
+				hoveredBoothId={hoveredBoothId}
+				setActiveBoothId={setActiveBoothId}
+				setHoveredBoothId={setHoveredBoothId}
+				currentLocation={locationId}
+			/>
 
 			<div className="flex-grow">
 				<MapComponent

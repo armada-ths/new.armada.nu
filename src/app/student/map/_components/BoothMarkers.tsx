@@ -11,7 +11,7 @@ function BoothMarker({ booth, scale }: { booth: Booth; scale: number }) {
 			key={booth.id}
 			longitude={booth.center[0]}
 			latitude={booth.center[1]}>
-			<div style={{ transform: `scale(${scale})` }}>
+			<div className="cursor-default" style={{ transform: `scale(${scale})` }}>
 				{logoSrc ? (
 					<div className="size-[60px] flex" >
 						<Image
