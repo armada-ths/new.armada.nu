@@ -2,7 +2,6 @@
 
 import { MapComponent } from "@/app/student/map/_components/MapComponent"
 import Sidebar from "@/app/student/map/_components/Sidebar"
-import EditorMapComponent from "@/app/student/map/editor/EditorMapComponent"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 
 import {
@@ -34,35 +33,28 @@ export default function MainView({
   const [activeBoothId, setActiveBoothId] = useState<BoothID | null>(null)
   const [hoveredBoothId, setHoveredBoothId] = useState<BoothID | null>(null)
 
+  const onBoothClick = (boothId: BoothID) => {
+    setActiveBoothId(boothId)
+  }
+
   return (
     <div className="relative flex h-full w-full">
-      {!editorMode ? (
-        <>
-          <Sidebar
-            boothsById={boothsById}
-            activeBoothId={activeBoothId}
-            hoveredBoothId={hoveredBoothId}
-            setActiveBoothId={setActiveBoothId}
-            setHoveredBoothId={setHoveredBoothId}
-            currentLocation={locationId}
-          />
-          <div className="flex-grow">
-            <MapComponent
-              boothsById={currentLocationBoothsById}
-              location={location}
-              activeBoothId={activeBoothId}
-              hoveredBoothId={hoveredBoothId}
-              setActiveBoothId={setActiveBoothId}
-              setHoveredBoothId={setHoveredBoothId}
-            />
-          </div>
-        </>
-      ) : (
-        <EditorMapComponent
+      <Sidebar
+        boothsById={boothsById}
+        activeBoothId={activeBoothId}
+        onBoothClick={onBoothClick}
+      />
+
+      <div className="flex-grow">
+        <MapComponent
+          boothsById={currentLocationBoothsById}
           location={location}
-          exhibitorsById={exhibitorsById}
+          activeBoothId={activeBoothId}
+          hoveredBoothId={hoveredBoothId}
+          setActiveBoothId={setActiveBoothId}
+          setHoveredBoothId={setHoveredBoothId}
         />
-      )}
+      </div>
 
       <SelectLocation />
     </div>
