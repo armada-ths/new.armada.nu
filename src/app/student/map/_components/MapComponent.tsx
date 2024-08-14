@@ -5,6 +5,7 @@ import {
 	BoothID,
 	geoJsonBoothDataByLocation
 } from "@/app/student/map/lib/booths"
+import { Location } from "@/app/student/map/lib/locations"
 import { getPolygonCenter } from "@/app/student/map/lib/utils"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -19,7 +20,6 @@ import {
 } from "react-map-gl/maplibre"
 import { BoothMap, GeoJsonBooth } from "../lib/booths"
 import { BoothMarkers } from "./BoothMarkers"
-import { Location } from "@/app/student/map/lib/locations"
 
 const boothLayerStyle: FillLayer = {
 	source: "booths",
@@ -74,6 +74,17 @@ export function MapComponent({
 			zoom: zoom
 		})
 	}, [location])
+
+	// Fly to location center while choosing booth from sidebar
+	useEffect(() => {
+		if (activeBoothId) {
+			mapRef.current?.flyTo({
+				center: boothsById.get(activeBoothId)?.center as [number, number],
+				zoom: 18.5,
+				speed: 0.8
+			})
+		}
+	}, [activeBoothId])
 
 	// Keep mapbox feature state in sync with activeBoothId and hoveredBoothId
 	// (to allow for styling of the features)

@@ -1,35 +1,35 @@
 "use client"
-
 import { Card } from "@/components/ui/card"
-import { Box, Flex, Text } from "@radix-ui/themes"
 import Image from "next/image"
-import { Booth } from "../lib/booths"
+import { Booth, BoothID } from "../lib/booths"
 
-export function BoothListItem({ booth }: { booth: Booth }) {
+export function BoothListItem({
+	booth,
+	onBoothClick
+}: {
+	booth: Booth
+	onBoothClick: (boothId: BoothID) => void
+}) {
 	const logoSrc = booth.exhibitor.logo_squared ?? booth.exhibitor.logo_freesize
 	return (
-		<Box>
-			<Card className="h-12">
-				<Flex gap="3" align="center" className="pl-2">
-					{logoSrc ? (
-						<div className="flex">
-							<Image
-								className="my-auto size-12 p-2"
-								src={logoSrc}
-								alt={booth.exhibitor.name}
-								width={400}
-								height={300}></Image>
-							<Text as="div" size="2" weight="bold">
-								{booth.exhibitor.name}
-							</Text>
-						</div>
-					) : (
-						<Text as="div" size="2" weight="bold">
-							{booth.exhibitor.name}
-						</Text>
-					)}
-				</Flex>
-			</Card>
-		</Box>
+		<Card className="cursor-pointer" onClick={() => onBoothClick(booth.id)}>
+			<div className="h-12 transition hover:bg-lime-950">
+				{logoSrc ? (
+					<div className="ml-4 flex h-full items-center">
+						<Image
+							className="mr-2 size-16 object-contain"
+							src={logoSrc}
+							alt={booth.exhibitor.name}
+							width={300}
+							height={300}></Image>
+						<div>{booth.exhibitor.name}</div>
+					</div>
+				) : (
+					<div className="ml-4 flex h-full items-center">
+						{booth.exhibitor.name}
+					</div>
+				)}
+			</div>
+		</Card>
 	)
 }

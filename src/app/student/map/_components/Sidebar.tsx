@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
-import { ChevronsLeft, ChevronsRight } from "lucide-react"
-import { useRef, useState } from "react"
+import { ArrowLeft, ChevronsLeft, ChevronsRight } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+
 export default function Sidebar({
 	boothsById,
 	activeBoothId,
@@ -23,15 +24,24 @@ export default function Sidebar({
 	const smallScreen = width ? width <= 800 : false
 	const booths = Array.from(boothsById.values())
 	const [filteredBooths, setFilteredBooths] = useState(booths)
-	if (activeBoothId != null) {
-		const exhibitor = boothsById.get(activeBoothId)?.exhibitor
+	const [boothId, setBoothId] = useState(activeBoothId)
+
+	useEffect(() => {
+		setBoothId(activeBoothId)
+	}, [activeBoothId])
+
+	if (boothId != null) {
+		const exhibitor = boothsById.get(boothId)?.exhibitor
 		if (!exhibitor) {
-			console.error(`No exhibitor found for booth with id ${activeBoothId}`)
+			console.error(`No exhibitor found for booth with id ${boothId}`)
 			return null
 		}
 		return (
 			<SidebarContainer smallScreen={smallScreen}>
 				<div className="p-2">
+					<Button variant="ghost" onClick={() => setBoothId(null)}>
+						<ArrowLeft size={30} />
+					</Button>
 					<ExhibitorDetails exhibitor={exhibitor} />
 				</div>
 			</SidebarContainer>
@@ -44,7 +54,11 @@ export default function Sidebar({
 				<MapListFilteringHeader booths={booths} onChange={setFilteredBooths} />
 			</div>
 			{filteredBooths.map(booth => (
-				<BoothListItem key={booth.id} booth={booth} />
+				<BoothListItem
+					key={booth.id}
+					booth={booth}
+					onBoothClick={onBoothClick}
+				/>
 			))}
 		</SidebarContainer>
 	)

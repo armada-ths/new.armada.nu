@@ -27,12 +27,16 @@ export default function MainView({
 	const [activeBoothId, setActiveBoothId] = useState<BoothID | null>(null)
 	const [hoveredBoothId, setHoveredBoothId] = useState<BoothID | null>(null)
 
+	const onBoothClick = (boothId: BoothID) => {
+		setActiveBoothId(boothId)
+	}
+
 	return (
 		<div className="relative flex h-full w-full">
 			<Sidebar
 				boothsById={boothsById}
 				activeBoothId={activeBoothId}
-				onBoothClick={() => {}}
+				onBoothClick={onBoothClick}
 			/>
 
 			<div className="flex-grow">
