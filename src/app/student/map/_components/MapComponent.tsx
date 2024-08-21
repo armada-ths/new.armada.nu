@@ -5,7 +5,6 @@ import {
 	BoothID,
 	geoJsonBoothDataByLocation
 } from "@/app/student/map/lib/booths"
-import { getPolygonCenter } from "@/app/student/map/lib/utils"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
@@ -78,10 +77,7 @@ export function MapComponent({
 	useEffect(() => {
 		if (activeBoothId == null) return
 		const booth = boothsById.get(activeBoothId)
-		if (!booth) {
-			console.error(`No booth found for id ${activeBoothId}`)
-			return
-		}
+		if (!booth) return
 
 		mapRef.current?.flyTo({
 			center: booth.center as [number, number],
@@ -167,41 +163,41 @@ export function MapComponent({
 	}
 
 	return (
-		<div className="h-full w-full">
-			<MapboxMap
-				ref={mapRef}
-				onClick={onMapClick}
-				onMouseEnter={onBoothMouseEnter}
-				onMouseLeave={onBoothMouseLeave}
-				onZoom={onZoomChange}
-				interactiveLayerIds={["booths"]}
-				initialViewState={{
-					longitude: 18.070567,
-					latitude: 59.34726,
-					zoom: 18
-				}}
-				cursor={"auto"}
-				minZoom={16}
-				maxZoom={20}
-				maxBounds={[
-					[18.063, 59.345],
-					[18.079, 59.35]
-				]}
-				mapStyle="https://api.maptiler.com/maps/977e9770-60b4-4b8a-94e9-a9fa8db4c68d/style.json?key=57xj41WPFBbOEWiVSSwL">
-				<Layer {...backgroundLayerStyle}></Layer>
+    <div className="h-full w-full">
+      <MapboxMap
+        ref={mapRef}
+        onClick={onMapClick}
+        onMouseEnter={onBoothMouseEnter}
+        onMouseLeave={onBoothMouseLeave}
+        onZoom={onZoomChange}
+        interactiveLayerIds={["booths"]}
+        initialViewState={{
+          longitude: 18.070567,
+          latitude: 59.34726,
+          zoom: 18
+        }}
+        cursor={"auto"}
+        minZoom={16}
+        maxZoom={20}
+        maxBounds={[
+          [18.063, 59.345],
+          [18.079, 59.35]
+        ]}
+        mapStyle="https://api.maptiler.com/maps/977e9770-60b4-4b8a-94e9-a9fa8db4c68d/style.json?key=57xj41WPFBbOEWiVSSwL">
+        <Layer {...backgroundLayerStyle}></Layer>
 
-				<Source
-					id="booths"
-					type="geojson"
-					promoteId={"id"}
-					data={currentGeoJsonBoothData}>
-					<Layer {...boothLayerStyle}></Layer>
-				</Source>
+        <Source
+          id="booths"
+          type="geojson"
+          promoteId={"id"}
+          data={currentGeoJsonBoothData}>
+          <Layer {...boothLayerStyle}></Layer>
+        </Source>
 
-				{markers}
+        {markers}
 
-				{activeBooth && <BoothPopup key={activeBooth.id} booth={activeBooth} />}
-			</MapboxMap>
-		</div>
-	)
+        {activeBooth && <BoothPopup key={activeBooth.id} booth={activeBooth} />}
+      </MapboxMap>
+    </div>
+  )
 }
