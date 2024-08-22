@@ -1,0 +1,45 @@
+"use client"
+import { Card } from "@/components/ui/card"
+import Image from "next/image"
+import { Booth, BoothID } from "../lib/booths"
+import { LocationId, locations } from "@/app/student/map/lib/locations"
+import { cn } from "@/lib/utils"
+
+export function BoothListItem({
+  booth,
+  onBoothClick,
+  currentLocationId
+}: {
+  booth: Booth
+  onBoothClick: (boothId: BoothID) => void
+  currentLocationId: LocationId
+}) {
+  console.log(booth.exhibitor.name, booth.location)
+  const logoSrc = booth.exhibitor.logo_squared ?? booth.exhibitor.logo_freesize
+  return (
+    <Card className="cursor-pointer" onClick={() => onBoothClick(booth.id)}>
+      <div className="h-12 transition hover:bg-lime-950">
+        <div className="ml-4 flex h-full items-center">
+          {logoSrc ? (
+            <Image
+              className="mr-2 size-16 object-contain"
+              src={logoSrc}
+              alt={booth.exhibitor.name}
+              width={300}
+              height={300}></Image>
+          ) : (
+            <div className="mr-2 size-16"></div>
+          )}
+          <div>{booth.exhibitor.name}</div>
+          <div
+            className={cn(
+              "ml-auto mr-2 text-xs text-stone-400",
+              booth.location === currentLocationId && "font-extrabold"
+            )}>
+            {locations.find(loc => loc.id === booth.location)?.label}
+          </div>
+        </div>
+      </div>
+    </Card>
+  )
+}

@@ -81,7 +81,8 @@ export function MapComponent({
 
     mapRef.current?.flyTo({
       center: booth.center as [number, number],
-      zoom: 18.5
+      zoom: 18.5,
+      speed: 0.8
     })
   }, [activeBoothId, boothsById])
 

@@ -49,7 +49,7 @@ function getAllFilterOptions(
   )
 }
 
-export default function ExhibitorFilters({
+export default function ExhibitorListFilteringHeader({
   exhibitors,
   onChange
 }: {

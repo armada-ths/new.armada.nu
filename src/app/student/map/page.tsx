@@ -29,7 +29,7 @@ export default async function Page() {
     boothsByLocation.get(booth.location)!.set(id, booth)
   })
 
-  const editorMode = true
+  const editorMode = false
 
   return (
     // TODO: pt-16 is to account for the navbar, will break if navbar size changes
