@@ -1,13 +1,10 @@
 import MainView from "@/app/student/map/_components/MainView"
 import {
-  Booth,
   BoothMap,
-  GeoJsonBooth,
   geoJsonBoothData,
   makeBooth
 } from "@/app/student/map/lib/booths"
 import { LocationId, locations } from "@/app/student/map/lib/locations"
-import { getPolygonCenter } from "@/app/student/map/lib/utils"
 import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
 
 export default async function Page() {
@@ -18,9 +15,11 @@ export default async function Page() {
 
   const exhibitorsByID = new Map(exhibitors.map(e => [e.id, e]))
 
-
   const boothsById: BoothMap = new Map(
-    geoJsonBoothData.features.map(feat => [feat.properties.id, makeBooth(feat, exhibitorsByID)])
+    geoJsonBoothData.features.map(feat => [
+      feat.properties.id,
+      makeBooth(feat, exhibitorsByID)
+    ])
   )
 
   const boothsByLocation: Map<LocationId, BoothMap> = new Map(
@@ -36,6 +35,7 @@ export default async function Page() {
     // TODO: pt-16 is to account for the navbar, will break if navbar size changes
     <div className="flex h-screen pt-16">
       <MainView
+        exhibitorsById={exhibitorsByID}
         boothsByLocation={boothsByLocation}
         boothsById={boothsById}
         editorMode={editorMode}

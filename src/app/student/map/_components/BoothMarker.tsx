@@ -1,10 +1,10 @@
 "use client"
 
-import Image from "next/image"
-import { Marker } from "react-map-gl/maplibre"
-import { Booth, BoothMap } from "../lib/booths"
+import Image from "next/image";
+import { Marker } from "react-map-gl/maplibre";
+import { Booth } from "../lib/booths";
 
-function BoothMarker({ booth, scale }: { booth: Booth; scale: number }) {
+export function BoothMarker({ booth, scale }: { booth: Booth; scale: number }) {
 	const logoSrc = booth.exhibitor.logo_squared ?? booth.exhibitor.logo_freesize
 	return (
 		<Marker
@@ -26,21 +26,5 @@ function BoothMarker({ booth, scale }: { booth: Booth; scale: number }) {
 				)}
 			</div>
 		</Marker>
-	)
-}
-
-export function BoothMarkers({
-	boothMap,
-	scale
-}: {
-	boothMap: BoothMap
-	scale: number
-}) {
-	return (
-		<>
-			{Array.from(boothMap.values()).map(booth => (
-				<BoothMarker key={booth.id} booth={booth} scale={scale} />
-			))}
-		</>
 	)
 }
