@@ -58,7 +58,6 @@ export default function EditorMapComponent({
   const [drawMode, setDrawMode] = useState<DrawMode>("simple_select")
 
   const [activeFeatureId, setActiveFeatureId] = useState<BoothID | null>(null)
-  console.log("activeFeatureId", activeFeatureId)
 
   const featureMap = useRef<FeatureMap>(
     new Map(geoJsonBoothData.features.map(feat => [feat.properties.id, feat]))
@@ -71,12 +70,12 @@ export default function EditorMapComponent({
   }
 
   function onModeChange(e: { mode: DrawMode }) {
-    console.log("Mode change", e)
+    console.log("Mode change", e.mode)
     setDrawMode(e.mode)
   }
 
   function onSelectionChange(e: { features: GeoJsonBooth[] }) {
-    console.log("Selection change", drawMode)
+    console.log("Selection change", drawMode, e)
     if (e.features.length === 0) return
     if (activeFeature == null) setActiveFeatureId(e.features[0].properties.id)
     else setActiveFeatureId(null)
@@ -291,6 +290,20 @@ export default function EditorMapComponent({
   }
 
   function Toolbar() {
+    const [showJson, setShowJson] = useState(false)
+    const json = JSON.stringify(
+      toFeatureCollection(featureMap.current),
+      null,
+      2
+    )
+    const copyToClipboard = () => {
+      navigator.clipboard
+        .writeText(json)
+        .then(() => setDidCopy(true))
+        .catch(() => console.error("Failed to copy to clipboard"))
+    }
+    const [didCopy, setDidCopy] = useState(false)
+
     return (
       <div className="absolute bottom-2 flex ">
         <Button
@@ -302,6 +315,23 @@ export default function EditorMapComponent({
           }}>
           Draw
         </Button>
+
+        <div className="relative flex justify-center">
+          <Button onClick={() => setShowJson(!showJson)}>
+            {showJson ? "Hide JSON" : "Show JSON"}
+          </Button>
+          {showJson && (
+            <div className="absolute bottom-[45px] h-[500px] w-[500px] overflow-auto rounded-md bg-stone-200 p-2 text-stone-900">
+              {!didCopy ? <Button
+                className=""
+                variant="ghost"
+                onClick={copyToClipboard}>
+                Copy to clipboard
+              </Button> : <div>Copied!</div>}
+              <pre>{json}</pre>
+            </div>
+          )}
+        </div>
       </div>
     )
   }

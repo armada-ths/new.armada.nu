@@ -14,7 +14,6 @@ export function BoothListItem({
   onBoothClick: (boothId: BoothID) => void
   currentLocationId: LocationId
 }) {
-  console.log(booth.exhibitor.name, booth.location)
   const logoSrc = booth.exhibitor.logo_squared ?? booth.exhibitor.logo_freesize
   return (
     <Card className="cursor-pointer" onClick={() => onBoothClick(booth.id)}>
