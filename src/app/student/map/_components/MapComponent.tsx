@@ -2,167 +2,163 @@
 
 import { BoothPopup } from "@/app/student/map/_components/BoothPopup"
 import {
-	BoothID,
-	geoJsonBoothDataByLocation
+  BoothID,
+  geoJsonBoothDataByLocation
 } from "@/app/student/map/lib/booths"
+import { Location } from "@/app/student/map/lib/locations"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
-	BackgroundLayer,
-	FillLayer,
-	Layer,
-	Map as MapboxMap,
-	MapLayerMouseEvent,
-	MapRef,
-	Source
+  BackgroundLayer,
+  FillLayer,
+  Layer,
+  Map as MapboxMap,
+  MapLayerMouseEvent,
+  MapRef,
+  Source
 } from "react-map-gl/maplibre"
 import { BoothMap, GeoJsonBooth } from "../lib/booths"
-import { BoothMarkers } from "./BoothMarkers"
-import { Location } from "@/app/student/map/lib/locations"
+import { BoothMarker } from "./BoothMarker"
 
 const boothLayerStyle: FillLayer = {
-	source: "booths",
-	id: "booths",
-	type: "fill",
-	paint: {
-		"fill-outline-color": "#0e3e08",
-		"fill-color": [
-			"case",
-			["boolean", ["feature-state", "active"], false],
-			"#21c00d",
-			["boolean", ["feature-state", "hover"], false],
-			"#a0df98",
-			"#89bc82"
-		]
-	}
+  source: "booths",
+  id: "booths",
+  type: "fill",
+  paint: {
+    "fill-outline-color": "#0e3e08",
+    "fill-color": [
+      "case",
+      ["boolean", ["feature-state", "active"], false],
+      "#21c00d",
+      ["boolean", ["feature-state", "hover"], false],
+      "#a0df98",
+      "#89bc82"
+    ]
+  }
 }
 
 const backgroundLayerStyle: BackgroundLayer = {
-	id: "background",
-	type: "background",
-	paint: {
-		"background-color": "#40d07e",
-		"background-opacity": 0.2
-	}
+  id: "background",
+  type: "background",
+  paint: {
+    "background-color": "#40d07e",
+    "background-opacity": 0.2
+  }
 }
 
 export function MapComponent({
-	boothsById,
-	location,
-	activeBoothId,
-	setActiveBoothId,
-	hoveredBoothId,
-	setHoveredBoothId
+  boothsById,
+  location,
+  activeBoothId,
+  setActiveBoothId,
+  hoveredBoothId,
+  setHoveredBoothId
 }: {
-	boothsById: BoothMap
-	location: Location
-	activeBoothId: BoothID | null
-	hoveredBoothId: BoothID | null
-	setActiveBoothId: (id: BoothID | null) => void
-	setHoveredBoothId: (id: BoothID | null) => void
+  boothsById: BoothMap
+  location: Location
+  activeBoothId: BoothID | null
+  hoveredBoothId: BoothID | null
+  setActiveBoothId: (id: BoothID | null) => void
+  setHoveredBoothId: (id: BoothID | null) => void
 }) {
-	const mapRef = useRef<MapRef>(null)
+  const mapRef = useRef<MapRef>(null)
 
-	const [markerScale, setMarkerScale] = useState(1)
+  const [markerScale, setMarkerScale] = useState(1)
 
-	// Fly to location center on change
-	useEffect(() => {
-		const { longitude, latitude, zoom } = location.center
-		mapRef.current?.flyTo({
-			center: [longitude, latitude],
-			zoom: zoom
-		})
-	}, [location])
+  // Fly to location center on change
+  useEffect(() => {
+    const { longitude, latitude, zoom } = location.center
+    mapRef.current?.flyTo({
+      center: [longitude, latitude],
+      zoom: zoom
+    })
+  }, [location])
 
-	useEffect(() => {
-		if (activeBoothId == null) return
-		const booth = boothsById.get(activeBoothId)
-		if (!booth) return
+  useEffect(() => {
+    if (activeBoothId == null) return
+    const booth = boothsById.get(activeBoothId)
+    if (!booth) return
 
-		mapRef.current?.flyTo({
-			center: booth.center as [number, number],
-			zoom: 18.5
-		})
-	}, [activeBoothId, boothsById])
+    mapRef.current?.flyTo({
+      center: booth.center as [number, number],
+      zoom: 18.5
+    })
+  }, [activeBoothId, boothsById])
 
-	// Keep mapbox feature state in sync with activeBoothId and hoveredBoothId
-	// (to allow for styling of the features)
-	function useFeatureState(
-		boothId: BoothID | null,
-		stateKey: "active" | "hover"
-	) {
-		useEffect(() => {
-			const map = mapRef.current
-			if (map == null || boothId == null) return
+  // Keep mapbox feature state in sync with activeBoothId and hoveredBoothId
+  // (to allow for styling of the features)
+  function useFeatureState(
+    boothId: BoothID | null,
+    stateKey: "active" | "hover"
+  ) {
+    useEffect(() => {
+      const map = mapRef.current
+      if (map == null || boothId == null) return
 
-			map.setFeatureState(
-				{ source: "booths", id: boothId },
-				{ [stateKey]: true }
-			)
+      map.setFeatureState(
+        { source: "booths", id: boothId },
+        { [stateKey]: true }
+      )
 
-			return () => {
-				map.setFeatureState(
-					{ source: "booths", id: boothId },
-					{ [stateKey]: false }
-				)
-			}
-		}, [boothId, stateKey])
-	}
+      return () => {
+        map.setFeatureState(
+          { source: "booths", id: boothId },
+          { [stateKey]: false }
+        )
+      }
+    }, [boothId, stateKey])
+  }
 
-	useFeatureState(activeBoothId, "active")
-	useFeatureState(hoveredBoothId, "hover")
+  useFeatureState(activeBoothId, "active")
+  useFeatureState(hoveredBoothId, "hover")
 
-	const activeBooth =
-		activeBoothId != null ? boothsById.get(activeBoothId) : null
+  const activeBooth =
+    activeBoothId != null ? boothsById.get(activeBoothId) : null
 
-	const currentGeoJsonBoothData = geoJsonBoothDataByLocation.get(location.id)!
+  const currentGeoJsonBoothData = geoJsonBoothDataByLocation.get(location.id)!
 
-	// Don't want to rerender markers on every map render
-	const markers = useMemo(
-		() => BoothMarkers({ boothMap: boothsById, scale: markerScale }),
-		[boothsById, markerScale]
-	)
+  // Don't want to rerender markers on every map render
+  const markers = useMemo(
+    () =>
+      Array.from(boothsById.values()).map(booth => (
+        <BoothMarker key={booth.id} booth={booth} scale={markerScale} />
+      )),
+    [boothsById, markerScale]
+  )
 
-	function onMapClick(e: MapLayerMouseEvent) {
-		const feature = e.features?.[0] as GeoJsonBooth | undefined // no other features for now
+  function onMapClick(e: MapLayerMouseEvent) {
+    const feature = e.features?.[0] as GeoJsonBooth | undefined // no other features for now
+    if (feature) {
+      setActiveBoothId(feature.properties.id)
+    } else {
+      setActiveBoothId(null) // outside click
+    }
+  }
 
-		if (feature) {
-			setActiveBoothId(feature.properties.id)
+  function onBoothMouseEnter(e: MapLayerMouseEvent) {
+    const feature = e.features?.[0] as GeoJsonBooth | undefined
+    if (feature) {
+      setHoveredBoothId(feature.properties.id)
+    }
+  }
 
-			// mapRef.current?.flyTo({
-			// 	center: getPolygonCenter(feature) as [number, number],
-			// 	zoom: 18.5,
-			// 	speed: 0.8
-			// })
-		} else {
-			setActiveBoothId(null) // outside click
-		}
-	}
+  function onBoothMouseLeave(e: MapLayerMouseEvent) {
+    const feature = e.features?.[0] as GeoJsonBooth | undefined
+    if (feature) {
+      setHoveredBoothId(null)
+    }
+  }
 
-	function onBoothMouseEnter(e: MapLayerMouseEvent) {
-		const feature = e.features?.[0] as GeoJsonBooth | undefined
-		if (feature) {
-			setHoveredBoothId(feature.properties.id)
-		}
-	}
+  function onZoomChange() {
+    // console.log(mapRef.current?.getCenter(), mapRef.current?.getZoom())
 
-	function onBoothMouseLeave(e: MapLayerMouseEvent) {
-		const feature = e.features?.[0] as GeoJsonBooth | undefined
-		if (feature) {
-			setHoveredBoothId(null)
-		}
-	}
+    const zoom = mapRef.current?.getZoom()
+    if (zoom === undefined) return
+    const scale = Math.max(0.3, Math.min(2, 1 + (zoom - 18) * 0.3))
+    setMarkerScale(scale)
+  }
 
-	function onZoomChange() {
-		// console.log(mapRef.current?.getCenter(), mapRef.current?.getZoom())
-
-		const zoom = mapRef.current?.getZoom()
-		if (zoom === undefined) return
-		const scale = Math.max(0.3, Math.min(2, 1 + (zoom - 18) * 0.3))
-		setMarkerScale(scale)
-	}
-
-	return (
+  return (
     <div className="h-full w-full">
       <MapboxMap
         ref={mapRef}

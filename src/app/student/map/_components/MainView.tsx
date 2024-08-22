@@ -1,8 +1,9 @@
 "use client"
 
 import { MapComponent } from "@/app/student/map/_components/MapComponent"
-import EditorMapComponent from "@/app/student/map/editor/EditorMapComponent"
 import Sidebar from "@/app/student/map/_components/Sidebar"
+import EditorMapComponent from "@/app/student/map/editor/EditorMapComponent"
+import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import {
   Select,
   SelectContent,
@@ -17,10 +18,12 @@ import { LocationId, locations } from "../lib/locations"
 export default function MainView({
   boothsByLocation,
   boothsById,
+  exhibitorsById,
   editorMode = false
 }: {
   boothsByLocation: Map<LocationId, BoothMap>
   boothsById: BoothMap
+  exhibitorsById: Map<number, Exhibitor>
   editorMode?: boolean
 }) {
   const [locationId, setLocationId] = useState<LocationId>("nymble/1")
@@ -54,8 +57,9 @@ export default function MainView({
           </div>
         </>
       ) : (
-        <EditorMapComponent 
+        <EditorMapComponent
           location={location}
+          exhibitorsById={exhibitorsById}
         />
       )}
 
