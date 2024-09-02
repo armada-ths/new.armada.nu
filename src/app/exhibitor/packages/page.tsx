@@ -150,7 +150,15 @@ export default async function Packages() {
               </Link>{" "}
               for more information and other important dates.
             </FAQItem>
-
+            <FAQItem title="When is the deadline for Final Registration?">
+              The Final Registration ends {formatDate(dates.fr.end)}. See our{" "}
+              <Link
+                className="text-white underline hover:no-underline"
+                href="/exhibitor/timeline">
+                timeline
+              </Link>{" "}
+              for more information and other important dates.
+            </FAQItem>
             <FAQItem title="How do I sign up for armada?">
               <p>You can sign up here:</p>
               <div className="my-4">
