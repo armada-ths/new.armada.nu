@@ -1,13 +1,9 @@
 import { StatusModuleItem } from "@/app/exhibitor/_components/StatusModuleItem"
 import { Page } from "@/components/shared/Page"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from "@/components/ui/accordion"
+import { Accordion } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+import { FAQItem } from "@/components/ui/faqitem"
 import { formatDate } from "@/lib/utils"
 import { Metadata } from "next"
 import Link from "next/link"
@@ -16,25 +12,6 @@ export const metadata: Metadata = {
   title: `Packages - Armada Exhibitor`,
   description:
     "The packages we offer for exhibitors at Armada. Choose between bronze, silver and gold."
-}
-
-function FAQItem({
-  children,
-  title
-}: {
-  children: React.ReactNode
-  title: string
-}) {
-  return (
-    <AccordionItem value={title} className="border-none">
-      <AccordionTrigger className="mb-0 w-full rounded px-2 py-4 text-left font-normal transition hover:bg-slate-700 hover:no-underline">
-        <h3 className="text-xl">{title}</h3>
-      </AccordionTrigger>
-      <AccordionContent className="mt-0 p-2 pt-0 text-base text-stone-400">
-        {children}
-      </AccordionContent>
-    </AccordionItem>
-  )
 }
 
 export default async function Packages() {
