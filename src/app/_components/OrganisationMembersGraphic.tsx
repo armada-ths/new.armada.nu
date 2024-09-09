@@ -16,8 +16,10 @@ export function OrganisationMembersGraphic() {
 
     let pi_division = 0
     let pi_division2 = 0
-    let pg_circles = []
-    let pg_layer1 = Math.floor(Math.PI / Math.asin(memberRadius / layerRadius)) //amount of circles of radius [memberRadius] that can fit on the circle making up a layer
+    const pg_circles = []
+    const pg_layer1 = Math.floor(
+      Math.PI / Math.asin(memberRadius / layerRadius)
+    ) //amount of circles of radius [memberRadius] that can fit on the circle making up a layer
 
     //divide pi by people, if divided num too small -> add second layer
     if (people > pg_layer1) {
@@ -63,12 +65,12 @@ export function OrganisationMembersGraphic() {
     let pi_division = 0
     let pi_division2 = 0
     let pi_division3 = 0
-    let ot_circles = []
+    const ot_circles = []
     //amount of circles of radius [memberRadius] that can fit on the circle making up a layer
-    let ot_layer1 = Math.floor(
+    const ot_layer1 = Math.floor(
       Math.PI / Math.asin(memberRadius / (3 * layerRadius))
     )
-    let ot_layer2 = Math.floor(
+    const ot_layer2 = Math.floor(
       Math.PI / Math.asin(memberRadius / (4 * layerRadius))
     )
 
@@ -129,12 +131,12 @@ export function OrganisationMembersGraphic() {
     let pi_division = 0
     let pi_division2 = 0
     let pi_division3 = 0
-    let host_circles = []
+    const host_circles = []
     //amount of circles of radius [memberRadius] that can fit on the circle making up a layer
-    let host_layer1 = Math.floor(
+    const host_layer1 = Math.floor(
       Math.PI / Math.asin(memberRadius / (6 * layerRadius))
     )
-    let host_layer2 = Math.floor(
+    const host_layer2 = Math.floor(
       Math.PI / Math.asin(memberRadius / (7 * layerRadius))
     )
 
