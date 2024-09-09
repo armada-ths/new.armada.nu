@@ -1,4 +1,6 @@
 "use client"
+import { OrganisationMembersInfo } from "@/app/_components/OrganisationMemberInfo"
+import { CircleDashed } from "lucide-react"
 import { useEffect, useState } from "react"
 
 /*
@@ -228,13 +230,48 @@ export function OrganisationMembersGraphic() {
   })
 
   return (
-    <div className="mt-5">
+    <figure className="relative mt-5">
       <svg viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg">
         <circle fill="orange" cx="85" cy="85" r={memberRadius} />
         {pgCircles}
         {otCircles}
         {hostCircles}
       </svg>
-    </div>
+      <figcaption className="absolute bottom-0 opacity-90">
+        <OrganisationMembersInfo title="Infographics guide">
+          The graphics below contain our current organisation structure.
+          <ul>
+            <li>
+              <CircleDashed
+                size={20}
+                className="mr-1 inline-block text-green-700"
+              />
+              Hosts
+            </li>
+            <li>
+              <CircleDashed
+                size={20}
+                className="mr-1 inline-block text-green-300"
+              />
+              Operation team
+            </li>
+            <li>
+              <CircleDashed
+                size={20}
+                className="mr-1 inline-block text-red-500"
+              />
+              Project group
+            </li>
+            <li>
+              <CircleDashed
+                size={20}
+                className="mr-1 inline-block text-orange-400"
+              />
+              Project manager
+            </li>
+          </ul>
+        </OrganisationMembersInfo>
+      </figcaption>
+    </figure>
   )
 }

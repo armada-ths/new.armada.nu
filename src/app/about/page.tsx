@@ -1,9 +1,7 @@
-import { OrganisationMembersInfo } from "@/app/_components/OrganisationMemberInfo"
 import { OrganisationMembersGraphic } from "@/app/_components/OrganisationMembersGraphic"
 import { P } from "@/app/_components/Paragraph"
 import { PhotoSlideCarousel } from "@/app/_components/PhotoSlideCarousel"
 import { Page } from "@/components/shared/Page"
-import { CircleDashed } from "lucide-react"
 import { Metadata } from "next"
 import Link from "next/link"
 
@@ -56,39 +54,6 @@ export default async function RecruitmentPage() {
           , the student union at KTH, any profit Armada makes goes back to the
           students, funding THS initiatives for a better student life.
         </P>
-        <OrganisationMembersInfo title="Infographics guide">
-          The graphics below contain our current organisation structure.
-          <ul>
-            <li>
-              <CircleDashed
-                size={20}
-                className="mr-1 inline-block text-green-700"
-              />
-              Hosts
-            </li>
-            <li>
-              <CircleDashed
-                size={20}
-                className="mr-1 inline-block text-green-300"
-              />
-              Operation team
-            </li>
-            <li>
-              <CircleDashed
-                size={20}
-                className="mr-1 inline-block text-red-500"
-              />
-              Project group
-            </li>
-            <li>
-              <CircleDashed
-                size={20}
-                className="mr-1 inline-block text-orange-400"
-              />
-              Project manager
-            </li>
-          </ul>
-        </OrganisationMembersInfo>
         <OrganisationMembersGraphic />
       </Page.Boundary>
     </Page.Background>
