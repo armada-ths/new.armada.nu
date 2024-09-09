@@ -230,14 +230,14 @@ export function OrganisationMembersGraphic() {
   })
 
   return (
-    <figure className="relative mt-5">
+    <figure className="relative mt-5 w-9/12 object-scale-down">
       <svg viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg">
         <circle fill="orange" cx="85" cy="85" r={memberRadius} />
         {pgCircles}
         {otCircles}
         {hostCircles}
       </svg>
-      <figcaption className="absolute bottom-0 opacity-90">
+      <figcaption className="bottom-0 opacity-90 md:absolute">
         <OrganisationMembersInfo title="Infographics guide">
           The graphics below contain our current organisation structure.
           <ul>

@@ -54,7 +54,9 @@ export default async function RecruitmentPage() {
           , the student union at KTH, any profit Armada makes goes back to the
           students, funding THS initiatives for a better student life.
         </P>
-        <OrganisationMembersGraphic />
+        <div className="flex w-full justify-center">
+          <OrganisationMembersGraphic />
+        </div>
       </Page.Boundary>
     </Page.Background>
   )
