@@ -55,9 +55,11 @@ export function EventItem({ event }: { event: Event }) {
             <p className="mb-3 text-gray-700 dark:text-neutral-400">
               {formatTimestampAsDate(event_start)}
             </p>
-            <p className="mb-4 text-xs text-gray-700 dark:text-neutral-400">
-              Registration closes {formatTimestampAsDate(registration_end)}
-            </p>
+            {registration_end && (
+              <p className="mb-4 text-xs text-gray-700 dark:text-neutral-400">
+                Registration closes {formatTimestampAsDate(registration_end)}
+              </p>
+            )}
           </div>
         </Link>
       </div>
