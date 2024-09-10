@@ -37,8 +37,6 @@ export default function EventDetails({
   event: Event
   className?: string
 }) {
-  event.description =
-    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente beatae non omnis laborum fugiat, rerum vel aliquid cupiditate rem voluptatem doloremque odio dicta ducimus debitis est consequuntur libero voluptatibus suscipit pariatur. Delectus quisquam suscipit natus ea ducimus dignissimos ipsam molestias quos sunt. Expedita perferendis molestiae a nostrum quidem eligendi esse tempore, porro quia id itaque ullam eum nihil necessitatibus neque, illum fugiat error quae mollitia! Eius officia saepe adipisci vitae facilis! Ipsa, nisi, aspernatur illum labore laboriosam, voluptatem cum laudantium perspiciatis provident neque obcaecati! Aliquid animi vero, debitis eum quam dolorem earum commodi officia ducimus eaque perspiciatis quod illo ex!"
   return (
     <div className={cn("mx-auto max-w-[600px] lg:max-w-[1000px]", className)}>
       <Page.Header>{event.name}</Page.Header>
