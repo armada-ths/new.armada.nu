@@ -86,7 +86,7 @@ export default function EventDetails({
             value={`${event.fee} kr`}
             icon={<Coins size={16} />}></InfoBoxItem>
 
-          {event.open_for_signup && event.registration_end && (
+          {event.open_for_signup_student && event.registration_end && (
             <p className="-mb-1 mt-3 text-xs text-stone-400">
               Registration closes{" "}
               {formatTimestampAsDate(event.registration_end)}
@@ -94,7 +94,7 @@ export default function EventDetails({
           )}
 
           {/* Signup */}
-          {event.open_for_signup ? (
+          {event.open_for_signup_student ? (
             <Button>
               <Link href={event.signup_link ?? ""}>Sign Up</Link>
             </Button>

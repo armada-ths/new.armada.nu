@@ -19,7 +19,7 @@ export interface Event {
   signup_link: string
   can_create_teams: boolean
   can_join_teams: boolean
-  open_for_signup: boolean
+  open_for_signup_student: boolean
 }
 
 export interface SignupQuestion {
