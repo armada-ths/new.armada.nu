@@ -39,6 +39,6 @@ export function formatTimestampAsTime(epochSeconds: number) {
  * we force it to be sweden specific.
  */
 function adjustTimezone(date: DateTime) {
-  if (date.isInDST) return date.setZone("UTC-2")
+  if (date.setZone("Europe/Stockholm").isInDST) return date.setZone("UTC-2")
   return date.setZone("UTC-1")
 }
