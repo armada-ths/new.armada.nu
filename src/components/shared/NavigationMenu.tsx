@@ -86,12 +86,6 @@ const aboutLinks: NavigationLink[] = [
     enabled: true
   },
   {
-    title: "Events",
-    href: "/student/events",
-    description: "See the events leading up to the fair",
-    enabled: feature("EVENT_PAGE")
-  },
-  {
     title: "Team",
     href: "/about/team",
     description: `Get to know the team working on Armada ${DateTime.now().year}`,
