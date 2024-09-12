@@ -34,11 +34,10 @@ export function formatTimestampAsTime(epochSeconds: number) {
 }
 
 /**
- * There is something weird going on with the ais timestamp,
- * making luxon think we're in the wrong timezone, this way
- * we force it to be sweden specific.
+ * The AIS API gives us dates in Epoch timestamp for GMT-0 without timezone info
+ * If someone sets a time for a event as 17, it will be stored as 19 in the AIS
+ * This functions adds the context of the timezone back
  */
 function adjustTimezone(date: DateTime) {
-  if (date.setZone("Europe/Stockholm").isInDST) return date.setZone("UTC-2")
-  return date.setZone("UTC-1")
+  return date.setZone("UTC-0")
 }
