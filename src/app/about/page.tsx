@@ -1,6 +1,6 @@
-import { OrganisationMembersGraphic } from "@/app/_components/OrganisationMembersGraphic"
 import { P } from "@/app/_components/Paragraph"
 import { PhotoSlideCarousel } from "@/app/_components/PhotoSlideCarousel"
+import { OrganisationMembersGraphic } from "@/app/about/_components/OrganisationMembersGraphic"
 import { Page } from "@/components/shared/Page"
 import { Metadata } from "next"
 import Link from "next/link"
