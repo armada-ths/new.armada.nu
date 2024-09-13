@@ -6,6 +6,7 @@ import {
   BoothID,
   GeoJsonBooth,
   geoJsonBoothData,
+  geoJsonBuildingData,
   GeoJsonBoothsData,
   makeBooth
 } from "@/app/student/map/lib/booths"
@@ -37,7 +38,7 @@ const backgroundLayerStyle: BackgroundLayer = {
 
 type FeatureMap = Map<BoothID, GeoJsonBooth>
 
-function toFeatureCollection(featMap: FeatureMap): GeoJsonBoothsData {
+function toFeatureCollection(featMap: FeatureMap) {
   return {
     type: "FeatureCollection",
     features: Array.from(featMap.values())
@@ -59,9 +60,22 @@ export default function EditorMapComponent({
 
   const [activeFeatureId, setActiveFeatureId] = useState<BoothID | null>(null)
 
+  const [showBuildings, setShowBuildings] = useState(false)
+
+  const geoJsonData = showBuildings ? geoJsonBuildingData : geoJsonBoothData
+  
   const featureMap = useRef<FeatureMap>(
-    new Map(geoJsonBoothData.features.map(feat => [feat.properties.id, feat]))
+    new Map(geoJsonData.features.map(feat => [feat.properties.id, feat]))
   )
+
+  function resetFeatures(geoJsonData: GeoJsonBoothsData) {
+    featureMap.current = new Map(
+      geoJsonData.features.map(feat => [feat.properties.id, feat])
+    )
+    updateBooths()
+    updateDrawFeatures()
+  }
+
   function setFeature(feat: GeoJsonBooth) {
     featureMap.current.set(feat.properties.id, feat)
   }
@@ -190,7 +204,7 @@ export default function EditorMapComponent({
         }}
         cursor={"auto"}
         minZoom={16}
-        maxZoom={20}
+        maxZoom={25}
         maxBounds={[
           [18.063, 59.345],
           [18.079, 59.35]
@@ -198,7 +212,7 @@ export default function EditorMapComponent({
         mapStyle="https://api.maptiler.com/maps/977e9770-60b4-4b8a-94e9-a9fa8db4c68d/style.json?key=57xj41WPFBbOEWiVSSwL">
         <Layer {...backgroundLayerStyle}></Layer>
 
-        {mapLoaded && markers}
+        {mapLoaded && !showBuildings && markers}
 
         {mapLoaded && activeFeatureId != null && (
           <Popup
@@ -305,7 +319,7 @@ export default function EditorMapComponent({
     const [didCopy, setDidCopy] = useState(false)
 
     return (
-      <div className="absolute bottom-2 flex ">
+      <div className="absolute bottom-2 flex gap-1">
         <Button
           className={cn(drawMode === "draw_polygon" && "dark:text-melon-700")}
           onClick={() => {
@@ -316,22 +330,41 @@ export default function EditorMapComponent({
           Draw
         </Button>
 
+        <Button
+          onClick={() => {
+            setShowBuildings(!showBuildings)
+            resetFeatures(showBuildings ? geoJsonBoothData : geoJsonBuildingData)
+          }}>
+          {showBuildings ? "Edit booths" : "Edit buildings"}
+        </Button>
+
         <div className="relative flex justify-center">
           <Button onClick={() => setShowJson(!showJson)}>
             {showJson ? "Hide JSON" : "Show JSON"}
           </Button>
           {showJson && (
             <div className="absolute bottom-[45px] h-[500px] w-[500px] overflow-auto rounded-md bg-stone-200 p-2 text-stone-900">
-              {!didCopy ? <Button
-                className=""
-                variant="ghost"
-                onClick={copyToClipboard}>
-                Copy to clipboard
-              </Button> : <div>Copied!</div>}
+              {!didCopy ? (
+                <Button className="dark:bg-slate-400" onClick={copyToClipboard}>
+                  Copy to clipboard
+                </Button>
+              ) : (
+                <div>Copied!</div>
+              )}
               <pre>{json}</pre>
             </div>
           )}
         </div>
+        
+        {/* reset button */}
+        <Button
+          className="dark:bg-gray-400"
+          onClick={() => {
+            resetFeatures(showBuildings ? geoJsonBuildingData : geoJsonBoothData)
+          }}>
+          Reset
+        </Button>
+
       </div>
     )
   }
