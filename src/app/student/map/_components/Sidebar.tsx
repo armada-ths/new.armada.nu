@@ -16,7 +16,6 @@ import { useState } from "react"
 export default function Sidebar({
   boothsById,
   activeBoothId,
-  hoveredBoothId,
   setActiveBoothId,
   setHoveredBoothId,
   currentLocation

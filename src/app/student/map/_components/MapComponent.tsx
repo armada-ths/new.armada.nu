@@ -3,7 +3,8 @@
 import { BoothPopup } from "@/app/student/map/_components/BoothPopup"
 import {
   BoothID,
-  geoJsonBoothDataByLocation
+  geoJsonBoothDataByLocation,
+  geoJsonBuildingData
 } from "@/app/student/map/lib/booths"
 import { Location } from "@/app/student/map/lib/locations"
 import "maplibre-gl/dist/maplibre-gl.css"
@@ -12,6 +13,7 @@ import {
   BackgroundLayer,
   FillLayer,
   Layer,
+  LineLayer,
   Map as MapboxMap,
   MapLayerMouseEvent,
   MapRef,
@@ -34,6 +36,16 @@ const boothLayerStyle: FillLayer = {
       "#a0df98",
       "#89bc82"
     ]
+  }
+}
+
+const buildingLayerStyle: LineLayer = {
+  source: "buildings",
+  id: "buildings",
+  type: "line",
+  paint: {
+    "line-color": "#ff0000",
+    "line-width": 2
   }
 }
 
@@ -189,6 +201,14 @@ export function MapComponent({
           promoteId={"id"}
           data={currentGeoJsonBoothData}>
           <Layer {...boothLayerStyle}></Layer>
+        </Source>
+
+        <Source
+          id="buildings"
+          type="geojson"
+          promoteId={"id"}
+          data={geoJsonBuildingData}>
+          <Layer {...buildingLayerStyle}></Layer>
         </Source>
 
         {markers}
