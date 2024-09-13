@@ -14,17 +14,16 @@ import {
 import { useState } from "react"
 import { BoothID, BoothMap } from "../lib/booths"
 import { LocationId, locations } from "../lib/locations"
+import { Button } from "@/components/ui/button"
 
 export default function MainView({
   boothsByLocation,
   boothsById,
-  exhibitorsById,
-  editorMode = false
+  exhibitorsById
 }: {
   boothsByLocation: Map<LocationId, BoothMap>
   boothsById: BoothMap
   exhibitorsById: Map<number, Exhibitor>
-  editorMode?: boolean
 }) {
   const [locationId, setLocationId] = useState<LocationId>("nymble/1")
   const location = locations.find(loc => loc.id === locationId)!
@@ -32,6 +31,8 @@ export default function MainView({
 
   const [activeBoothId, setActiveBoothId] = useState<BoothID | null>(null)
   const [hoveredBoothId, setHoveredBoothId] = useState<BoothID | null>(null)
+
+  const [editorMode, setEditorMode] = useState(false)
 
   return (
     <div className="relative flex h-full w-full">
@@ -63,9 +64,21 @@ export default function MainView({
         />
       )}
 
+      {process.env.NODE_ENV === "development" && <EditorToggle />}
+
       <SelectLocation />
     </div>
   )
+
+  function EditorToggle() {
+    return (
+      <Button
+        className="absolute bottom-2 left-2"
+        onClick={() => setEditorMode(prev => !prev)}>
+        {editorMode ? "Switch to normal mode" : "Switch to edit mode"}
+      </Button>
+    )
+  }
 
   function SelectLocation() {
     return (
