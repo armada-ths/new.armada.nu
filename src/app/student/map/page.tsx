@@ -5,9 +5,15 @@ import {
   makeBooth
 } from "@/app/student/map/lib/booths"
 import { LocationId, locations } from "@/app/student/map/lib/locations"
+import { feature } from "@/components/shared/feature"
 import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
+import { notFound } from "next/navigation"
 
 export default async function Page() {
+  if (!feature("MAP_PAGE")) {
+    return notFound()
+  }
+
   const exhibitors = await fetchExhibitors({
     year: 2024,
     next: { revalidate: 3600 * 24 * 6 /* 6 days */ }
@@ -38,7 +44,6 @@ export default async function Page() {
         exhibitorsById={exhibitorsByID}
         boothsByLocation={boothsByLocation}
         boothsById={boothsById}
-        editorMode={editorMode}
       />
     </div>
   )
