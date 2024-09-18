@@ -41,7 +41,10 @@ geoJsonBoothData.features.forEach(feat => {
   geoJsonBoothDataByLocation.get(feat.properties.location)?.features.push(feat)
 })
 
-export function makeBooth(data: GeoJsonBooth, exhibitorsByID: Map<number, Exhibitor>): Booth {
+export function makeBooth(
+  data: GeoJsonBooth,
+  exhibitorsByID: Map<number, Exhibitor>
+): Booth {
   const { id, location, exhibitorId } = data.properties
 
   const exhibitor = exhibitorsByID.get(exhibitorId)

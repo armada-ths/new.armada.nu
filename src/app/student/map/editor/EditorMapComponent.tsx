@@ -63,7 +63,7 @@ export default function EditorMapComponent({
   const [showBuildings, setShowBuildings] = useState(false)
 
   const geoJsonData = showBuildings ? geoJsonBuildingData : geoJsonBoothData
-  
+
   const featureMap = useRef<FeatureMap>(
     new Map(geoJsonData.features.map(feat => [feat.properties.id, feat]))
   )
@@ -333,7 +333,9 @@ export default function EditorMapComponent({
         <Button
           onClick={() => {
             setShowBuildings(!showBuildings)
-            resetFeatures(showBuildings ? geoJsonBoothData : geoJsonBuildingData)
+            resetFeatures(
+              showBuildings ? geoJsonBoothData : geoJsonBuildingData
+            )
           }}>
           {showBuildings ? "Edit booths" : "Edit buildings"}
         </Button>
@@ -355,16 +357,17 @@ export default function EditorMapComponent({
             </div>
           )}
         </div>
-        
+
         {/* reset button */}
         <Button
           className="dark:bg-gray-400"
           onClick={() => {
-            resetFeatures(showBuildings ? geoJsonBuildingData : geoJsonBoothData)
+            resetFeatures(
+              showBuildings ? geoJsonBuildingData : geoJsonBoothData
+            )
           }}>
           Reset
         </Button>
-
       </div>
     )
   }

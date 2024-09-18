@@ -28,19 +28,19 @@ export function ExhibitorCard({ exhibitor }: { exhibitor: Exhibitor }) {
     else setModalOpen(false)
   }, [exhibitor, searchParams])
 
-	return (
-		<>
-			<Modal
-				open={modalOpen}
-				setOpen={setModalOpen}
-				onClose={() => {
-					router.push("/student/exhibitors", { scroll: false })
-				}}
-				className="max-w-[1000px] bg-gradient-to-br from-emerald-950 via-stone-900 to-stone-900 p-0">
-				<div className="sm:p-10 p-4">
-					<ExhibitorDetails exhibitor={exhibitor} />
-				</div>
-			</Modal>
+  return (
+    <>
+      <Modal
+        open={modalOpen}
+        setOpen={setModalOpen}
+        onClose={() => {
+          router.push("/student/exhibitors", { scroll: false })
+        }}
+        className="max-w-[1000px] bg-gradient-to-br from-emerald-950 via-stone-900 to-stone-900 p-0">
+        <div className="p-4 sm:p-10">
+          <ExhibitorDetails exhibitor={exhibitor} />
+        </div>
+      </Modal>
 
       <Link href={`/student/exhibitors?id=${exhibitor.id}`} scroll={false}>
         <div className="to-liqorice-950 group relative flex h-full flex-col rounded-lg border-2 border-solid border-emerald-900 bg-gradient-to-b from-emerald-900 via-emerald-950 filter transition hover:scale-[1.05] hover:brightness-95">
