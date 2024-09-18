@@ -14,98 +14,98 @@ export type FilterKey = "employments" | "industries"
 export type FilterItem = Exhibitor[FilterKey][number]
 
 export type Filter = {
-	key: FilterKey
-	items: FilterItem[]
-	selected: FilterItem[]
-	label: string
+  key: FilterKey
+  items: FilterItem[]
+  selected: FilterItem[]
+  label: string
 }
 
 function satisfiesFilter(booth: Booth, filter: Filter) {
-	if (filter.selected.length === 0) return true
-	return booth["exhibitor"][filter.key].some(x =>
-		filter.selected.some(y => x.id === y.id)
-	)
+  if (filter.selected.length === 0) return true
+  return booth["exhibitor"][filter.key].some(x =>
+    filter.selected.some(y => x.id === y.id)
+  )
 }
 
 function applyFilters(booths: Booth[], filters: Filter[]) {
-	return booths.filter(e => filters.every(f => satisfiesFilter(e, f)))
+  return booths.filter(e => filters.every(f => satisfiesFilter(e, f)))
 }
 
 function filterBySearch(booths: Booth[], text: string) {
-	return booths.filter(e =>
-		e.exhibitor.name.toLowerCase().includes(text.toLowerCase())
-	)
+  return booths.filter(e =>
+    e.exhibitor.name.toLowerCase().includes(text.toLowerCase())
+  )
 }
 
 // Gets all the possible options by looping over each exhibitor
 function getAllFilterOptions(key: FilterKey, booths: Booth[]): FilterItem[] {
-	const distinct = new Map<FilterItem["id"], FilterItem>()
-	booths.forEach(e => {
-		e.exhibitor[key].forEach(item => distinct.set(item.id, item))
-	})
-	return Array.from(distinct.values()).sort((a, b) =>
-		a.name.localeCompare(b.name)
-	)
+  const distinct = new Map<FilterItem["id"], FilterItem>()
+  booths.forEach(e => {
+    e.exhibitor[key].forEach(item => distinct.set(item.id, item))
+  })
+  return Array.from(distinct.values()).sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
 }
 
 export default function MapListFilteringHeader({
-	booths,
-	onChange
+  booths,
+  onChange
 }: {
-	booths: Booth[]
-	onChange: (filtered: Booth[]) => void
+  booths: Booth[]
+  onChange: (filtered: Booth[]) => void
 }) {
-	const [searchText, setSearchText] = useState("")
+  const [searchText, setSearchText] = useState("")
 
-	const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-	function makeFilter(key: FilterKey, label: string): Filter {
-		return {
-			key,
-			label,
-			selected: [],
-			items: getAllFilterOptions(key, booths)
-		}
-	}
+  function makeFilter(key: FilterKey, label: string): Filter {
+    return {
+      key,
+      label,
+      selected: [],
+      items: getAllFilterOptions(key, booths)
+    }
+  }
 
-	const [filters, setFilters] = useState<{ [K in FilterKey]: Filter }>({
-		employments: makeFilter("employments", "Employments"),
-		industries: makeFilter("industries", "Industries")
-	})
+  const [filters, setFilters] = useState<{ [K in FilterKey]: Filter }>({
+    employments: makeFilter("employments", "Employments"),
+    industries: makeFilter("industries", "Industries")
+  })
 
-	function onFilterChange(filter: Filter, newSelection: FilterItem[]) {
-		const newFilters = {
-			...filters,
-			[filter.key]: { ...filter, selected: newSelection }
-		}
-		setFilters(newFilters)
-		onChange(applyFilters(booths, Object.values(newFilters))) // do filtering and notify the parent
-	}
+  function onFilterChange(filter: Filter, newSelection: FilterItem[]) {
+    const newFilters = {
+      ...filters,
+      [filter.key]: { ...filter, selected: newSelection }
+    }
+    setFilters(newFilters)
+    onChange(applyFilters(booths, Object.values(newFilters))) // do filtering and notify the parent
+  }
 
-	function onSearchChange(text: string) {
-		setSearchText(text)
-		if (text.trim() !== "") onChange(filterBySearch(booths, text))
-		else onChange(applyFilters(booths, Object.values(filters))) // apply filters again when input is cleared
-	}
+  function onSearchChange(text: string) {
+    setSearchText(text)
+    if (text.trim() !== "") onChange(filterBySearch(booths, text))
+    else onChange(applyFilters(booths, Object.values(filters))) // apply filters again when input is cleared
+  }
 
-	return (
-		<div className="flex flex-wrap gap-3">
-			<Input
-				searchIcon={true}
-				ref={inputRef}
-				type="text"
-				placeholder="Search all"
-				className="w-full xs:w-[200px]"
-				value={searchText}
-				onChange={e => onSearchChange(e.target.value)}
-				onKeyDown={e => e.key === "Enter" && inputRef.current?.blur()}
-			/>
-			{Object.values(filters).map(f => (
-				<MultiSelect
-					key={f.key}
-					filter={f}
-					onChange={selected => onFilterChange(f, selected)}></MultiSelect>
-			))}
-		</div>
-	)
+  return (
+    <div className="flex flex-wrap gap-3">
+      <Input
+        searchIcon={true}
+        ref={inputRef}
+        type="text"
+        placeholder="Search all"
+        className="w-full xs:w-[200px]"
+        value={searchText}
+        onChange={e => onSearchChange(e.target.value)}
+        onKeyDown={e => e.key === "Enter" && inputRef.current?.blur()}
+      />
+      {Object.values(filters).map(f => (
+        <MultiSelect
+          key={f.key}
+          filter={f}
+          onChange={selected => onFilterChange(f, selected)}></MultiSelect>
+      ))}
+    </div>
+  )
 }

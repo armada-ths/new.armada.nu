@@ -4,10 +4,10 @@
 
 /* doesnt seem to work */
 @layer components {
-    .maplibregl-popup-content {
-        padding: 0;
-    }
-    .maplibregl-ctrl-attrib {
-        display: none !important;
-    }
+  .maplibregl-popup-content {
+    padding: 0;
+  }
+  .maplibregl-ctrl-attrib {
+    display: none !important;
+  }
 }

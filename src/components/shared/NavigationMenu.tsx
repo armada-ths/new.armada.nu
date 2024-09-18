@@ -81,7 +81,7 @@ const studentLinks: NavigationLink[] = [
     href: "/student/map",
     description: "Find your way around the fair",
     enabled: feature("MAP_PAGE")
-  },
+  }
 ]
 
 const aboutLinks: NavigationLink[] = [
