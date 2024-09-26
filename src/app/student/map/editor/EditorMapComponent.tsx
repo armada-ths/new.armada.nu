@@ -6,8 +6,8 @@ import {
   BoothID,
   GeoJsonBooth,
   geoJsonBoothData,
-  geoJsonBuildingData,
   GeoJsonBoothsData,
+  geoJsonBuildingData,
   makeBooth
 } from "@/app/student/map/lib/booths"
 import { Location } from "@/app/student/map/lib/locations"
@@ -84,12 +84,10 @@ export default function EditorMapComponent({
   }
 
   function onModeChange(e: { mode: DrawMode }) {
-    console.log("Mode change", e.mode)
     setDrawMode(e.mode)
   }
 
   function onSelectionChange(e: { features: GeoJsonBooth[] }) {
-    console.log("Selection change", drawMode, e)
     if (e.features.length === 0) return
     if (activeFeature == null) setActiveFeatureId(e.features[0].properties.id)
     else setActiveFeatureId(null)
