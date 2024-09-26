@@ -4,6 +4,7 @@ import { MapComponent } from "@/app/student/map/_components/MapComponent"
 import Sidebar from "@/app/student/map/_components/Sidebar"
 import EditorMapComponent from "@/app/student/map/editor/EditorMapComponent"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
+import { Button } from "@/components/ui/button"
 import {
   Select,
   SelectContent,
@@ -11,10 +12,10 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
+import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { BoothID, BoothMap } from "../lib/booths"
-import { LocationId, locations } from "../lib/locations"
-import { Button } from "@/components/ui/button"
+import { defaultLocation, LocationId, locations } from "../lib/locations"
 
 export default function MainView({
   boothsByLocation,
@@ -25,9 +26,29 @@ export default function MainView({
   boothsById: BoothMap
   exhibitorsById: Map<number, Exhibitor>
 }) {
-  const [locationId, setLocationId] = useState<LocationId>("nymble/1")
+  // url: /student/map?location=[nymble/1|nymble/2|nymble/3|library]&lat=[number]&lng=[number]&zoom=[number]
+  // if location is not provided or is invalid, default to nymble/1
+  // if lat, lng or zoom is not provided, default to location center
+  const searchParams = useSearchParams()
+
+  const locationString = searchParams.get("location") ?? "nymble/1"
+  const locationIdString = locations.some(loc => loc.id === locationString)
+    ? locationString
+    : defaultLocation.id
+  const [locationId, setLocationId] = useState<LocationId>(
+    locationIdString as LocationId
+  )
   const location = locations.find(loc => loc.id === locationId)!
   const currentLocationBoothsById = boothsByLocation.get(locationId)!
+
+  const latitude =
+    parseFloat(searchParams.get("lat") ?? "") || location.center.latitude
+  const longitude =
+    parseFloat(searchParams.get("lng") ?? "") || location.center.longitude
+  const zoom =
+    parseFloat(searchParams.get("zoom") ?? "") || location.center.zoom
+
+  const initialView = { latitude, longitude, zoom }
 
   const [activeBoothId, setActiveBoothId] = useState<BoothID | null>(null)
   const [hoveredBoothId, setHoveredBoothId] = useState<BoothID | null>(null)
@@ -48,6 +69,7 @@ export default function MainView({
           />
           <div className="flex-grow">
             <MapComponent
+              initialView={initialView}
               boothsById={currentLocationBoothsById}
               location={location}
               activeBoothId={activeBoothId}

@@ -64,7 +64,8 @@ export function MapComponent({
   activeBoothId,
   setActiveBoothId,
   hoveredBoothId,
-  setHoveredBoothId
+  setHoveredBoothId,
+  initialView
 }: {
   boothsById: BoothMap
   location: Location
@@ -72,6 +73,7 @@ export function MapComponent({
   hoveredBoothId: BoothID | null
   setActiveBoothId: (id: BoothID | null) => void
   setHoveredBoothId: (id: BoothID | null) => void
+  initialView: { longitude: number; latitude: number; zoom: number }
 }) {
   const mapRef = useRef<MapRef>(null)
 
@@ -86,6 +88,7 @@ export function MapComponent({
     })
   }, [location])
 
+  // Fly to selected booth on change
   useEffect(() => {
     if (activeBoothId == null) return
     const booth = boothsById.get(activeBoothId)
@@ -180,11 +183,7 @@ export function MapComponent({
         onMouseLeave={onBoothMouseLeave}
         onZoom={onZoomChange}
         interactiveLayerIds={["booths"]}
-        initialViewState={{
-          longitude: 18.070567,
-          latitude: 59.34726,
-          zoom: 18
-        }}
+        initialViewState={initialView}
         cursor={"auto"}
         minZoom={16}
         maxZoom={20}
@@ -202,6 +201,22 @@ export function MapComponent({
           data={currentGeoJsonBoothData}>
           <Layer {...boothLayerStyle}></Layer>
         </Source>
+
+        {/* <Source
+          id="cat"
+          type="image"
+          url="https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png"
+          coordinates={[
+            [18.063, 59.345],
+            [18.079, 59.345],
+            [18.079, 59.35],
+            [18.063, 59.35]
+          ]}>
+          <Layer
+            id="cat"
+            type="raster"
+            ></Layer>
+        </Source> */}
 
         <Source
           id="buildings"

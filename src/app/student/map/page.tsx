@@ -5,8 +5,8 @@ import {
   makeBooth
 } from "@/app/student/map/lib/booths"
 import { LocationId, locations } from "@/app/student/map/lib/locations"
-import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
 import { feature } from "@/components/shared/feature"
+import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
 import { notFound } from "next/navigation"
 
 export default async function Page() {

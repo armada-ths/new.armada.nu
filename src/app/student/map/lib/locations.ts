@@ -40,3 +40,5 @@ export const locations: Location[] = [
     center: libraryCenter
   }
 ]
+
+export const defaultLocation = locations[0]
