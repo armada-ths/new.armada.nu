@@ -1,6 +1,7 @@
 import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
 import { FairDates } from "@/app/_components/FairDates"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
+import { Footer } from "@/components/shared/Footer"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
@@ -57,6 +58,7 @@ export default async function HomePage() {
           </div>
         </div>
       </Page.Background>
+      <Footer />
     </>
   )
 }
