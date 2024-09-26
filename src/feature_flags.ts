@@ -21,7 +21,7 @@ export const FEATURE_FLAGS: Record<
   keyof typeof FEATURE_FLAG_DEFINITIONS,
   boolean
 > = {
-  EVENT_PAGE: false,
+  EVENT_PAGE: true,
   MAP_PAGE: true
 }
 

@@ -35,8 +35,6 @@ export default async function Page() {
     boothsByLocation.get(booth.location)!.set(id, booth)
   })
 
-  const editorMode = true
-
   return (
     // TODO: pt-16 is to account for the navbar, will break if navbar size changes
     <div className="flex h-screen pt-16">
