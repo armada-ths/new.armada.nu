@@ -73,8 +73,8 @@ export function MapComponent({
   activeBoothId: BoothID | null
   hoveredBoothId: BoothID | null
   setActiveBoothId: (id: BoothID | null) => void
-  setHoveredBoothId: (id: BoothID | null) => void,
-  initialView: { longitude: number, latitude: number, zoom: number }
+  setHoveredBoothId: (id: BoothID | null) => void
+  initialView: { longitude: number; latitude: number; zoom: number }
 }) {
   const mapRef = useRef<MapRef>(null)
 
