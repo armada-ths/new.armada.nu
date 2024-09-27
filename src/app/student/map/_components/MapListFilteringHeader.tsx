@@ -20,6 +20,21 @@ export type Filter = {
   label: string
 }
 
+export type FilterMap = { [K in FilterKey]: Filter }
+
+export function makeFilter(
+  key: FilterKey,
+  label: string,
+  booths: Booth[]
+): Filter {
+  return {
+    key,
+    label,
+    selected: [],
+    items: getAllFilterOptions(key, booths)
+  }
+}
+
 function satisfiesFilter(booth: Booth, filter: Filter) {
   if (filter.selected.length === 0) return true
   return booth["exhibitor"][filter.key].some(x =>
@@ -50,28 +65,18 @@ function getAllFilterOptions(key: FilterKey, booths: Booth[]): FilterItem[] {
 
 export default function MapListFilteringHeader({
   booths,
+  filters,
+  setFilters,
   onChange
 }: {
   booths: Booth[]
+  filters: FilterMap
+  setFilters: (filters: FilterMap) => void
   onChange: (filtered: Booth[]) => void
 }) {
   const [searchText, setSearchText] = useState("")
 
   const inputRef = useRef<HTMLInputElement>(null)
-
-  function makeFilter(key: FilterKey, label: string): Filter {
-    return {
-      key,
-      label,
-      selected: [],
-      items: getAllFilterOptions(key, booths)
-    }
-  }
-
-  const [filters, setFilters] = useState<{ [K in FilterKey]: Filter }>({
-    employments: makeFilter("employments", "Employments"),
-    industries: makeFilter("industries", "Industries")
-  })
 
   function onFilterChange(filter: Filter, newSelection: FilterItem[]) {
     const newFilters = {

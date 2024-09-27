@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select"
 import { useSearchParams } from "next/navigation"
 import { useState } from "react"
-import { BoothID, BoothMap } from "../lib/booths"
+import { Booth, BoothID, BoothMap } from "../lib/booths"
 import { defaultLocation, LocationId, locations } from "../lib/locations"
 
 export default function MainView({
@@ -52,6 +52,9 @@ export default function MainView({
 
   const [activeBoothId, setActiveBoothId] = useState<BoothID | null>(null)
   const [hoveredBoothId, setHoveredBoothId] = useState<BoothID | null>(null)
+  const [filteredBooths, setFilteredBooths] = useState<Booth[]>(
+    Array.from(boothsById.values())
+  )
 
   const [editorMode, setEditorMode] = useState(false)
 
@@ -66,6 +69,8 @@ export default function MainView({
             setActiveBoothId={setActiveBoothId}
             setHoveredBoothId={setHoveredBoothId}
             currentLocation={locationId}
+            filteredBooths={filteredBooths}
+            setFilteredBooths={setFilteredBooths}
           />
           <div className="flex-grow">
             <MapComponent
@@ -76,6 +81,7 @@ export default function MainView({
               hoveredBoothId={hoveredBoothId}
               setActiveBoothId={setActiveBoothId}
               setHoveredBoothId={setHoveredBoothId}
+              filteredBoothIds={filteredBooths.map(booth => booth.id)}
             />
           </div>
         </>

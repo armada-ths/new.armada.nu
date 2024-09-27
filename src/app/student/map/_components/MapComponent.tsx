@@ -2,11 +2,6 @@
 
 import { BoothPopup } from "@/app/student/map/_components/BoothPopup"
 import {
-  backgroundLayerStyle,
-  boothLayerStyle,
-  buildingLayerStyle
-} from "@/app/student/map/_components/Layers"
-import {
   BoothID,
   geoJsonBoothDataByLocation,
   geoJsonBuildingData
@@ -23,6 +18,11 @@ import {
 } from "react-map-gl/maplibre"
 import { BoothMap, GeoJsonBooth } from "../lib/booths"
 import { BoothMarker } from "./BoothMarker"
+import {
+  backgroundLayerStyle,
+  boothLayerStyle,
+  buildingLayerStyle
+} from "../lib/config"
 
 export function MapComponent({
   boothsById,
@@ -31,7 +31,8 @@ export function MapComponent({
   setActiveBoothId,
   hoveredBoothId,
   setHoveredBoothId,
-  initialView
+  initialView,
+  filteredBoothIds
 }: {
   boothsById: BoothMap
   location: Location
@@ -40,19 +41,22 @@ export function MapComponent({
   setActiveBoothId: (id: BoothID | null) => void
   setHoveredBoothId: (id: BoothID | null) => void
   initialView: { longitude: number; latitude: number; zoom: number }
+  filteredBoothIds: BoothID[]
 }) {
   const mapRef = useRef<MapRef>(null)
 
   const [markerScale, setMarkerScale] = useState(1)
 
-  // Fly to location center on change
-  useEffect(() => {
+  function flyToLocation(location: Location) {
     const { longitude, latitude, zoom } = location.center
     mapRef.current?.flyTo({
       center: [longitude, latitude],
       zoom: zoom
     })
-  }, [location])
+  }
+
+  // Fly to location center on change
+  useEffect(() => flyToLocation(location), [location])
 
   // Fly to selected booth on change
   useEffect(() => {
@@ -70,29 +74,34 @@ export function MapComponent({
   // Keep mapbox feature state in sync with activeBoothId and hoveredBoothId
   // (to allow for styling of the features)
   function useFeatureState(
-    boothId: BoothID | null,
-    stateKey: "active" | "hover"
+    boothIds: BoothID[],
+    stateKey: "active" | "hover" | "filtered"
   ) {
     useEffect(() => {
       const map = mapRef.current
-      if (map == null || boothId == null) return
+      if (map == null || boothIds.length === 0) return
 
-      map.setFeatureState(
-        { source: "booths", id: boothId },
-        { [stateKey]: true }
-      )
-
-      return () => {
+      for (const boothId of boothIds) {
         map.setFeatureState(
           { source: "booths", id: boothId },
-          { [stateKey]: false }
+          { [stateKey]: true }
         )
       }
-    }, [boothId, stateKey])
+
+      return () => {
+        for (const boothId of boothIds) {
+          map.setFeatureState(
+            { source: "booths", id: boothId },
+            { [stateKey]: false }
+          )
+        }
+      }
+    }, [boothIds, stateKey])
   }
 
-  useFeatureState(activeBoothId, "active")
-  useFeatureState(hoveredBoothId, "hover")
+  useFeatureState(activeBoothId ? [activeBoothId] : [], "active")
+  useFeatureState(hoveredBoothId ? [hoveredBoothId] : [], "hover")
+  useFeatureState(filteredBoothIds, "filtered")
 
   const activeBooth =
     activeBoothId != null ? boothsById.get(activeBoothId) : null

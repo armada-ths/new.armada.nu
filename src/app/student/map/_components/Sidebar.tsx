@@ -2,8 +2,12 @@
 
 import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
 import { BoothListItem } from "@/app/student/map/_components/BoothListItem"
-import MapListFilteringHeader from "@/app/student/map/_components/MapListFilteringHeader"
-import { BoothID, BoothMap } from "@/app/student/map/lib/booths"
+import MapListFilteringHeader, {
+  Filter,
+  FilterKey,
+  makeFilter
+} from "@/app/student/map/_components/MapListFilteringHeader"
+import { Booth, BoothID, BoothMap } from "@/app/student/map/lib/booths"
 import { LocationId } from "@/app/student/map/lib/locations"
 import { sortBooths } from "@/app/student/map/lib/utils"
 import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
@@ -19,7 +23,9 @@ export default function Sidebar({
   activeBoothId,
   setActiveBoothId,
   setHoveredBoothId,
-  currentLocation
+  currentLocation,
+  filteredBooths,
+  setFilteredBooths
 }: {
   boothsById: BoothMap
   activeBoothId: BoothID | null
@@ -27,12 +33,19 @@ export default function Sidebar({
   setActiveBoothId: (id: BoothID | null) => void
   setHoveredBoothId: (id: BoothID | null) => void
   currentLocation: LocationId
+  filteredBooths: Booth[]
+  setFilteredBooths: (booths: Booth[]) => void
 }) {
   const { width } = useScreenSize()
   const smallScreen = width ? width <= 800 : false
 
   const booths = Array.from(boothsById.values())
-  const [filteredBooths, setFilteredBooths] = useState(booths)
+
+  const [filters, setFilters] = useState<{ [K in FilterKey]: Filter }>({
+    employments: makeFilter("employments", "Employments", booths),
+    industries: makeFilter("industries", "Industries", booths)
+  })
+
   const displayedBooths = sortBooths(filteredBooths, currentLocation)
 
   if (activeBoothId != null) {
@@ -54,9 +67,13 @@ export default function Sidebar({
   }
   return (
     <SidebarContainer smallScreen={smallScreen}>
-      <div className="h-[72px] p-2 text-2xl">Search for the booths</div>
-      <div className="p-2">
-        <MapListFilteringHeader booths={booths} onChange={setFilteredBooths} />
+      <div className="mb-2 p-2">
+        <MapListFilteringHeader
+          booths={booths}
+          filters={filters}
+          setFilters={setFilters}
+          onChange={setFilteredBooths}
+        />
       </div>
       {displayedBooths.map(booth => (
         <div
