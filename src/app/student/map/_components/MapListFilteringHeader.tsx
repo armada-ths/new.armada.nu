@@ -1,4 +1,4 @@
-import MultiSelect from "@/app/student/exhibitors/_components/MultiSelect"
+import MultiSelect from "@/app/student/_components/MultiSelect"
 import { Booth } from "@/app/student/map/lib/booths"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"

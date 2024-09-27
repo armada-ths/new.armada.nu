@@ -8,6 +8,7 @@ import { LocationId, locations } from "@/app/student/map/lib/locations"
 import { feature } from "@/components/shared/feature"
 import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
 import { notFound } from "next/navigation"
+import { Suspense } from "react"
 
 export default async function Page() {
   if (!feature("MAP_PAGE")) {
@@ -35,16 +36,16 @@ export default async function Page() {
     boothsByLocation.get(booth.location)!.set(id, booth)
   })
 
-  const editorMode = true
-
   return (
     // TODO: pt-16 is to account for the navbar, will break if navbar size changes
-    <div className="flex h-screen pt-16">
-      <MainView
-        exhibitorsById={exhibitorsByID}
-        boothsByLocation={boothsByLocation}
-        boothsById={boothsById}
-      />
-    </div>
+    <Suspense>
+      <div className="flex h-screen pt-16">
+        <MainView
+          exhibitorsById={exhibitorsByID}
+          boothsByLocation={boothsByLocation}
+          boothsById={boothsById}
+        />
+      </div>
+    </Suspense>
   )
 }

@@ -21,7 +21,7 @@ import {
   Source
 } from "react-map-gl/maplibre"
 import { BoothMap, GeoJsonBooth } from "../lib/booths"
-import { BoothMarkers } from "./BoothMarkers"
+import { BoothMarker } from "./BoothMarker"
 
 const boothLayerStyle: FillLayer = {
   source: "booths",
@@ -136,7 +136,10 @@ export function MapComponent({
 
   // Don't want to rerender markers on every map render
   const markers = useMemo(
-    () => BoothMarkers({ boothMap: boothsById, scale: markerScale }),
+    () =>
+      Array.from(boothsById.values()).map(booth => (
+        <BoothMarker key={booth.id} booth={booth} scale={markerScale} />
+      )),
     [boothsById, markerScale]
   )
 
