@@ -1,9 +1,9 @@
 "use client"
+import { LocationId, locations } from "@/app/student/map/lib/locations"
 import { Card } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { Booth, BoothID } from "../lib/booths"
-import { LocationId, locations } from "@/app/student/map/lib/locations"
-import { cn } from "@/lib/utils"
 
 export function BoothListItem({
   booth,

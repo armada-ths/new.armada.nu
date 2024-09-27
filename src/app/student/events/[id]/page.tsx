@@ -5,6 +5,8 @@ import { fetchEvents } from "@/components/shared/hooks/api/useEvents"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+export const revalidate = 60 * 60 * 2 // Revalidate every other hour
+
 async function getEvent(eventId: string) {
   const events = await fetchEvents()
   const event = events.find(event => event.id.toString() === eventId)
