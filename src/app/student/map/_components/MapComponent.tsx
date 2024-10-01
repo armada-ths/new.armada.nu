@@ -2,6 +2,11 @@
 
 import { BoothPopup } from "@/app/student/map/_components/BoothPopup"
 import {
+  backgroundLayerStyle,
+  boothLayerStyle,
+  buildingLayerStyle
+} from "@/app/student/map/_components/Layers"
+import {
   BoothID,
   geoJsonBoothDataByLocation,
   geoJsonBuildingData
@@ -11,10 +16,7 @@ import { getPolygonCenter } from "@/app/student/map/lib/utils"
 import "maplibre-gl/dist/maplibre-gl.css"
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
-  BackgroundLayer,
-  FillLayer,
   Layer,
-  LineLayer,
   Map as MapboxMap,
   MapLayerMouseEvent,
   MapRef,
@@ -22,42 +24,6 @@ import {
 } from "react-map-gl/maplibre"
 import { BoothMap, GeoJsonBooth } from "../lib/booths"
 import { BoothMarker } from "./BoothMarker"
-
-const boothLayerStyle: FillLayer = {
-  source: "booths",
-  id: "booths",
-  type: "fill",
-  paint: {
-    "fill-outline-color": "#0e3e08",
-    "fill-color": [
-      "case",
-      ["boolean", ["feature-state", "active"], false],
-      "#21c00d",
-      ["boolean", ["feature-state", "hover"], false],
-      "#a0df98",
-      "#89bc82"
-    ]
-  }
-}
-
-const buildingLayerStyle: LineLayer = {
-  source: "buildings",
-  id: "buildings",
-  type: "line",
-  paint: {
-    "line-color": "#ff0000",
-    "line-width": 2
-  }
-}
-
-const backgroundLayerStyle: BackgroundLayer = {
-  id: "background",
-  type: "background",
-  paint: {
-    "background-color": "#40d07e",
-    "background-opacity": 0.2
-  }
-}
 
 export function MapComponent({
   boothsById,
@@ -174,8 +140,6 @@ export function MapComponent({
   }
 
   function onZoomChange() {
-    // console.log(mapRef.current?.getCenter(), mapRef.current?.getZoom())
-
     const zoom = mapRef.current?.getZoom()
     if (zoom === undefined) return
     const scale = Math.max(0.3, Math.min(2, 1 + (zoom - 18) * 0.3))
