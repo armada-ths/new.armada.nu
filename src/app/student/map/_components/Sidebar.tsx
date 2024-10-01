@@ -3,8 +3,9 @@
 import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
 import { BoothListItem } from "@/app/student/map/_components/BoothListItem"
 import MapListFilteringHeader from "@/app/student/map/_components/MapListFilteringHeader"
-import { Booth, BoothID, BoothMap } from "@/app/student/map/lib/booths"
+import { BoothID, BoothMap } from "@/app/student/map/lib/booths"
 import { LocationId } from "@/app/student/map/lib/locations"
+import { sortBooths } from "@/app/student/map/lib/utils"
 import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import { Button } from "@/components/ui/button"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
@@ -27,25 +28,12 @@ export default function Sidebar({
   setHoveredBoothId: (id: BoothID | null) => void
   currentLocation: LocationId
 }) {
-  function sortBooths(booths: Booth[]) {
-    return booths.sort((a, b) => {
-      const c1 =
-        (b.location === currentLocation ? 1 : 0) -
-        (a.location === currentLocation ? 1 : 0)
-      if (c1 !== 0) return c1
-      const c2 = a.location.localeCompare(b.location)
-      if (c2 !== 0) return c2
-      const c3 = a.exhibitor.name.localeCompare(b.exhibitor.name)
-      return c3
-    })
-  }
-
   const { width } = useScreenSize()
   const smallScreen = width ? width <= 800 : false
 
   const booths = Array.from(boothsById.values())
   const [filteredBooths, setFilteredBooths] = useState(booths)
-  const displayedBooths = sortBooths(filteredBooths)
+  const displayedBooths = sortBooths(filteredBooths, currentLocation)
 
   if (activeBoothId != null) {
     const exhibitor = boothsById.get(activeBoothId)?.exhibitor
