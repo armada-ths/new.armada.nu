@@ -1,53 +1,8 @@
 import MultiSelect from "@/app/student/_components/MultiSelect"
+import { Filter, FilterItem, FilterMap, applyFilters, filterBySearch, makeFilter } from "@/app/student/lib/filters"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"
 import { useRef, useState } from "react"
-
-// Filtering assumptions:
-// - selecting multiple options for a filter gives the union (not intersection) of those options
-// - selecting no options is the same as selecting all options
-// - filters are ignored when using the search bar
-
-export type FilterKey = "employments" | "industries"
-export type FilterItem = Exhibitor[FilterKey][number]
-
-export type Filter = {
-  key: FilterKey
-  items: FilterItem[]
-  selected: FilterItem[]
-  label: string
-}
-
-function satisfiesFilter(exhibitor: Exhibitor, filter: Filter) {
-  if (filter.selected.length === 0) return true
-  return exhibitor[filter.key].some(x =>
-    filter.selected.some(y => x.id === y.id)
-  )
-}
-
-function applyFilters(exhibitors: Exhibitor[], filters: Filter[]) {
-  return exhibitors.filter(e => filters.every(f => satisfiesFilter(e, f)))
-}
-
-function filterBySearch(exhibitors: Exhibitor[], text: string) {
-  return exhibitors.filter(e =>
-    e.name.toLowerCase().includes(text.toLowerCase())
-  )
-}
-
-// Gets all the possible options by looping over each exhibitor
-function getAllFilterOptions(
-  key: FilterKey,
-  exhibitors: Exhibitor[]
-): FilterItem[] {
-  const distinct = new Map<FilterItem["id"], FilterItem>()
-  exhibitors.forEach(e => {
-    e[key].forEach(item => distinct.set(item.id, item))
-  })
-  return Array.from(distinct.values()).sort((a, b) =>
-    a.name.localeCompare(b.name)
-  )
-}
 
 export default function ExhibitorListFilteringHeader({
   exhibitors,
@@ -60,18 +15,9 @@ export default function ExhibitorListFilteringHeader({
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  function makeFilter(key: FilterKey, label: string): Filter {
-    return {
-      key,
-      label,
-      selected: [],
-      items: getAllFilterOptions(key, exhibitors)
-    }
-  }
-
-  const [filters, setFilters] = useState<{ [K in FilterKey]: Filter }>({
-    employments: makeFilter("employments", "Employments"),
-    industries: makeFilter("industries", "Industries")
+  const [filters, setFilters] = useState<FilterMap>({
+    employments: makeFilter("employments", "Employments", exhibitors),
+    industries: makeFilter("industries", "Industries", exhibitors)
   })
 
   function onFilterChange(filter: Filter, newSelection: FilterItem[]) {

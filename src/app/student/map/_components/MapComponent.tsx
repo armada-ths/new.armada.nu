@@ -71,8 +71,8 @@ export function MapComponent({
     })
   }, [activeBoothId, boothsById])
 
-  // Keep mapbox feature state in sync with activeBoothId and hoveredBoothId
-  // (to allow for styling of the features)
+  // Keep mapbox feature state in sync with component state
+  // to allow for styling of the features
   function useFeatureState(
     boothIds: BoothID[],
     stateKey: "active" | "hover" | "filtered"

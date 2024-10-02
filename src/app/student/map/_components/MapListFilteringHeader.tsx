@@ -1,78 +1,20 @@
 import MultiSelect from "@/app/student/_components/MultiSelect"
+import { Filter, FilterItem, FilterMap, applyFilters, filterBySearch } from "@/app/student/lib/filters"
 import { Booth } from "@/app/student/map/lib/booths"
-import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"
 
 import { useRef, useState } from "react"
-
-// Filtering assumptions:
-// - selecting multiple options for a filter gives the union (not intersection) of those options
-// - selecting no options is the same as selecting all options
-// - filters are ignored when using the search bar
-
-export type FilterKey = "employments" | "industries"
-export type FilterItem = Exhibitor[FilterKey][number]
-
-export type Filter = {
-  key: FilterKey
-  items: FilterItem[]
-  selected: FilterItem[]
-  label: string
-}
-
-export type FilterMap = { [K in FilterKey]: Filter }
-
-export function makeFilter(
-  key: FilterKey,
-  label: string,
-  booths: Booth[]
-): Filter {
-  return {
-    key,
-    label,
-    selected: [],
-    items: getAllFilterOptions(key, booths)
-  }
-}
-
-function satisfiesFilter(booth: Booth, filter: Filter) {
-  if (filter.selected.length === 0) return true
-  return booth["exhibitor"][filter.key].some(x =>
-    filter.selected.some(y => x.id === y.id)
-  )
-}
-
-function applyFilters(booths: Booth[], filters: Filter[]) {
-  return booths.filter(e => filters.every(f => satisfiesFilter(e, f)))
-}
-
-function filterBySearch(booths: Booth[], text: string) {
-  return booths.filter(e =>
-    e.exhibitor.name.toLowerCase().includes(text.toLowerCase())
-  )
-}
-
-// Gets all the possible options by looping over each exhibitor
-function getAllFilterOptions(key: FilterKey, booths: Booth[]): FilterItem[] {
-  const distinct = new Map<FilterItem["id"], FilterItem>()
-  booths.forEach(e => {
-    e.exhibitor[key].forEach(item => distinct.set(item.id, item))
-  })
-  return Array.from(distinct.values()).sort((a, b) =>
-    a.name.localeCompare(b.name)
-  )
-}
 
 export default function MapListFilteringHeader({
   booths,
   filters,
   setFilters,
-  onChange
+  setFilteredBooths
 }: {
   booths: Booth[]
   filters: FilterMap
   setFilters: (filters: FilterMap) => void
-  onChange: (filtered: Booth[]) => void
+  setFilteredBooths: (filtered: Booth[]) => void
 }) {
   const [searchText, setSearchText] = useState("")
 
@@ -84,13 +26,13 @@ export default function MapListFilteringHeader({
       [filter.key]: { ...filter, selected: newSelection }
     }
     setFilters(newFilters)
-    onChange(applyFilters(booths, Object.values(newFilters))) // do filtering and notify the parent
+    setFilteredBooths(applyFilters(booths, Object.values(newFilters))) // do filtering and notify the parent
   }
 
   function onSearchChange(text: string) {
     setSearchText(text)
-    if (text.trim() !== "") onChange(filterBySearch(booths, text))
-    else onChange(applyFilters(booths, Object.values(filters))) // apply filters again when input is cleared
+    if (text.trim() !== "") setFilteredBooths(filterBySearch(booths, text))
+    else setFilteredBooths(applyFilters(booths, Object.values(filters))) // apply filters again when input is cleared
   }
 
   return (

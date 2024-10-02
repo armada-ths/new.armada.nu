@@ -1,12 +1,9 @@
 "use client"
 
 import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
+import { makeFilter, FilterMap } from "@/app/student/lib/filters"
 import { BoothListItem } from "@/app/student/map/_components/BoothListItem"
-import MapListFilteringHeader, {
-  Filter,
-  FilterKey,
-  makeFilter
-} from "@/app/student/map/_components/MapListFilteringHeader"
+import MapListFilteringHeader from "@/app/student/map/_components/MapListFilteringHeader"
 import { Booth, BoothID, BoothMap } from "@/app/student/map/lib/booths"
 import { LocationId } from "@/app/student/map/lib/locations"
 import { sortBooths } from "@/app/student/map/lib/utils"
@@ -40,10 +37,11 @@ export default function Sidebar({
   const smallScreen = width ? width <= 800 : false
 
   const booths = Array.from(boothsById.values())
+  const exhibitors = booths.map(b => b.exhibitor)
 
-  const [filters, setFilters] = useState<{ [K in FilterKey]: Filter }>({
-    employments: makeFilter("employments", "Employments", booths),
-    industries: makeFilter("industries", "Industries", booths)
+  const [filters, setFilters] = useState<FilterMap>({
+    employments: makeFilter("employments", "Employments", exhibitors),
+    industries: makeFilter("industries", "Industries", exhibitors)
   })
 
   const displayedBooths = sortBooths(filteredBooths, currentLocation)
@@ -72,7 +70,7 @@ export default function Sidebar({
           booths={booths}
           filters={filters}
           setFilters={setFilters}
-          onChange={setFilteredBooths}
+          setFilteredBooths={setFilteredBooths}
         />
       </div>
       {displayedBooths.map(booth => (
