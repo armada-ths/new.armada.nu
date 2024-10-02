@@ -1,5 +1,11 @@
 import MultiSelect from "@/app/student/_components/MultiSelect"
-import { Filter, FilterItem, FilterMap, applyFilters, filterBySearch } from "@/app/student/lib/filters"
+import {
+  Filter,
+  FilterItem,
+  FilterMap,
+  applyFilters,
+  filterBySearch
+} from "@/app/student/lib/filters"
 import { Booth } from "@/app/student/map/lib/booths"
 import { Input } from "@/components/ui/input"
 

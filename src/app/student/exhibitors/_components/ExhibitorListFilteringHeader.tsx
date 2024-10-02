@@ -1,5 +1,12 @@
 import MultiSelect from "@/app/student/_components/MultiSelect"
-import { Filter, FilterItem, FilterMap, applyFilters, filterBySearch, makeFilter } from "@/app/student/lib/filters"
+import {
+  Filter,
+  FilterItem,
+  FilterMap,
+  applyFilters,
+  filterBySearch,
+  makeFilter
+} from "@/app/student/lib/filters"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Input } from "@/components/ui/input"
 import { useRef, useState } from "react"
