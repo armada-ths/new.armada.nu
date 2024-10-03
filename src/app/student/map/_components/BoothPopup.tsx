@@ -5,15 +5,13 @@ import { Booth } from "../lib/booths"
 
 export function BoothPopup({ booth }: { booth: Booth }) {
   return (
-    <div>
-      <Popup
-        key={booth.id}
-        anchor="bottom"
-        longitude={booth.center[0]}
-        latitude={booth.center[1]}
-        closeButton={false}>
-        <div className="text-black ">{booth.exhibitor.name}</div>
-      </Popup>
-    </div>
+    <Popup
+      key={booth.id}
+      anchor="bottom"
+      longitude={booth.center[0]}
+      latitude={booth.center[1]}
+      closeButton={false}>
+      <div className="text-black ">{booth.exhibitor.name}</div>
+    </Popup>
   )
 }
