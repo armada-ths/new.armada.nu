@@ -1,5 +1,8 @@
 import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
-import { Filter, FilterItem } from "@/app/student/lib/filters"
+import {
+  Filter,
+  FilterItem
+} from "@/app/student/exhibitors/_components/ExhibitorListFilteringHeader"
 import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -13,6 +16,9 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 import { ChevronDown, X } from "lucide-react"
 import { useRef, useState } from "react"
+
+// TODO:
+// - keyboard navigation?
 
 export default function MultiSelect({
   filter,
@@ -108,7 +114,7 @@ export default function MultiSelect({
                     role="option"
                     aria-selected={isSelected(item)}
                     key={item.id}
-                    className="flex min-w-32 cursor-default items-center gap-2 p-2 pl-3 hover:bg-emerald-950 hover:text-melon-700"
+                    className="hover:text-melon-700g flex min-w-32 cursor-default items-center gap-2 p-2 pl-3 text-left hover:bg-emerald-950"
                     onClick={() => onSelectionChange(item)}>
                     <Checkbox checked={isSelected(item)} tabIndex={-1} />
                     <span>{item.name}</span>
