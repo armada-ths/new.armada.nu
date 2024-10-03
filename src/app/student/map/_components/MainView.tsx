@@ -15,7 +15,12 @@ import {
 import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { Booth, BoothID, BoothMap } from "../lib/booths"
-import { defaultLocation, LocationId, locations } from "../lib/locations"
+import {
+  defaultLocation,
+  LocationId,
+  locations,
+  validLocationId
+} from "../lib/locations"
 
 export default function MainView({
   boothsByLocation,
@@ -26,17 +31,14 @@ export default function MainView({
   boothsById: BoothMap
   exhibitorsById: Map<number, Exhibitor>
 }) {
-  // url: /student/map?location=[nymble/1|nymble/2|nymble/3|library]&lat=[number]&lng=[number]&zoom=[number]
-  // if location is not provided or is invalid, default to nymble/1
+  // url: /student/map?floor=[nymble/1|nymble/2|nymble/3|library]&lat=[number]&lng=[number]&zoom=[number]
+  // if floor is not provided or is invalid, default to nymble/1
   // if lat, lng or zoom is not provided, default to location center
   const searchParams = useSearchParams()
 
-  const locationString = searchParams.get("location") ?? "nymble/1"
-  const locationIdString = locations.some(loc => loc.id === locationString)
-    ? locationString
-    : defaultLocation.id
+  const floorUrlString = searchParams.get("floor") ?? "nymble/1"
   const [locationId, setLocationId] = useState<LocationId>(
-    locationIdString as LocationId
+    validLocationId(floorUrlString) ? floorUrlString : defaultLocation.id
   )
   const location = locations.find(loc => loc.id === locationId)!
   const currentLocationBoothsById = boothsByLocation.get(locationId)!

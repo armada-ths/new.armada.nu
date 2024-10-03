@@ -1,4 +1,4 @@
-import { LocationId, locations } from "@/app/student/map/lib/locations"
+import { LocationId, locations, validLocationId } from "@/app/student/map/lib/locations"
 import type { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import type { Feature, FeatureCollection, Polygon, Position } from "geojson"
 import boothDataRaw from "../data/booths.json"
@@ -54,7 +54,7 @@ export function makeBooth(
       `No exhibitor found for booth with id ${id} (exhibitor id ${exhibitorId})`
     )
   }
-  if (!locations.some(loc => loc.id === location)) {
+  if (!validLocationId(location)) {
     throw new Error(
       `Invalid location name for booth with id ${id}: ${location}`
     )

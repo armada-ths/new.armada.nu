@@ -42,3 +42,7 @@ export const locations: Location[] = [
 ]
 
 export const defaultLocation = locations[0]
+
+export function validLocationId(locationId: string): locationId is LocationId {
+  return locations.some(loc => loc.id === locationId)
+}
