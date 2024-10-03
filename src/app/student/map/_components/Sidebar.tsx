@@ -1,9 +1,9 @@
 "use client"
 
 import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
-import { makeFilter, FilterMap } from "@/app/student/lib/filters"
+import { FilterMap, makeFilter } from "@/app/student/lib/filters"
 import { BoothListItem } from "@/app/student/map/_components/BoothListItem"
-import MapListFilteringHeader from "@/app/student/map/_components/MapListFilteringHeader"
+import MapFilters from "@/app/student/map/_components/MapFilters"
 import { Booth, BoothID, BoothMap } from "@/app/student/map/lib/booths"
 import { LocationId } from "@/app/student/map/lib/locations"
 import { sortBooths } from "@/app/student/map/lib/utils"
@@ -66,7 +66,7 @@ export default function Sidebar({
   return (
     <SidebarContainer smallScreen={smallScreen}>
       <div className="mb-2 p-2">
-        <MapListFilteringHeader
+        <MapFilters
           booths={booths}
           filters={filters}
           setFilters={setFilters}

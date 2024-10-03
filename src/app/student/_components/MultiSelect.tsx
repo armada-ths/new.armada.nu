@@ -1,5 +1,5 @@
-import { Filter, FilterItem } from "@/app/student/_components/ExhibitorFilters"
 import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
+import { Filter, FilterItem } from "@/app/student/lib/filters"
 import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -13,9 +13,6 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 import { ChevronDown, X } from "lucide-react"
 import { useRef, useState } from "react"
-
-// TODO:
-// - keyboard navigation?
 
 export default function MultiSelect({
   filter,
@@ -88,12 +85,10 @@ export default function MultiSelect({
       <PopoverContent
         className="z-10 w-full border-none p-0"
         align="start"
-        // side="bottom"
         sideOffset={5}
         collisionPadding={10}
         onOpenAutoFocus={e => {
           e.preventDefault()
-          // inputRef.current?.focus() // not great on mobile
         }}>
         <div className="w-[--radix-popover-trigger-width] rounded-md border border-emerald-800 bg-stone-950 p-0 text-sm text-stone-300 shadow-lg xs:w-max">
           <Input

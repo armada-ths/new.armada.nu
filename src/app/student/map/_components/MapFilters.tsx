@@ -4,28 +4,27 @@ import {
   FilterItem,
   FilterMap,
   applyFilters,
-  filterBySearch,
-  makeFilter
+  filterBySearch
 } from "@/app/student/lib/filters"
-import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
+import { Booth } from "@/app/student/map/lib/booths"
 import { Input } from "@/components/ui/input"
+
 import { useRef, useState } from "react"
 
-export default function ExhibitorListFilteringHeader({
-  exhibitors,
-  onChange
+export default function MapFilters({
+  booths,
+  filters,
+  setFilters,
+  setFilteredBooths
 }: {
-  exhibitors: Exhibitor[]
-  onChange: (filtered: Exhibitor[]) => void
+  booths: Booth[]
+  filters: FilterMap
+  setFilters: (filters: FilterMap) => void
+  setFilteredBooths: (filtered: Booth[]) => void
 }) {
   const [searchText, setSearchText] = useState("")
 
   const inputRef = useRef<HTMLInputElement>(null)
-
-  const [filters, setFilters] = useState<FilterMap>({
-    employments: makeFilter("employments", "Employments", exhibitors),
-    industries: makeFilter("industries", "Industries", exhibitors)
-  })
 
   function onFilterChange(filter: Filter, newSelection: FilterItem[]) {
     const newFilters = {
@@ -33,13 +32,13 @@ export default function ExhibitorListFilteringHeader({
       [filter.key]: { ...filter, selected: newSelection }
     }
     setFilters(newFilters)
-    onChange(applyFilters(exhibitors, Object.values(newFilters))) // do filtering and notify the parent
+    setFilteredBooths(applyFilters(booths, Object.values(newFilters))) // do filtering and notify the parent
   }
 
   function onSearchChange(text: string) {
     setSearchText(text)
-    if (text.trim() !== "") onChange(filterBySearch(exhibitors, text))
-    else onChange(applyFilters(exhibitors, Object.values(filters))) // apply filters again when input is cleared
+    if (text.trim() !== "") setFilteredBooths(filterBySearch(booths, text))
+    else setFilteredBooths(applyFilters(booths, Object.values(filters))) // apply filters again when input is cleared
   }
 
   return (

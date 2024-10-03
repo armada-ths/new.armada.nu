@@ -4,7 +4,6 @@ import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 // Filtering assumptions:
 // - selecting multiple options for a filter gives the union (not intersection) of those options
 // - selecting no options is the same as selecting all options
-// - filters are ignored when using the search bar
 
 export type FilterKey = "employments" | "industries"
 export type FilterItem = Exhibitor[FilterKey][number]

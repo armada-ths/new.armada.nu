@@ -11,9 +11,6 @@ import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
-// TODO:
-// - text is janky on scale transition for the cards
-
 export function ExhibitorCard({ exhibitor }: { exhibitor: Exhibitor }) {
   const searchParams = useSearchParams()
   const [modalOpen, setModalOpen] = useState(false)

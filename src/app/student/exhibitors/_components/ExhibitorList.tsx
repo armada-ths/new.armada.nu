@@ -1,7 +1,7 @@
 "use client"
 
-import ExhibitorFilters from "@/app/student/_components/ExhibitorFilters"
 import { ExhibitorCard } from "@/app/student/exhibitors/_components/ExhibitorCard"
+import ExhibitorFilters from "@/app/student/exhibitors/_components/ExhibitorFilters"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import {
   Select,
