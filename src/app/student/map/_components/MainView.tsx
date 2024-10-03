@@ -1,17 +1,11 @@
 "use client"
 
+import LocationSelect from "@/app/student/map/_components/LocationSelect"
 import { MapComponent } from "@/app/student/map/_components/MapComponent"
 import Sidebar from "@/app/student/map/_components/Sidebar"
 import EditorMapComponent from "@/app/student/map/editor/EditorMapComponent"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Button } from "@/components/ui/button"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select"
 import { useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { Booth, BoothID, BoothMap } from "../lib/booths"
@@ -94,43 +88,19 @@ export default function MainView({
         />
       )}
 
-      {process.env.NODE_ENV === "development" && <EditorToggle />}
+      {process.env.NODE_ENV === "development" && ( // toggle for editor mode, only visible in dev
+        <Button
+          className="absolute bottom-2 left-2"
+          onClick={() => setEditorMode(prev => !prev)}>
+          {editorMode ? "Switch to normal mode" : "Switch to edit mode"}
+        </Button>
+      )}
 
-      <SelectLocation />
+      <LocationSelect
+        locationId={locationId}
+        setLocationId={setLocationId}
+        setActiveBoothId={setActiveBoothId}
+      />
     </div>
   )
-
-  function EditorToggle() {
-    return (
-      <Button
-        className="absolute bottom-2 left-2"
-        onClick={() => setEditorMode(prev => !prev)}>
-        {editorMode ? "Switch to normal mode" : "Switch to edit mode"}
-      </Button>
-    )
-  }
-
-  function SelectLocation() {
-    return (
-      <div className="absolute top-2 justify-self-center rounded-full sm:right-2">
-        <Select
-          value={locationId}
-          onValueChange={(id: LocationId) => {
-            setLocationId(id)
-            setActiveBoothId(null)
-          }}>
-          <SelectTrigger className="w-[180px] rounded-full py-5 dark:ring-offset-0 dark:focus:ring-0">
-            <SelectValue placeholder="Location" />
-          </SelectTrigger>
-          <SelectContent>
-            {locations.map(loc => (
-              <SelectItem key={loc.id} value={loc.id}>
-                {loc.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-    )
-  }
 }
