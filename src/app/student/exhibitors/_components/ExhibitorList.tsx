@@ -1,6 +1,6 @@
 "use client"
 
-import ExhibitorFilters from "@/app/student/_components/ExhibitorFilters"
+import ExhibitorListFilteringHeader from "@/app/student/_components/ExhibitorListFilteringHeader"
 import { ExhibitorCard } from "@/app/student/exhibitors/_components/ExhibitorCard"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import {
@@ -47,7 +47,7 @@ export function ExhibitorList({
   return (
     <div className="mt-10">
       <div className="flex justify-between">
-        <ExhibitorFilters
+        <ExhibitorListFilteringHeader
           key={year} // reset filters when year changes
           exhibitors={exhibitors}
           onChange={setFilteredExhibitors}
