@@ -1,5 +1,3 @@
-"use client"
-
 import { BoothPopup } from "@/app/student/map/_components/BoothPopup"
 import {
   BoothID,
@@ -11,18 +9,18 @@ import "maplibre-gl/dist/maplibre-gl.css"
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
   Layer,
-  Map as MapboxMap,
   MapLayerMouseEvent,
   MapRef,
+  Map as MapboxMap,
   Source
 } from "react-map-gl/maplibre"
 import { BoothMap, GeoJsonBooth } from "../lib/booths"
-import { BoothMarker } from "./BoothMarker"
 import {
   backgroundLayerStyle,
   boothLayerStyle,
   buildingLayerStyle
 } from "../lib/config"
+import { BoothMarker } from "./BoothMarker"
 
 export function MapComponent({
   boothsById,
@@ -174,22 +172,6 @@ export function MapComponent({
           data={currentGeoJsonBoothData}>
           <Layer {...boothLayerStyle}></Layer>
         </Source>
-
-        {/* <Source
-          id="cat"
-          type="image"
-          url="https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png"
-          coordinates={[
-            [18.063, 59.345],
-            [18.079, 59.345],
-            [18.079, 59.35],
-            [18.063, 59.35]
-          ]}>
-          <Layer
-            id="cat"
-            type="raster"
-            ></Layer>
-        </Source> */}
 
         <Source
           id="buildings"

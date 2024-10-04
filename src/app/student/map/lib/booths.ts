@@ -1,4 +1,8 @@
-import { LocationId, locations, validLocationId } from "@/app/student/map/lib/locations"
+import {
+  LocationId,
+  locations,
+  validLocationId
+} from "@/app/student/map/lib/locations"
 import type { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import type { Feature, FeatureCollection, Polygon, Position } from "geojson"
 import boothDataRaw from "../data/booths.json"

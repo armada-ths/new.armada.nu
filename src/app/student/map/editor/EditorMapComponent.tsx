@@ -54,7 +54,7 @@ export default function EditorMapComponent({
   const [showBuildings, setShowBuildings] = useState(false)
 
   const geoJsonData = showBuildings ? geoJsonBuildingData : geoJsonBoothData
-  
+
   // this is the main data structure for storing the editable features
   // i think the reason for using a ref here instead of state was to avoid unnecessary rerenders,
   // and also to simplify update operations since you dont need to care about immutability like with state
@@ -71,11 +71,11 @@ export default function EditorMapComponent({
   const popupLocation = activeFeature ? getPolygonCenter(activeFeature) : null
 
   const [booths, setBooths] = useState<Booth[]>([])
-  
+
   const markers = booths.map(booth => (
     <BoothMarker key={booth.id} booth={booth} scale={1} />
   ))
-  
+
   const draw = useMemo(() => {
     return new MapboxDraw({
       displayControlsDefault: false,
@@ -132,7 +132,7 @@ export default function EditorMapComponent({
     e.features.forEach(feat => setFeature(feat))
     updateBooths()
   }
-  
+
   function onDelete(e: { features: GeoJsonBooth[] }) {
     e.features.forEach(feat => deleteFeature(feat))
     updateBooths()

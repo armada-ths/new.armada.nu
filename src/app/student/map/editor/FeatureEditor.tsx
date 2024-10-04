@@ -7,7 +7,7 @@ export function FeatureEditor({
   setActiveFeatureId,
   exhibitorsByID,
   onSave,
-  onDelete,
+  onDelete
 }: {
   feat: GeoJsonBooth
   setActiveFeatureId: (id: number | null) => void
