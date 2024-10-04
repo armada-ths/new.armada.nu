@@ -69,7 +69,9 @@ function getAllFilterOptions(
 ): FilterItem[] {
   const distinct = new Map<FilterItem["id"], FilterItem>()
   exhibitors.forEach(e => {
-    e[key].forEach(item => distinct.set(item.id, item))
+    if (Array.isArray(e[key])) {
+      e[key].forEach(item => distinct.set(item.id, item))
+    }
   })
   return Array.from(distinct.values()).sort((a, b) =>
     a.name.localeCompare(b.name)
