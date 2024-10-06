@@ -6,7 +6,7 @@ import {
 } from "@/app/student/map/lib/booths"
 import { Location } from "@/app/student/map/lib/locations"
 import "maplibre-gl/dist/maplibre-gl.css"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react"
 import {
   Layer,
   MapLayerMouseEvent,
@@ -21,6 +21,35 @@ import {
   buildingLayerStyle
 } from "../lib/config"
 import { BoothMarker } from "./BoothMarker"
+
+// Keep mapbox feature state in sync with component state
+// to allow for styling of the features
+function useFeatureState(
+  mapRef: MutableRefObject<MapRef | null>,
+  boothIds: BoothID[],
+  stateKey: "active" | "hover" | "filtered"
+) {
+  useEffect(() => {
+    const map = mapRef.current
+    if (map == null || boothIds.length === 0) return
+
+    for (const boothId of boothIds) {
+      map.setFeatureState(
+        { source: "booths", id: boothId },
+        { [stateKey]: true }
+      )
+    }
+
+    return () => {
+      for (const boothId of boothIds) {
+        map.setFeatureState(
+          { source: "booths", id: boothId },
+          { [stateKey]: false }
+        )
+      }
+    }
+  }, [boothIds, stateKey])
+}
 
 export function MapComponent({
   boothsById,
@@ -45,16 +74,14 @@ export function MapComponent({
 
   const [markerScale, setMarkerScale] = useState(1)
 
-  function flyToLocation(location: Location) {
+  // Fly to location center on change
+  useEffect(() => {
     const { longitude, latitude, zoom } = location.center
     mapRef.current?.flyTo({
       center: [longitude, latitude],
       zoom: zoom
     })
-  }
-
-  // Fly to location center on change
-  useEffect(() => flyToLocation(location), [location])
+  })
 
   // Fly to selected booth on change
   useEffect(() => {
@@ -69,37 +96,9 @@ export function MapComponent({
     })
   }, [activeBoothId, boothsById])
 
-  // Keep mapbox feature state in sync with component state
-  // to allow for styling of the features
-  function useFeatureState(
-    boothIds: BoothID[],
-    stateKey: "active" | "hover" | "filtered"
-  ) {
-    useEffect(() => {
-      const map = mapRef.current
-      if (map == null || boothIds.length === 0) return
-
-      for (const boothId of boothIds) {
-        map.setFeatureState(
-          { source: "booths", id: boothId },
-          { [stateKey]: true }
-        )
-      }
-
-      return () => {
-        for (const boothId of boothIds) {
-          map.setFeatureState(
-            { source: "booths", id: boothId },
-            { [stateKey]: false }
-          )
-        }
-      }
-    }, [boothIds, stateKey])
-  }
-
-  useFeatureState(activeBoothId ? [activeBoothId] : [], "active")
-  useFeatureState(hoveredBoothId ? [hoveredBoothId] : [], "hover")
-  useFeatureState(filteredBoothIds, "filtered")
+  useFeatureState(mapRef, activeBoothId ? [activeBoothId] : [], "active")
+  useFeatureState(mapRef, hoveredBoothId ? [hoveredBoothId] : [], "hover")
+  useFeatureState(mapRef, filteredBoothIds, "filtered")
 
   const activeBooth =
     activeBoothId != null ? boothsById.get(activeBoothId) : null
