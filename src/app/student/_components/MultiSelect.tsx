@@ -1,24 +1,18 @@
-import {
-  Filter,
-  FilterItem
-} from "@/app/student/exhibitors/_components/ExhibitorListFilteringHeader"
+import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
+import { Filter, FilterItem } from "@/app/student/lib/filters"
+import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover"
-import { Checkbox } from "@/components/ui/checkbox"
-import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
-import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
-import { useRef, useState } from "react"
 import { ChevronDown, X } from "lucide-react"
-
-// TODO:
-// - keyboard navigation?
+import { useRef, useState } from "react"
 
 export default function MultiSelect({
   filter,
@@ -95,7 +89,6 @@ export default function MultiSelect({
         collisionPadding={10}
         onOpenAutoFocus={e => {
           e.preventDefault()
-          // inputRef.current?.focus() // not great on mobile
         }}>
         <div className="w-[--radix-popover-trigger-width] rounded-md border border-emerald-800 bg-stone-950 p-0 text-sm text-stone-300 shadow-lg xs:w-max">
           <Input
