@@ -93,9 +93,9 @@ export default function EventDetails({
 
           {/* Signup */}
           {event.open_for_signup_student ? (
-            <Button>
-              <Link href={event.signup_link ?? ""}>Sign Up</Link>
-            </Button>
+            <Link href={event.signup_link ?? ""}>
+              <Button className="w-full">Sign Up</Button>
+            </Link>
           ) : (
             <Button disabled>
               Registration closed{" "}
