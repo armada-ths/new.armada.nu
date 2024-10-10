@@ -89,17 +89,11 @@ export default function EventDetails({
             </p>
           )}
           {/* Signup */}
-
           {event.open_for_signup_student &&
           today < (event.registration_end ?? event.event_start) ? (
-            <Button>
-              <Link href={event.signup_link ?? ""}>Sign Up</Link>
-            </Button>
-          {event.open_for_signup_student ? (
             <Link href={event.signup_link ?? ""}>
               <Button className="w-full">Sign Up</Button>
             </Link>
-
           ) : (
             <Button disabled>
               {today < (event.registration_end ?? event.event_start) ? (
