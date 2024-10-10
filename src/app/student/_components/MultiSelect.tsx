@@ -2,7 +2,7 @@ import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollectio
 import {
   Filter,
   FilterItem
-} from "@/app/student/exhibitors/_components/ExhibitorListFilteringHeader"
+} from "@/app/student/lib/filters"
 import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
