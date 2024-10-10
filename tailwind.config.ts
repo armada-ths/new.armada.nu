@@ -1,4 +1,6 @@
+import containerQueries from "@tailwindcss/container-queries"
 import type { Config } from "tailwindcss"
+import tailwindcssAnimate from "tailwindcss-animate"
 import defaultTheme from "tailwindcss/defaultTheme"
 
 const config = {
@@ -52,11 +54,13 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out"
+      },
+      containers: {
+        sm: "640px"
       }
     }
   },
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [require("tailwindcss-animate")]
+  plugins: [tailwindcssAnimate, containerQueries]
 } satisfies Config
 
 export default config

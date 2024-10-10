@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* doesnt seem to work */
+@layer components {
+  .maplibregl-popup-content {
+    padding: 0;
+  }
+  .maplibregl-ctrl-attrib {
+    display: none !important;
+  }
+}
