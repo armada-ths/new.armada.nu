@@ -75,6 +75,12 @@ const studentLinks: NavigationLink[] = [
     href: "/student/recruitment",
     description: `Join Armada ${DateTime.now().year}. See which roles are available`,
     enabled: true
+  },
+  {
+    title: "Map",
+    href: "/student/map",
+    description: "Find your way around the fair",
+    enabled: feature("MAP_PAGE")
   }
 ]
 
@@ -84,12 +90,6 @@ const aboutLinks: NavigationLink[] = [
     href: "/about",
     description: `Get to know the Armada organization`,
     enabled: true
-  },
-  {
-    title: "Events",
-    href: "/student/events",
-    description: "See the events leading up to the fair",
-    enabled: feature("EVENT_PAGE")
   },
   {
     title: "Team",

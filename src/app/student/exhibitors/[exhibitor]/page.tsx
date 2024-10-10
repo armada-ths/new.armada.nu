@@ -1,4 +1,4 @@
-import ExhibitorDetails from "@/app/student/exhibitors/_components/ExhibitorDetails"
+import ExhibitorDetails from "@/app/student/_components/ExhibitorDetails"
 import { Page } from "@/components/shared/Page"
 import {
   fetchAllYearExhibitors,
