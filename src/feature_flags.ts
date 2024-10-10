@@ -14,6 +14,13 @@ export const FEATURE_FLAG_DEFINITIONS = {
       { value: true, label: "Show" },
       { value: false, label: "Hidden" }
     ]
+  },
+  AT_FAIR_PAGE: {
+    description: "Access to At the Fair Page",
+    options: [
+      { value: true, label: "Show" },
+      { value: false, label: "Hidden" }
+    ]
   }
 } satisfies FlagDefinitionsType
 
@@ -22,7 +29,8 @@ export const FEATURE_FLAGS: Record<
   boolean
 > = {
   EVENT_PAGE: true,
-  MAP_PAGE: false
+  MAP_PAGE: false,
+  AT_FAIR_PAGE: true
 }
 
 export default FEATURE_FLAGS
