@@ -114,7 +114,7 @@ export default function MultiSelect({
                     role="option"
                     aria-selected={isSelected(item)}
                     key={item.id}
-                    className="hover:text-melon-700g flex min-w-32 cursor-default items-center gap-2 p-2 pl-3 text-left hover:bg-emerald-950"
+                    className="flex min-w-32 cursor-default items-center gap-2 p-2 pl-3 text-left hover:bg-emerald-950 hover:text-melon-700"
                     onClick={() => onSelectionChange(item)}>
                     <Checkbox checked={isSelected(item)} tabIndex={-1} />
                     <span>{item.name}</span>
