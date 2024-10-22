@@ -16,8 +16,8 @@ import {
   backgroundLayerStyle,
   buildingLayerStyle,
   lineLayerStyle,
-  pointLayerStyle,
-  routeLayerStyle
+  routeLayerStyle,
+  symbolLayerStyle
 } from "@/app/student/map/lib/config"
 import { Location } from "@/app/student/map/lib/locations"
 import { getPolygonCenter } from "@/app/student/map/lib/utils"
@@ -245,7 +245,7 @@ export default function EditorMapComponent({
           type="geojson"
           promoteId={"id"}
           data={geoJsonPlanData}>
-          <Layer {...pointLayerStyle}></Layer>
+          <Layer {...symbolLayerStyle}></Layer>
         </Source>
 
         {mapLoaded && !showBuildings && markers}
