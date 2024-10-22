@@ -10,6 +10,7 @@ import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import { useSurveyData } from "@/components/shared/hooks/useSurveyData"
 import Modal from "@/components/shared/Modal"
 import { Button } from "@/components/ui/button"
+import { Filter } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Booth, BoothID, BoothMap } from "../lib/booths"
@@ -36,7 +37,7 @@ export default function MainView({
   const searchParams = useSearchParams()
   const { width } = useScreenSize()
   const router = useRouter()
-  const surveyData = useSurveyData()
+  const { surveyData, isSurveyDataLoaded } = useSurveyData()
 
   const floorUrlString = searchParams.get("floor") ?? "nymble/2"
   const [locationId, setLocationId] = useState<LocationId>(
@@ -63,8 +64,8 @@ export default function MainView({
   const [editorMode, setEditorMode] = useState(false)
 
   useEffect(() => {
-    setOpenSurvey(!surveyData)
-  }, [surveyData])
+    if (isSurveyDataLoaded) setOpenSurvey(!surveyData)
+  }, [surveyData, isSurveyDataLoaded])
 
   useEffect(() => {
     // A new survey page for filter when using mobile
@@ -72,6 +73,13 @@ export default function MainView({
       router.push("/student/map/survey")
     }
   }, [width])
+
+  const handleClickFilter = () => {
+    setOpenSurvey(prev => !prev)
+    if (width && width < 768) {
+      router.push("/student/map/survey")
+    }
+  }
 
   return (
     <div className="relative flex h-full w-full">
@@ -122,6 +130,12 @@ export default function MainView({
         className="max-w-[780px] bg-gradient-to-br from-emerald-950 via-stone-900 to-stone-900 p-0">
         <QuestionnaireForm onClose={() => setOpenSurvey(false)} />
       </Modal>
+
+      <Button
+        className="absolute top-2 justify-self-center rounded-full sm:left-2 "
+        onClick={handleClickFilter}>
+        <Filter />
+      </Button>
 
       <LocationSelect
         locationId={locationId}

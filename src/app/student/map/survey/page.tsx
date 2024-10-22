@@ -1,9 +1,10 @@
 import { QuestionnaireForm } from "@/app/student/map/_components/QuestionnaireForm"
+import { Page } from "@/components/shared/Page"
 
-export default async function Page() {
+export default async function SurveyPage() {
   return (
-    <div className="flex pt-16">
+    <Page.Background withIndents>
       <QuestionnaireForm />
-    </div>
+    </Page.Background>
   )
 }

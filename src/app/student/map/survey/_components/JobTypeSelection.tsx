@@ -13,9 +13,7 @@ export default function JobTypeSelection({
   return (
     <div className="flex flex-col justify-between">
       <div>
-        <p className="m-4 text-left text-xl text-stone-200">
-          Select your job type interest (optional):
-        </p>
+        <h2 className="m-4 text-left text-xl text-stone-200">Employments:</h2>
         <div className="m-4 mt-4 flex flex-wrap gap-4">
           {jobTypeList.map(jobType => (
             <div key={jobType}>

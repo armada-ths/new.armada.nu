@@ -2,6 +2,7 @@
 
 import { industryTypeList } from "@/app/student/map/lib/survey"
 import { SelectionItem } from "@/app/student/map/survey/_components/SelectionItem"
+import { useState } from "react"
 
 export default function IndustryTypeSelection({
   industryTypeSelection,
@@ -10,14 +11,22 @@ export default function IndustryTypeSelection({
   industryTypeSelection: string[]
   onIndustryTypeSelect: (industryType: string) => void
 }) {
+  const [showAll, setShowAll] = useState(false)
+  const initialVisibleCount = 5
+
+  const handleLoadMoreClick = () => {
+    setShowAll(prev => !prev)
+  }
+  const industryTypeItems = showAll
+    ? industryTypeList
+    : industryTypeList.slice(0, initialVisibleCount)
+
   return (
     <div className="flex flex-col justify-between">
       <div>
-        <p className="m-4 text-left text-xl text-stone-200">
-          Select your Industry type interest (optional):
-        </p>
+        <h2 className="m-4 text-left text-xl text-stone-200">Industries:</h2>
         <div className="m-4 mt-4 flex flex-wrap gap-4">
-          {industryTypeList.map(industryType => (
+          {industryTypeItems.map(industryType => (
             <div className="" key={industryType}>
               <SelectionItem
                 name={industryType}
@@ -26,6 +35,14 @@ export default function IndustryTypeSelection({
               />
             </div>
           ))}
+          {/* Show "Load More" or "Show Less" based on the current state */}
+          {industryTypeList.length > initialVisibleCount && (
+            <button
+              onClick={handleLoadMoreClick}
+              className="hover:text-melon-500 text-xs text-melon-700 underline">
+              {showAll ? "SHOW LESS" : "LOAD MORE"}
+            </button>
+          )}
         </div>
       </div>
     </div>

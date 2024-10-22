@@ -9,6 +9,7 @@ import { useSurveyData } from "@/components/shared/hooks/useSurveyData"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -17,7 +18,7 @@ export function QuestionnaireForm({ onClose }: { onClose?: () => void }) {
 
   const { width } = useScreenSize()
 
-  const surveyData = useSurveyData()
+  const { surveyData } = useSurveyData()
 
   const [programme, setProgramme] = useState(surveyData?.Programme ?? "")
   const [jobTypeSelection, setJobTypeSelection] = useState(
@@ -79,9 +80,8 @@ export function QuestionnaireForm({ onClose }: { onClose?: () => void }) {
   }, [surveyData])
 
   return (
-    <div className="mx-auto max-w-[560px] p-6">
-      <Page.Header className="mb-4 text-center">PREFERENCES</Page.Header>
-      <div className="h-[1px] w-full bg-stone-400"></div>
+    <div className="mb-10 max-w-[560px] xs:mx-auto xs:mt-6">
+      <Page.Header className="text-center">PREFERENCES</Page.Header>
 
       <div>
         <ProgrammeSelection
@@ -99,13 +99,16 @@ export function QuestionnaireForm({ onClose }: { onClose?: () => void }) {
       </div>
 
       <div
-        className="m-4 flex justify-between transition-transform duration-300
-        ">
-        <ArrowLeft
-          size={42}
-          className="cursor-pointer rounded-lg border border-white p-2"
-        />
-        <Button onClick={onSubmit}>Next</Button>
+        className={`${width && width < 768 ? "fixed bottom-0 z-50 mb-0 h-16 w-full bg-gradient-to-b from-stone-900 to-stone-950/40 px-5 filter backdrop-blur-lg" : "mb-4"} left-0 flex items-center justify-between `}>
+        <Link
+          className="hover:text-melon-500 flex items-center justify-center rounded-3xl text-center text-sm text-melon-700"
+          href={"/"}>
+          <ArrowLeft size={18}></ArrowLeft>
+          Back to Homepage
+        </Link>
+        <Button onClick={onSubmit} className="px-7">
+          Generate
+        </Button>
       </div>
     </div>
   )

@@ -21,10 +21,7 @@ export default function ProgrammeSelection({
   return (
     <div className="flex w-auto flex-col justify-between">
       <div>
-        <p className="m-4 text-left text-xl text-stone-200">
-          Pick the programme that you are studying:
-        </p>
-        <div className="flex w-full justify-center">
+        <div className="mt-4 flex w-full justify-center">
           <ProgrammeSelector
             programme={programme || "programme"}
             onProgrammeSelectChange={onProgrammeSelectChange}
