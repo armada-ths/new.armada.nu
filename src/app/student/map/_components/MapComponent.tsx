@@ -17,12 +17,13 @@ import {
 } from "react-map-gl/maplibre"
 import { BoothMap, GeoJsonBooth } from "../lib/booths"
 import {
+  addMapIconAssets,
   backgroundLayerStyle,
   boothLayerStyle,
   buildingLayerStyle,
   lineLayerStyle,
-  pointLayerStyle,
-  routeLayerStyle
+  routeLayerStyle,
+  symbolLayerStyle
 } from "../lib/config"
 import { BoothMarker } from "./BoothMarker"
 
@@ -48,6 +49,7 @@ export function MapComponent({
   const mapRef = useRef<MapRef>(null)
 
   const [markerScale, setMarkerScale] = useState(1)
+
   // Fly to location center on change
   useEffect(() => {
     const { longitude, latitude, zoom } = location.center
@@ -55,7 +57,14 @@ export function MapComponent({
       center: [longitude, latitude],
       zoom: zoom
     })
-  })
+  }, [])
+
+  useEffect(() => {
+    // Load icon assets for points location
+    if (mapRef && !mapRef.current?.hasImage("exit-icon")) {
+      addMapIconAssets(mapRef)
+    }
+  }, [mapRef.current])
 
   //Change layer style data source based on selected location
   const [geoJsonPlanData, geoJsonNymblePlanRoutesData] =
@@ -180,7 +189,7 @@ export function MapComponent({
           type="geojson"
           promoteId={"id"}
           data={geoJsonPlanData}>
-          <Layer {...pointLayerStyle}></Layer>
+          <Layer {...symbolLayerStyle}></Layer>
         </Source>
 
         {markers}

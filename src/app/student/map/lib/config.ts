@@ -1,9 +1,11 @@
 import { FeatureCollection, LineString, Point, Polygon } from "geojson"
+import { MutableRefObject } from "react"
 import {
   BackgroundLayer,
-  CircleLayer,
   FillLayer,
-  LineLayer
+  LineLayer,
+  MapRef,
+  SymbolLayer
 } from "react-map-gl/maplibre"
 import nymblePlan2DataRaw from "../data/nymble.plan2.json"
 import nymblePlan2RoutesDataRaw from "../data/nymble.plan2.routes.json"
@@ -56,6 +58,34 @@ export enum PointType {
   WC = "WC",
   Stair = "Stair",
   Disability = "Disability"
+}
+
+// Function to add icon assets after map is loaded
+export async function addMapIconAssets(
+  mapRef: MutableRefObject<MapRef | null>
+) {
+  const map = mapRef.current?.getMap()
+  if (!map) return
+  const loadImage = async (url: string) => {
+    const response = await fetch(url)
+    const blob = await response.blob()
+    return await createImageBitmap(blob)
+  }
+  try {
+    const exitIcon = await loadImage("/map_icons/exit.png")
+    const doorIcon = await loadImage("/map_icons/door.png")
+    const wcIcon = await loadImage("/map_icons/wc.png")
+    const stairIcon = await loadImage("/map_icons/stair.png")
+    const disabilityIcon = await loadImage("/map_icons/disability.png")
+
+    map.addImage("exit-icon", exitIcon)
+    map.addImage("door-icon", doorIcon)
+    map.addImage("wc-icon", wcIcon)
+    map.addImage("stair-icon", stairIcon)
+    map.addImage("disability-icon", disabilityIcon)
+  } catch (error) {
+    console.error("Error loading icons:", error)
+  }
 }
 // features can be styled based on properties or feature state using a weird expression language, see:
 // https://docs.mapbox.com/style-spec/reference/expressions/#data-expressions for reference
@@ -140,27 +170,28 @@ export const routeLayerStyle: LineLayer = {
   }
 }
 
-// CircleLayer for points
-export const pointLayerStyle: CircleLayer = {
+export const symbolLayerStyle: SymbolLayer = {
   source: "points",
   id: "points",
-  type: "circle",
+  type: "symbol",
   filter: ["==", "$type", "Point"],
-  paint: {
-    "circle-color": [
+  layout: {
+    // Specify which image to use for each PointType
+    "icon-image": [
       "case",
       ["==", ["get", "pointType"], PointType.Exit],
-      "#FF0000",
+      "exit-icon",
       ["==", ["get", "pointType"], PointType.Door],
-      "#00FF00",
+      "door-icon",
       ["==", ["get", "pointType"], PointType.WC],
-      "#0000FF",
+      "wc-icon",
       ["==", ["get", "pointType"], PointType.Stair],
-      "#FFFF00",
+      "stair-icon",
       ["==", ["get", "pointType"], PointType.Disability],
-      "#FFA500",
-      "#000000"
+      "disability-icon",
+      "default" // fallback icon
     ],
-    "circle-radius": 6
+    "icon-size": 0.6, // Adjust icon size
+    "icon-allow-overlap": true // Allow icons to overlap
   }
 }
