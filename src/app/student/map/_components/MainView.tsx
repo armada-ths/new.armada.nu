@@ -132,7 +132,7 @@ export default function MainView({
       </Modal>
 
       <Button
-        className="absolute top-2 justify-self-center rounded-full sm:left-2 "
+        className="absolute top-2 ml-2 justify-self-center rounded-full sm:right-2 sm:top-20"
         onClick={handleClickFilter}>
         <Filter />
       </Button>

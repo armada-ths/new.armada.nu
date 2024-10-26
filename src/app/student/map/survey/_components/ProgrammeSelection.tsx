@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { ChevronDown } from "lucide-react"
 import { useRef, useState } from "react"
 
@@ -44,6 +44,8 @@ function ProgrammeSelector({
   const [programmes, setProgrammes] = useState(programmeList)
 
   const inputRef = useRef<HTMLInputElement>(null)
+  const scrollAreaRef = useRef<HTMLDivElement>(null)
+
   function filterBySearch(text: string) {
     setSearchText(text)
     setProgrammes(
@@ -51,6 +53,14 @@ function ProgrammeSelector({
         programme.toLowerCase().includes(text.toLowerCase())
       )
     )
+  }
+
+  // Fix can't scroll when form is in Modal
+  function handleWheelScroll(event: React.WheelEvent) {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop += event.deltaY
+      event.preventDefault()
+    }
   }
 
   return (
@@ -82,7 +92,10 @@ function ProgrammeSelector({
             className="mb-1 rounded-none rounded-t-md border-0 border-b dark:border-stone-600"
             value={searchText}
             onChange={e => filterBySearch(e.target.value)}></Input>
-          <ScrollArea>
+          <ScrollArea
+            className="max-h-44 overflow-y-scroll"
+            ref={scrollAreaRef}
+            onWheel={handleWheelScroll}>
             <div
               className="flex max-h-[172px] flex-col xs:max-h-[208px]"
               role="listbox">

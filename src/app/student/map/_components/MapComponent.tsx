@@ -26,6 +26,7 @@ import {
   symbolLayerStyle
 } from "../lib/config"
 import { BoothMarker } from "./BoothMarker"
+// import debounce from "lodash.debounce"
 
 export function MapComponent({
   boothsById,
@@ -50,6 +51,10 @@ export function MapComponent({
 
   const [markerScale, setMarkerScale] = useState(1)
 
+  // const debouncedSetHoveredBoothId = debounce(id => {
+  //   setHoveredBoothId(id)
+  // }, 100)
+
   // Fly to location center on change
   useEffect(() => {
     const { longitude, latitude, zoom } = location.center
@@ -57,7 +62,8 @@ export function MapComponent({
       center: [longitude, latitude],
       zoom: zoom
     })
-  }, [])
+    setMarkerScale(0.6)
+  }, [location])
 
   useEffect(() => {
     // Load icon assets for points location
@@ -75,10 +81,9 @@ export function MapComponent({
     if (activeBoothId == null) return
     const booth = boothsById.get(activeBoothId)
     if (!booth) return
-    //TODO: Maybe booth.center should be booth-specific and zoom in more?
     mapRef.current?.flyTo({
       center: booth.center as [number, number],
-      zoom: 19.5,
+      zoom: 21,
       speed: 0.8
     })
   }, [activeBoothId, boothsById])
@@ -110,10 +115,14 @@ export function MapComponent({
     }
   }
 
-  function onBoothMouseEnter(e: MapLayerMouseEvent) {
+  // avoid delays in booth switching
+  function onBoothMouseMove(e: MapLayerMouseEvent) {
     const feature = e.features?.[0] as GeoJsonBooth | undefined
     if (feature) {
-      setHoveredBoothId(feature.properties.id)
+      const boothId = feature.properties.id
+      if (boothId !== hoveredBoothId) {
+        setHoveredBoothId(boothId)
+      }
     }
   }
 
@@ -127,7 +136,7 @@ export function MapComponent({
   function onZoomChange() {
     const zoom = mapRef.current?.getZoom()
     if (zoom === undefined) return
-    const scale = Math.max(0.3, Math.min(2, 1 + (zoom - 18) * 0.3))
+    const scale = Math.max(0.3, Math.min(2, 1 + (zoom - 20) * 0.5))
     setMarkerScale(scale)
   }
 
@@ -136,14 +145,14 @@ export function MapComponent({
       <MapboxMap
         ref={mapRef}
         onClick={onMapClick}
-        onMouseEnter={onBoothMouseEnter}
+        onMouseMove={onBoothMouseMove}
         onMouseLeave={onBoothMouseLeave}
         onZoom={onZoomChange}
         interactiveLayerIds={["booths"]}
         initialViewState={initialView}
         cursor={"auto"}
-        minZoom={16}
-        maxZoom={20}
+        minZoom={17}
+        maxZoom={22}
         maxBounds={[
           [18.063, 59.345],
           [18.079, 59.35]

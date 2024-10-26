@@ -12,7 +12,7 @@ export function useFeatureState(
 ) {
   useEffect(() => {
     const map = mapRef.current
-    if (map == null || boothIds.length === 0) return
+    if (map == null || boothIds.length === 0 || !map.isStyleLoaded()) return
 
     for (const boothId of boothIds) {
       map.setFeatureState(
