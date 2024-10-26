@@ -26,7 +26,6 @@ import {
   symbolLayerStyle
 } from "../lib/config"
 import { BoothMarker } from "./BoothMarker"
-// import debounce from "lodash.debounce"
 
 export function MapComponent({
   boothsById,
@@ -50,10 +49,6 @@ export function MapComponent({
   const mapRef = useRef<MapRef>(null)
 
   const [markerScale, setMarkerScale] = useState(1)
-
-  // const debouncedSetHoveredBoothId = debounce(id => {
-  //   setHoveredBoothId(id)
-  // }, 100)
 
   // Fly to location center on change
   useEffect(() => {
@@ -115,7 +110,7 @@ export function MapComponent({
     }
   }
 
-  // avoid delays in booth switching
+  // Avoid delays in booth switching
   function onBoothMouseMove(e: MapLayerMouseEvent) {
     const feature = e.features?.[0] as GeoJsonBooth | undefined
     if (feature) {
