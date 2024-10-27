@@ -7,19 +7,29 @@ import {
   MapRef,
   SymbolLayer
 } from "react-map-gl/maplibre"
+
+// Geojson data for floor structure, routes and exhibitor room
 import nymblePlan2DataRaw from "../data/nymble.plan2.json"
+import nymblePlan2RoomsDataRaw from "../data/nymble.plan2.rooms.json"
 import nymblePlan2RoutesDataRaw from "../data/nymble.plan2.routes.json"
 import nymblePlan3DataRaw from "../data/nymble.plan3.json"
+import nymblePlan3RoomsDataRaw from "../data/nymble.plan3.rooms.json"
 import nymblePlan3RoutesDataRaw from "../data/nymble.plan3.routes.json"
 
 export type GeoJsonPlanData = FeatureCollection<Polygon | LineString | Point>
 export type GeoJsonLinesData = FeatureCollection<LineString>
+
 export const geoJsonNymblePlan2Data = nymblePlan2DataRaw as GeoJsonPlanData
 export const geoJsonNymblePlan2RoutesData =
   nymblePlan2RoutesDataRaw as GeoJsonLinesData
+export const geoJsonNymblePlan2RoomsData =
+  nymblePlan2RoomsDataRaw as GeoJsonPlanData
+
 export const geoJsonNymblePlan3Data = nymblePlan3DataRaw as GeoJsonPlanData
 export const geoJsonNymblePlan3RoutesData =
   nymblePlan3RoutesDataRaw as GeoJsonLinesData
+export const geoJsonNymblePlan3RoomsData =
+  nymblePlan3RoomsDataRaw as GeoJsonPlanData
 
 const style = {
   boothFillColor: "#89bc82",
@@ -41,6 +51,8 @@ const style = {
 
   routeHintColor: "#F3E592",
   routeHintWidth: 1,
+
+  roomBackgroundColor: "#1f2b24",
 
   backgroundColor: "#40d07e",
   backgroundOpacity: 0.2
@@ -120,6 +132,16 @@ export const buildingLayerStyle: FillLayer = {
   filter: ["==", "$type", "Polygon"],
   paint: {
     "fill-color": style.buildingBackgroundColor
+  }
+}
+
+export const roomLayerStyle: FillLayer = {
+  source: "rooms",
+  id: "rooms",
+  type: "fill",
+  filter: ["==", "$type", "Polygon"],
+  paint: {
+    "fill-color": style.roomBackgroundColor
   }
 }
 

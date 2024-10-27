@@ -22,6 +22,7 @@ import {
   boothLayerStyle,
   buildingLayerStyle,
   lineLayerStyle,
+  roomLayerStyle,
   routeLayerStyle,
   symbolLayerStyle
 } from "../lib/config"
@@ -68,7 +69,7 @@ export function MapComponent({
   }, [mapRef.current])
 
   //Change layer style data source based on selected location
-  const [geoJsonPlanData, geoJsonNymblePlanRoutesData] =
+  const [geoJsonPlanData, geoJsonPlanRoutesData, geoJsonPlanRoomsData] =
     useGeoJsonPlanData(location)
 
   // Fly to selected booth on change
@@ -165,6 +166,14 @@ export function MapComponent({
         </Source>
 
         <Source
+          id="rooms"
+          type="geojson"
+          promoteId={"id"}
+          data={geoJsonPlanRoomsData}>
+          <Layer {...roomLayerStyle}></Layer>
+        </Source>
+
+        <Source
           id="booths"
           type="geojson"
           promoteId={"id"}
@@ -184,7 +193,7 @@ export function MapComponent({
           id="nymble-plan-routes"
           type="geojson"
           promoteId={"id"}
-          data={geoJsonNymblePlanRoutesData}>
+          data={geoJsonPlanRoutesData}>
           <Layer {...routeLayerStyle}></Layer>
         </Source>
 
