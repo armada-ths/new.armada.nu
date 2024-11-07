@@ -1,6 +1,7 @@
 import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
 import { FairDates } from "@/app/_components/FairDates"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
+import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { Page } from "@/components/shared/Page"
@@ -12,6 +13,12 @@ import { Suspense } from "react"
 
 export default async function HomePage() {
   const exhibitors = await fetchExhibitors()
+  const dates = await fetchDates()
+  const fr_start = new Date(dates.fr.start).getTime()
+  const fr_end = new Date(dates.fr.end).getTime()
+  const fair_start = new Date(dates.fair.days[0]).getTime()
+  const fair_end = new Date(dates.fair.days[1]).getTime()
+  const today = Date.now()
   return (
     <>
       <NavigationMenu aside={<CompanyRegistrationButton />} />
@@ -36,16 +43,35 @@ export default async function HomePage() {
                   opportunities and shape their future
                 </h2>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <CompanyRegistrationButton />
-
-                  <Link href="/exhibitor/packages">
-                    <Button
-                      variant={"secondary"}
-                      className="dark:bg-liqorice-700">
-                      This Year&apos;s Packages
-                      <ArrowRightIcon className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
+                  {fr_start < today && today < fr_end ? (
+                    <>
+                      <CompanyRegistrationButton />
+                      <Link href="/exhibitor/packages">
+                        <Button
+                          variant={"secondary"}
+                          className="dark:bg-liqorice-700">
+                          This Year&apos;s Packages
+                          <ArrowRightIcon className="ml-2 h-4 w-4" />
+                        </Button>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/student/events">
+                        <Button>Signup for events</Button>
+                      </Link>
+                      {fair_start < today && today < fair_end && (
+                        <Link href="/students/map">
+                          <Button
+                            variant={"secondary"}
+                            className="dark:bg-liqorice-700">
+                            Go to map
+                            <ArrowRightIcon className="ml-2 h-4 w-4" />
+                          </Button>
+                        </Link>
+                      )}
+                    </>
+                  )}
                 </div>
                 <Suspense>
                   <FairDates />
