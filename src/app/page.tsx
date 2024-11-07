@@ -14,7 +14,6 @@ import { Suspense } from "react"
 export default async function HomePage() {
   const exhibitors = await fetchExhibitors()
   const dates = await fetchDates()
-  const fr_start = new Date(dates.fr.start).getTime()
   const fr_end = new Date(dates.fr.end).getTime()
   const fair_start = new Date(dates.fair.days[0]).getTime()
   const fair_end = new Date(dates.fair.days[1]).getTime()
@@ -43,7 +42,7 @@ export default async function HomePage() {
                   opportunities and shape their future
                 </h2>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {fr_start < today && today < fr_end ? (
+                  {today < fr_end ? (
                     <>
                       <CompanyRegistrationButton />
                       <Link href="/exhibitor/packages">
