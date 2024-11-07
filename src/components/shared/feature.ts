@@ -1,9 +1,20 @@
 import featureFlags from "@/feature_flags"
-import Cookies from "js-cookie"
+import { cookies } from "next/headers"
 
 export function feature(feature: keyof typeof featureFlags) {
-  const rawOverrides = Cookies.get("vercel-flag-overrides")
+  const cookie = cookies()
 
+  const result = cookie.get("vercel-flag-overrides")
+  if (result != null) {
+    return parseCookie(feature, result.value)
+  }
+  return false
+}
+
+function parseCookie(
+  feature: keyof typeof featureFlags,
+  rawOverrides: string | undefined
+) {
   const overrides =
     rawOverrides == null
       ? {}
