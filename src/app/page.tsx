@@ -1,14 +1,17 @@
 import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
 import { FairDates } from "@/app/_components/FairDates"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
+import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
 import { ArrowRightIcon } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { Suspense } from "react"
 
 export default async function HomePage() {
+  const exhibitors = await fetchExhibitors()
   return (
     <>
       <NavigationMenu aside={<CompanyRegistrationButton />} />
@@ -20,7 +23,7 @@ export default async function HomePage() {
             </Suspense>
           </div>
         </div>
-        <div className="flex w-full flex-1 flex-col gap-y-10 pb-32 md:flex-row">
+        <div className="flex w-full flex-1 flex-col gap-y-40 pb-32 md:flex-row">
           <div className="flex flex-1">
             <div className="mx-auto flex max-w-[500px] flex-1">
               <div className="z-10 mx-10 flex flex-col md:flex-1">
@@ -50,10 +53,40 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
-          <div className="z-10 flex justify-center gap-4 md:flex-[1]">
-            {/* 					<div className="flex max-h-52 max-w-96 flex-col items-center justify-center gap-y-5 rounded-lg border-[1px] border-slate-200 bg-white bg-opacity-40 p-8">
+          <div className="z-10 flex flex-col items-center justify-center md:flex-[1]">
+            {/*<div className="flex max-h-52 max-w-96 flex-col items-center justify-center gap-y-5 rounded-lg border-[1px] border-slate-200 bg-white bg-opacity-40 p-8">
 						<Countdown />
-					</div> */}
+					  </div> */}
+            <h1 className="max-w-30 flex justify-center font-bebas-neue text-3xl text-stone-300">
+              Our Gold Exhibitors
+            </h1>
+            <div className="flex w-full flex-wrap justify-center gap-6">
+              {exhibitors
+                .filter(
+                  exhibitor =>
+                    exhibitor.name === "Försvarsmakten" ||
+                    exhibitor.name === "Nordea"
+                )
+                .map(exhibitor => (
+                  <div
+                    key={exhibitor.id}
+                    className="flex h-40 w-40 items-center justify-center rounded-lg">
+                    {(exhibitor.logo_squared || exhibitor.logo_freesize) && (
+                      <Image
+                        className="object-contain"
+                        src={
+                          exhibitor.logo_squared ??
+                          exhibitor.logo_freesize ??
+                          ""
+                        }
+                        alt={exhibitor.name}
+                        width={600}
+                        height={600}
+                      />
+                    )}
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </Page.Background>
