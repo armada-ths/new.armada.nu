@@ -5,7 +5,7 @@ import { fetchEvents } from "@/components/shared/hooks/api/useEvents"
 import { notFound } from "next/navigation"
 
 export default async function StudentEventPage() {
-  if (!feature("EVENT_PAGE")) {
+  if (!(await feature("EVENT_PAGE"))) {
     return notFound()
   }
   const events = await fetchEvents()
