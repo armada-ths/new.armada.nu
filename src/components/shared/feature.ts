@@ -2,13 +2,17 @@ import featureFlags, { FEATURE_FLAGS } from "@/feature_flags"
 import { decrypt, FlagOverridesType } from "@vercel/flags"
 import { cookies } from "next/headers"
 
-export async function feature(feature: keyof typeof featureFlags) {
+export async function features() {
   const overrideCookie = cookies().get("vercel-flag-overrides")?.value
   const overrides = overrideCookie
     ? await decrypt<FlagOverridesType>(overrideCookie)
     : {}
+  return {
+    ...FEATURE_FLAGS,
+    ...overrides
+  }
+}
 
-  const result = overrides?.[feature] ?? FEATURE_FLAGS[feature] ?? false
-  console.log("RESULT", result)
-  return result
+export async function feature(feature: keyof typeof featureFlags) {
+  return (await features())[feature] ?? false
 }
