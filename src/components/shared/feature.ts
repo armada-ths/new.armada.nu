@@ -8,5 +8,7 @@ export async function feature(feature: keyof typeof featureFlags) {
     ? await decrypt<FlagOverridesType>(overrideCookie)
     : {}
 
-  return overrides?.[feature] ?? FEATURE_FLAGS[feature] ?? false
+  const result = overrides?.[feature] ?? FEATURE_FLAGS[feature] ?? false
+  console.log("RESULT", result)
+  return result
 }
