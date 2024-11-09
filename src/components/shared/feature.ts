@@ -3,11 +3,12 @@ import { cookies } from "next/headers"
 
 export function feature(feature: keyof typeof featureFlags) {
   const cookie = cookies()
+  console.log("COOKIES", cookie)
 
-  const result = cookie.get("vercel-flag-overrides")
+  /*   const result = cookie.get("vercel-flag-overrides")
   if (result != null) {
     return parseCookie(feature, result.value)
-  }
+  } */
   return false
 }
 
