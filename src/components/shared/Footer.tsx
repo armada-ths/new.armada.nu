@@ -30,7 +30,9 @@ export function Footer() {
               ? "m-5 mb-3 mt-7 w-1/4 place-items-center text-center"
               : "m-5 mb-3 mt-7 w-1/4"
           }>
-          <p>Follow us on:</p>
+          <p>
+            <b>Follow us on:</b>
+          </p>
           <a
             href="https://www.linkedin.com/company/armada"
             className="flex space-x-1">
@@ -54,20 +56,51 @@ export function Footer() {
         <div
           className={
             screenSmall
-              ? "m-5 mb-3 mt-7 w-1/2 place-items-center text-center"
-              : "m-5 mb-3 mt-7 w-1/2 text-end"
+              ? "m-5 mb-3 mt-7 w-1/4 place-items-center text-center"
+              : "m-5 mb-3 mt-7 w-1/4 text-center"
           }>
-          {/*PUT SPONSORS HERE*/}
+          <p>
+            <b>STUDENTS</b>
+          </p>
+          <a href="/student/exhibitors">Exhibitors</a>
+          <br />
+          <a href="/student/recruitment">Recruitment</a>
+          <br />
+          <a href="/student/events">Events</a>
         </div>
+        <div
+          className={
+            screenSmall
+              ? "m-5 mb-3 mt-7 w-1/4 place-items-center text-center"
+              : "m-5 mb-3 mt-7 w-1/4 text-center"
+          }>
+          <p>
+            <b>EXHIBITORS</b>
+          </p>
+          <a href="https://register.armada.nu/register">Registration</a>
+          <br />
+          <a href="/exhibitor/packages">Packages</a>
+          <br />
+          <a href="/exhibitor">Why Armada</a>
+          <br />
+          <a href="/exhibitor/timeline">Timeline</a>
+        </div>
+
         <div
           className={
             screenSmall
               ? "m-5 mb-3 mt-7 w-1/4 place-items-center text-center"
               : "m-5 mb-3 mt-7 w-1/4 text-end"
           }>
-          <p>ARMADA</p>
-          <p>Drottning Kristinas väg 15</p>
-          <p>114 28, Stockholm</p>
+          <p>
+            <b>ARMADA</b>
+          </p>
+          <p>
+            <i>Drottning Kristinas väg 15</i>
+          </p>
+          <p>
+            <i>114 28, Stockholm</i>
+          </p>
         </div>
       </div>
     )
