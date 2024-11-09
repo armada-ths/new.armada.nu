@@ -37,6 +37,7 @@ export default function EventDetails({
   event: Event
   className?: string
 }) {
+  const today = Date.now() / 1000
   return (
     <div className={cn("mx-auto max-w-[600px] lg:max-w-[1000px]", className)}>
       <Page.Header>{event.name}</Page.Header>
@@ -68,12 +69,10 @@ export default function EventDetails({
             label="Time"
             value={`${formatTimestampAsTime(event.event_start)} - ${formatTimestampAsTime(event.event_end)}`}
             icon={<Clock size={16} />}></InfoBoxItem>
-
           {/* Separator */}
           {(event.food || event.fee) && (
             <div className="h-[1px] w-full bg-stone-400"></div>
           )}
-
           {/* Bottom row */}
           <InfoBoxItem
             label="Food"
@@ -83,25 +82,30 @@ export default function EventDetails({
             label="Fee"
             value={`${event.fee} kr`}
             icon={<Coins size={16} />}></InfoBoxItem>
-
           {event.open_for_signup_student && event.registration_end && (
             <p className="-mb-1 mt-3 text-xs text-stone-400">
               Registration closes{" "}
               {formatTimestampAsDate(event.registration_end)}
             </p>
           )}
-
           {/* Signup */}
-          {event.open_for_signup_student ? (
+          {event.open_for_signup_student &&
+          today < (event.registration_end ?? event.event_start) ? (
             <Link href={event.signup_link ?? ""}>
               <Button className="w-full">Sign Up</Button>
             </Link>
           ) : (
             <Button disabled>
-              Registration closed{" "}
-              {event.registration_end
-                ? formatTimestampAsDate(event.registration_end)
-                : ""}
+              {today < (event.registration_end ?? event.event_start) ? (
+                <> Signup opening soon ! </>
+              ) : (
+                <>
+                  Registration closed
+                  {event.registration_end
+                    ? formatTimestampAsDate(event.registration_end)
+                    : ""}
+                </>
+              )}
             </Button>
           )}
         </div>
