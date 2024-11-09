@@ -42,7 +42,7 @@ export default async function EventDetailsPage({
 }: {
   params: { id: string }
 }) {
-  if (!feature("EVENT_PAGE")) {
+  if (!(await feature("EVENT_PAGE"))) {
     return notFound()
   }
 

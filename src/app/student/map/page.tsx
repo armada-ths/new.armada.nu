@@ -11,7 +11,7 @@ import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
 export default async function Page() {
-  if (!feature("MAP_PAGE")) {
+  if (!(await feature("MAP_PAGE"))) {
     return notFound()
   }
 
