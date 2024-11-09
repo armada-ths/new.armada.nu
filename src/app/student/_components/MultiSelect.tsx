@@ -14,6 +14,9 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { ChevronDown, X } from "lucide-react"
 import { useRef, useState } from "react"
 
+// TODO:
+// - keyboard navigation?
+
 export default function MultiSelect({
   filter,
   onChange
@@ -108,7 +111,7 @@ export default function MultiSelect({
                     role="option"
                     aria-selected={isSelected(item)}
                     key={item.id}
-                    className="flex min-w-32 cursor-default items-center gap-2 p-2 pl-3 hover:bg-emerald-950 hover:text-melon-700"
+                    className="flex min-w-32 cursor-default items-center gap-2 p-2 pl-3 text-left hover:bg-emerald-950 hover:text-melon-700"
                     onClick={() => onSelectionChange(item)}>
                     <Checkbox checked={isSelected(item)} tabIndex={-1} />
                     <span>{item.name}</span>

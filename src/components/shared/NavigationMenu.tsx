@@ -4,7 +4,6 @@ import Link from "next/link"
 import * as React from "react"
 
 import { Page } from "@/components/shared/Page"
-import { feature } from "@/components/shared/feature"
 import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import {
   NavigationMenu as BaseNavigationMenu,
@@ -68,7 +67,7 @@ const studentLinks: NavigationLink[] = [
     title: "Events",
     href: "/student/events",
     description: "See the events leading up to the fair",
-    enabled: feature("EVENT_PAGE")
+    enabled: true
   },
   {
     title: "Recruitment",
@@ -80,7 +79,7 @@ const studentLinks: NavigationLink[] = [
     title: "Map",
     href: "/student/map",
     description: "Find your way around the fair",
-    enabled: feature("MAP_PAGE")
+    enabled: false
   }
 ]
 
