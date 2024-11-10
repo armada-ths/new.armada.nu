@@ -2,17 +2,12 @@
 
 import LocationSelect from "@/app/student/map/_components/LocationSelect"
 import { MapComponent } from "@/app/student/map/_components/MapComponent"
-import { QuestionnaireForm } from "@/app/student/map/_components/QuestionnaireForm"
 import Sidebar from "@/app/student/map/_components/Sidebar"
 import EditorMapComponent from "@/app/student/map/editor/EditorMapComponent"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
-import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
-import { useSurveyData } from "@/components/shared/hooks/useSurveyData"
-import Modal from "@/components/shared/Modal"
 import { Button } from "@/components/ui/button"
-import { Filter } from "lucide-react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useSearchParams } from "next/navigation"
+import { useState } from "react"
 import { Booth, BoothID, BoothMap } from "../lib/booths"
 import {
   defaultLocation,
@@ -35,9 +30,6 @@ export default function MainView({
   // if lat, lng or zoom is not provided, default to location center
 
   const searchParams = useSearchParams()
-  const { width } = useScreenSize()
-  const router = useRouter()
-  const { surveyData, isSurveyDataLoaded } = useSurveyData()
 
   const floorUrlString = searchParams.get("floor") ?? "nymble/2"
   const [locationId, setLocationId] = useState<LocationId>(
@@ -60,26 +52,7 @@ export default function MainView({
   const [filteredBooths, setFilteredBooths] = useState<Booth[]>(
     Array.from(boothsById.values())
   )
-  const [openSurvey, setOpenSurvey] = useState(false)
   const [editorMode, setEditorMode] = useState(false)
-
-  useEffect(() => {
-    if (isSurveyDataLoaded) setOpenSurvey(!surveyData)
-  }, [surveyData, isSurveyDataLoaded])
-
-  useEffect(() => {
-    // A new survey page for filter when using mobile
-    if (openSurvey && width && width < 768) {
-      router.push("/student/map/survey")
-    }
-  }, [width])
-
-  const handleClickFilter = () => {
-    setOpenSurvey(prev => !prev)
-    if (width && width < 768) {
-      router.push("/student/map/survey")
-    }
-  }
 
   return (
     <div className="relative flex h-full w-full">
@@ -122,20 +95,6 @@ export default function MainView({
           {editorMode ? "Switch to normal mode" : "Switch to edit mode"}
         </Button>
       )}
-
-      {/* Questions Modal for filter when using PC*/}
-      <Modal
-        open={openSurvey}
-        setOpen={setOpenSurvey}
-        className="max-w-[780px] bg-gradient-to-br from-emerald-950 via-stone-900 to-stone-900 p-0">
-        <QuestionnaireForm onClose={() => setOpenSurvey(false)} />
-      </Modal>
-
-      <Button
-        className="absolute top-2 ml-2 justify-self-center rounded-full sm:right-2 sm:top-20"
-        onClick={handleClickFilter}>
-        <Filter />
-      </Button>
 
       <LocationSelect
         locationId={locationId}

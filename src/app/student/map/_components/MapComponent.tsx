@@ -1,4 +1,3 @@
-import { BoothPopup } from "@/app/student/map/_components/BoothPopup"
 import {
   BoothID,
   geoJsonBoothDataByLocation
@@ -87,9 +86,6 @@ export function MapComponent({
   useFeatureState(mapRef, activeBoothId ? [activeBoothId] : [], "active")
   useFeatureState(mapRef, hoveredBoothId ? [hoveredBoothId] : [], "hover")
   useFeatureState(mapRef, filteredBoothIds, "filtered")
-
-  const activeBooth =
-    activeBoothId != null ? boothsById.get(activeBoothId) : null
 
   const currentGeoJsonBoothData = geoJsonBoothDataByLocation.get(location.id)!
 
@@ -206,7 +202,6 @@ export function MapComponent({
         </Source>
 
         {markers}
-        {activeBooth && <BoothPopup key={activeBooth.id} booth={activeBooth} />}
       </MapboxMap>
     </div>
   )
