@@ -8,8 +8,6 @@ import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
 import { useSurveyData } from "@/components/shared/hooks/useSurveyData"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -100,14 +98,8 @@ export function QuestionnaireForm({ onClose }: { onClose?: () => void }) {
 
       <div
         className={`${width && width < 768 ? "fixed bottom-0 z-50 mb-0 h-16 w-full bg-gradient-to-b from-stone-900 to-stone-950/40 px-5 filter backdrop-blur-lg" : "mb-4"} left-0 flex items-center justify-between `}>
-        <Link
-          className="hover:text-melon-500 flex items-center justify-center rounded-3xl text-center text-sm text-melon-700"
-          href={"/"}>
-          <ArrowLeft size={18}></ArrowLeft>
-          Back to Homepage
-        </Link>
-        <Button onClick={onSubmit} className="px-7">
-          Generate
+        <Button onClick={onSubmit} className="ml-auto px-7">
+          Select
         </Button>
       </div>
     </div>
