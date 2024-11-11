@@ -96,13 +96,17 @@ export default async function HomePage() {
                   <div
                     key={exhibitor.id}
                     className="flex h-40 w-40 items-center justify-center rounded-lg">
-                    {(exhibitor.logo_squared || exhibitor.logo_freesize) && (
+                    {(exhibitor.logo_squared ||
+                      exhibitor.logo_freesize ||
+                      exhibitor.name === "Nordea") && (
                       <Image
                         className="object-contain"
                         src={
-                          exhibitor.logo_squared ??
-                          exhibitor.logo_freesize ??
-                          ""
+                          exhibitor.name === "Nordea"
+                            ? "/exhibitorLogo/NordeaBankLogo.png"
+                            : (exhibitor.logo_squared ??
+                              exhibitor.logo_freesize ??
+                              "")
                         }
                         alt={exhibitor.name}
                         width={600}
