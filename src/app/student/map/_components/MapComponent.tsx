@@ -2,7 +2,7 @@ import {
   BoothID,
   geoJsonBoothDataByLocation
 } from "@/app/student/map/lib/booths"
-import { Location } from "@/app/student/map/lib/locations"
+import { Location, LocationId } from "@/app/student/map/lib/locations"
 import { useFeatureState } from "@/components/shared/hooks/useFeatureState"
 import { useGeoJsonPlanData } from "@/components/shared/hooks/useGeoJsonPlanData"
 import "maplibre-gl/dist/maplibre-gl.css"
@@ -50,6 +50,7 @@ export function MapComponent({
 
   const [markerScale, setMarkerScale] = useState(1)
 
+  const [preLocationId, setPreLocationId] = useState<LocationId>(location.id)
   // Fly to location center on change
   useEffect(() => {
     const { longitude, latitude, zoom } = location.center
@@ -87,7 +88,28 @@ export function MapComponent({
   useFeatureState(mapRef, hoveredBoothId ? [hoveredBoothId] : [], "hover")
   useFeatureState(mapRef, filteredBoothIds, "filtered")
 
-  const currentGeoJsonBoothData = geoJsonBoothDataByLocation.get(location.id)!
+  const currentGeoJsonBoothData = useMemo(() => {
+    const currentData = geoJsonBoothDataByLocation.get(
+      location.id === "library" ? preLocationId : location.id
+    ) ?? {
+      type: "FeatureCollection",
+      features: []
+    }
+    const libraryFeatures = geoJsonBoothDataByLocation.get("library")!.features
+    // Merge library features with the current location's features
+    const mergedFeatures = [
+      ...libraryFeatures,
+      ...currentData.features.filter(
+        feature =>
+          !libraryFeatures.some(
+            libraryFeature =>
+              libraryFeature.properties.id === feature.properties.id
+          )
+      )
+    ]
+    setPreLocationId(location.id)
+    return { ...currentData, features: mergedFeatures }
+  }, [location.id])
 
   // Don't want to rerender markers on every map render
   const markers = useMemo(

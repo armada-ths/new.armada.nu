@@ -7,7 +7,7 @@ import EditorMapComponent from "@/app/student/map/editor/EditorMapComponent"
 import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Button } from "@/components/ui/button"
 import { useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Booth, BoothID, BoothMap } from "../lib/booths"
 import {
   defaultLocation,
@@ -35,8 +35,22 @@ export default function MainView({
   const [locationId, setLocationId] = useState<LocationId>(
     validLocationId(floorUrlString) ? floorUrlString : defaultLocation.id
   )
+  const [preLocationId, setPreLocationId] = useState<LocationId>(locationId)
   const location = locations.find(loc => loc.id === locationId)!
-  const currentLocationBoothsById = boothsByLocation.get(locationId)!
+  const currentLocationBoothsById = useMemo(() => {
+    const boothsById =
+      locationId !== "library"
+        ? new Map([
+            ...Array.from(boothsByLocation.get("library")!.entries()),
+            ...Array.from(boothsByLocation.get(locationId)!.entries()) // Merge library booths with default location booths
+          ])
+        : new Map([
+            ...Array.from(boothsByLocation.get(preLocationId)!.entries()),
+            ...Array.from(boothsByLocation.get(locationId)!.entries()) // Merge library booths with default location booths
+          ])
+    setPreLocationId(location.id)
+    return boothsById
+  }, [location.id])
 
   const latitude =
     parseFloat(searchParams.get("lat") ?? "") || location.center.latitude
