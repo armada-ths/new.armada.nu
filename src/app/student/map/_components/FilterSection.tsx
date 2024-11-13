@@ -4,7 +4,7 @@ import { Filter, FilterItem } from "@/app/student/lib/filters"
 import { FilterSelectionItem } from "@/app/student/map/_components/FilterSelectionItem"
 import { useState } from "react"
 
-export default function IndustryTypeSelection({
+export default function FilterSection({
   filter,
   onChange
 }: {

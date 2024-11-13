@@ -32,30 +32,31 @@ export const geoJsonNymblePlan3RoomsData =
   nymblePlan3RoomsDataRaw as GeoJsonPlanData
 
 const style = {
-  boothFillColor: "#89bc82",
-  boothOutlineColor: "#0e3e08",
+  boothFillColor: "#7ABE7D",
+  boothOutlineColor: "#2d572f",
+  boothOutlineWidth: 3,
 
-  boothActiveFillColor: "#21c00d",
+  boothActiveFillColor: "#a0df98",
   boothHoveredFillColor: "#a0df98",
   boothNotFilteredOpacity: 0.4,
 
   buildingBackgroundColor: "#1A201C",
-  buildingOutlineColor: "#ff0000",
-  buildingOutlineWidth: 2,
+  // buildingOutlineColor: "#ff0000",
+  // buildingOutlineWidth: 2,
 
-  buildingStructureColor: "#17845A",
-  buildingStructureWidth: 3,
+  buildingStructureColor: "#475247",
+  buildingStructureWidth: 2,
 
   routeColor: "#F3ECC3",
-  routeWidth: 2,
+  routeWidth: 1,
 
-  routeHintColor: "#F3E592",
-  routeHintWidth: 1,
+  routeHintColor: "#F3ECC3",
+  routeHintWidth: 0,
 
   roomBackgroundColor: "#1f2b24",
 
   backgroundColor: "#40d07e",
-  backgroundOpacity: 0.2
+  backgroundOpacity: 0.0
 } as const
 
 export enum LineType {
@@ -110,10 +111,9 @@ export const boothLayerStyle: FillLayer = {
     "fill-opacity": [
       "case",
       ["boolean", ["feature-state", "filtered"], false],
-      1,
+      0.8,
       style.boothNotFilteredOpacity
     ],
-    "fill-outline-color": style.boothOutlineColor,
     "fill-color": [
       "case",
       ["boolean", ["feature-state", "active"], false],
@@ -122,6 +122,16 @@ export const boothLayerStyle: FillLayer = {
       style.boothHoveredFillColor,
       style.boothFillColor
     ]
+  }
+}
+
+export const boothOutlineStyle: LineLayer = {
+  source: "booths",
+  id: "booths-outline",
+  type: "line",
+  paint: {
+    "line-width": style.boothOutlineWidth,
+    "line-color": style.boothOutlineColor
   }
 }
 

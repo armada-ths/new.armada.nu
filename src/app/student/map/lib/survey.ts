@@ -1,4 +1,4 @@
-export const LOCAL_STORAGE_KEY = "survey_data"
+export const FILTERS_LOCAL_STORAGE_KEY = "mapFilters"
 
 export interface SurveyData {
   Programme: string

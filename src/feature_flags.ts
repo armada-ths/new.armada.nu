@@ -16,13 +16,13 @@ export const FEATURE_FLAG_DEFINITIONS = {
     ]
   }
 } satisfies FlagDefinitionsType
-
+    
 export const FEATURE_FLAGS: Record<
   keyof typeof FEATURE_FLAG_DEFINITIONS,
   boolean
 > = {
   EVENT_PAGE: true,
-  MAP_PAGE: false
+  MAP_PAGE: true
 }
 
 export default FEATURE_FLAGS

@@ -11,8 +11,10 @@ import { BoothListItem } from "@/app/student/map/_components/BoothListItem"
 import MapFilters from "@/app/student/map/_components/MapFilters"
 import { Booth, BoothID, BoothMap } from "@/app/student/map/lib/booths"
 import { LocationId } from "@/app/student/map/lib/locations"
+import { FILTERS_LOCAL_STORAGE_KEY } from "@/app/student/map/lib/survey"
 import { sortBooths } from "@/app/student/map/lib/utils"
 import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
+import { useFilterData } from "@/components/shared/hooks/useSurveyData"
 import { Button } from "@/components/ui/button"
 import { Drawer, DrawerContent } from "@/components/ui/drawer"
 import { Input } from "@/components/ui/input"
@@ -23,11 +25,12 @@ import {
   ChevronsLeft,
   ChevronsRight,
   FilterIcon,
-  MapIcon,
   ListIcon,
+  MapIcon,
   X
 } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
+
 
 export default function Sidebar({
   boothsById,
@@ -63,11 +66,13 @@ export default function Sidebar({
     employments: makeFilter("employments", "Employments", exhibitors),
     industries: makeFilter("industries", "Industries", exhibitors)
   }
-  const [filters, setFilters] = useState<FilterMap>(defaultFilters)
+  
+  const filterData = useFilterData() || defaultFilters
+  const [filters, setFilters] = useState<FilterMap>(filterData)
 
-  useEffect(() => {
-    if (activeBoothId != null) setOpen(true)
-  }, [activeBoothId])
+  // useEffect(() => {
+  //   if (activeBoothId != null) setOpen(true)
+  // }, [activeBoothId])
 
   function clearFilters() {
     setFilters(defaultFilters)
@@ -78,6 +83,11 @@ export default function Sidebar({
     setSearchText(text)
     if (text.trim() !== "") setFilteredBooths(filterBySearch(booths, text))
     else setFilteredBooths(applyFilters(booths, Object.values(filters))) // apply filters again when input is cleared
+  }
+
+  function onFilterSubmit() {
+    setShowFilters(false)
+    localStorage.setItem(FILTERS_LOCAL_STORAGE_KEY, JSON.stringify(filters))
   }
 
   if (activeBoothId != null) {
@@ -123,7 +133,7 @@ export default function Sidebar({
             filters={filters}
             setFilters={setFilters}
             setFilteredBooths={setFilteredBooths}
-            onSelect={() => setShowFilters(false)}
+            onSelect={onFilterSubmit}
           />
         </div>
       </SidebarContainer>

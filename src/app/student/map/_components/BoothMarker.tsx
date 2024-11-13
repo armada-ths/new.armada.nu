@@ -22,7 +22,7 @@ export function BoothMarker({ booth, scale }: { booth: Booth; scale: number }) {
               height={300}></Image>
           </div>
         ) : (
-          <span className="text-black">{booth.exhibitor.name}</span>
+          <div className="text-neutral-200 max-w-[100px] truncate">{booth.exhibitor.name}</div>
         )}
       </div>
     </Marker>
