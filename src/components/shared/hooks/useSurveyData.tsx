@@ -14,7 +14,6 @@ export function useFilterData() {
       ? (JSON.parse(rawStoredData) as FilterMap)
       : null
     setfilterData(storedData)
-
   }, [])
   return filterData
 }

@@ -31,7 +31,6 @@ import {
 } from "lucide-react"
 import { useRef, useState } from "react"
 
-
 export default function Sidebar({
   boothsById,
   activeBoothId,
@@ -66,7 +65,7 @@ export default function Sidebar({
     employments: makeFilter("employments", "Employments", exhibitors),
     industries: makeFilter("industries", "Industries", exhibitors)
   }
-  
+
   const filterData = useFilterData() || defaultFilters
   const [filters, setFilters] = useState<FilterMap>(filterData)
 
