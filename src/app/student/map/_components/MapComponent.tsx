@@ -54,10 +54,13 @@ export function MapComponent({
   // Fly to location center on change
   useEffect(() => {
     const { longitude, latitude, zoom } = location.center
-    mapRef.current?.flyTo({
-      center: [longitude, latitude],
-      zoom: zoom
-    })
+    const timeout = setTimeout(() => {
+      mapRef.current?.flyTo({
+        center: [longitude, latitude],
+        zoom
+      })
+    }, 300)
+    return () => clearTimeout(timeout)
     setMarkerScale(0.6)
   }, [location])
 
