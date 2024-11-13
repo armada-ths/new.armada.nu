@@ -1,4 +1,4 @@
-export const LOCAL_STORAGE_KEY = "survey_data"
+export const FILTERS_LOCAL_STORAGE_KEY = "mapFilters"
 
 export interface SurveyData {
   Programme: string
@@ -18,13 +18,13 @@ export const programmeList = [
   "Industrial Engineering",
   "Industrial Economics",
   "Information Technology",
-  "Technical Mathematics",
+  "Engineering Mathematics",
   "Material design",
   "Mechanical Engineering",
   "Media Technology",
   "Medical Engineering",
   "Material & Product Design",
-  "Physics",
+  "Engineering Physics",
   "Vehicle Engineering",
   "Urban Management Engineering",
   "Open",

@@ -21,12 +21,12 @@ const libraryCenter = {
 export const locations: Location[] = [
   {
     id: "nymble/2",
-    label: "Nymble - floor 2",
+    label: "Nymble-F2",
     center: nymbleCenter
   },
   {
     id: "nymble/3",
-    label: "Nymble - floor 3",
+    label: "Nymble-F3",
     center: nymbleCenter
   },
   {
