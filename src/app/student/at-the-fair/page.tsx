@@ -68,7 +68,7 @@ export default function AtFairPage() {
         <Page.Header tier="secondary">Example questions</Page.Header>
         <P>
           Below are some examples of questions you can ask the companies during
-          Armada.
+          Armada to get the conversation started.
         </P>
         {/*INSERT QUESTION GENERATOR HERE*/}
         <div className="mt-2 flex min-h-48 min-w-48 rounded-2xl bg-green-950 p-5">
