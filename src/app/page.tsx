@@ -106,9 +106,9 @@ export default async function HomePage() {
                         src={
                           exhibitor.name === "Nordea"
                             ? "/exhibitorLogo/NordeaBankLogo.png"
-                            : exhibitor.logo_squared ??
+                            : (exhibitor.logo_squared ??
                               exhibitor.logo_freesize ??
-                              ""
+                              "")
                         }
                         alt={exhibitor.name}
                         width={600}
