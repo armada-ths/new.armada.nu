@@ -98,7 +98,11 @@ export default function EventDetails({
           {event.open_for_signup_student &&
           today < (event.registration_end ?? event.event_start) ? (
             <Link href={event.signup_link ?? ""}>
-              <Button className="w-full">Sign Up</Button>
+              <Button className="w-full">
+                {event.participant_count < event.event_max_capacity
+                  ? "Signup"
+                  : "Join waiting List"}
+              </Button>
             </Link>
           ) : (
             <Button disabled>
@@ -106,7 +110,7 @@ export default function EventDetails({
                 <> Signup opening soon ! </>
               ) : (
                 <>
-                  Registration closed
+                  Registration closed{" "}
                   {event.registration_end
                     ? formatTimestampAsDate(event.registration_end)
                     : ""}
