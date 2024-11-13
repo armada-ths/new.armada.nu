@@ -71,27 +71,29 @@ export default function AtFairPage() {
           Armada to get the conversation started.
         </P>
         {/*INSERT QUESTION GENERATOR HERE*/}
-        <div className="mt-2 flex min-h-48 min-w-48 rounded-2xl bg-green-950 p-5">
+        <div className=" mt-2 min-h-48 min-w-48 place-items-center rounded-2xl bg-green-950 p-5">
           <p className="absolute text-green-300 opacity-80">
             <i>Question</i>
           </p>
-          <div className="flex-grow place-content-center justify-center">
-            <p className="py-7 text-center text-3xl text-green-50 opacity-90">
-              <i>
-                {randomNumber >= 0
-                  ? questions[randomNumber]
-                  : "Press the button below to generate a question."}
-              </i>
-            </p>
+          <div className="flex">
+            <div className="flex-grow place-content-center justify-center">
+              <p className="py-7 text-center text-3xl text-green-50 opacity-90">
+                <i>
+                  {randomNumber >= 0
+                    ? questions[randomNumber]
+                    : "Press the button below to generate a question."}
+                </i>
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="self-center">
           <button
             onClick={() => generateRandomNumber()}
-            className="mt-[-16px] rounded-lg bg-green-700 p-3">
+            className="rounded-lg bg-green-700 p-3">
             Generate Question
           </button>
         </div>
+        <br />
+        <div className="self-center"></div>
       </Page.Boundary>
     </Page.Background>
   )
