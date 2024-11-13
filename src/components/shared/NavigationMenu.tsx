@@ -79,7 +79,7 @@ const studentLinks: NavigationLink[] = [
     title: "Map",
     href: "/student/map",
     description: "Find your way around the fair",
-    enabled: false
+    enabled: true
   }
 ]
 
