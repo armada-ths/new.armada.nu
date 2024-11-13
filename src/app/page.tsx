@@ -20,7 +20,9 @@ export default async function HomePage() {
   const today = Date.now()
   return (
     <>
-      <NavigationMenu aside={<CompanyRegistrationButton />} />
+      <NavigationMenu
+        aside={today < fr_end ? <CompanyRegistrationButton /> : ""}
+      />
       <Page.Background className="">
         <div className="mb-5 flex w-full flex-1 justify-center ">
           <div className="mx-5 w-full max-w-[800px] pt-3 md:mx-10 md:pt-6">
@@ -104,9 +106,9 @@ export default async function HomePage() {
                         src={
                           exhibitor.name === "Nordea"
                             ? "/exhibitorLogo/NordeaBankLogo.png"
-                            : (exhibitor.logo_squared ??
+                            : exhibitor.logo_squared ??
                               exhibitor.logo_freesize ??
-                              "")
+                              ""
                         }
                         alt={exhibitor.name}
                         width={600}
