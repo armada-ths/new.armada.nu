@@ -22,6 +22,11 @@ const nextConfig = {
   redirects: async () => {
     return [
       {
+        source: "/map",
+        destination: "/student/map",
+        permanent: true
+      },
+      {
         source: "/recruitment",
         destination: "/student/recruitment",
         permanent: true
