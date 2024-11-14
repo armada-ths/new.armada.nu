@@ -8,6 +8,7 @@ import { Exhibitor } from "@/components/shared/hooks/api/useExhibitors"
 import { Button } from "@/components/ui/button"
 import { useSearchParams } from "next/navigation"
 import { useMemo, useState } from "react"
+import { ViewState } from "react-map-gl/dist/esm/types"
 import { Booth, BoothID, BoothMap } from "../lib/booths"
 import {
   defaultLocation,
@@ -59,7 +60,12 @@ export default function MainView({
   const zoom =
     parseFloat(searchParams.get("zoom") ?? "") || location.center.zoom
 
-  const initialView = { latitude, longitude, zoom }
+  const initialView = {
+    latitude,
+    longitude,
+    zoom,
+    pitch: 40
+  } satisfies Partial<ViewState>
 
   const [activeBoothId, setActiveBoothId] = useState<BoothID | null>(null)
   const [hoveredBoothId, setHoveredBoothId] = useState<BoothID | null>(null)
