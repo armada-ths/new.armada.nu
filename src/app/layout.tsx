@@ -6,6 +6,7 @@ import { DateTime } from "luxon"
 import type { Metadata } from "next"
 import { Bebas_Neue, Inter, Lato } from "next/font/google"
 
+import { FooterGuard } from "@/components/shared/FooterGuard"
 import { DevToolbar } from "@/components/shared/VercelToolbar"
 import "./globals.css"
 
@@ -72,7 +73,9 @@ export default function RootLayout({
         <SpeedInsights />
         <Providers>{children}</Providers>
         <DevToolbar />
-        <Footer />
+        <FooterGuard>
+          <Footer />
+        </FooterGuard>
       </body>
     </html>
   )
