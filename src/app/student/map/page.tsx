@@ -7,8 +7,14 @@ import {
 import { LocationId, locations } from "@/app/student/map/lib/locations"
 import { feature } from "@/components/shared/feature"
 import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+
+export const metadata: Metadata = {
+  title: "Armada Map",
+  description: "Interactive map of the fair"
+}
 
 export default async function Page() {
   if (!(await feature("MAP_PAGE"))) {

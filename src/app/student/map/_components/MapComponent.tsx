@@ -1,9 +1,8 @@
-import { BoothPopup } from "@/app/student/map/_components/BoothPopup"
 import {
   BoothID,
   geoJsonBoothDataByLocation
 } from "@/app/student/map/lib/booths"
-import { Location } from "@/app/student/map/lib/locations"
+import { Location, LocationId } from "@/app/student/map/lib/locations"
 import { useFeatureState } from "@/components/shared/hooks/useFeatureState"
 import { useGeoJsonPlanData } from "@/components/shared/hooks/useGeoJsonPlanData"
 import "maplibre-gl/dist/maplibre-gl.css"
@@ -20,6 +19,7 @@ import {
   addMapIconAssets,
   backgroundLayerStyle,
   boothLayerStyle,
+  boothOutlineStyle,
   buildingLayerStyle,
   lineLayerStyle,
   roomLayerStyle,
@@ -49,15 +49,21 @@ export function MapComponent({
 }) {
   const mapRef = useRef<MapRef>(null)
 
+  const [mapZoom, setMapZoom] = useState(initialView.zoom)
+
   const [markerScale, setMarkerScale] = useState(1)
 
+  const [preLocationId, setPreLocationId] = useState<LocationId>(location.id)
   // Fly to location center on change
   useEffect(() => {
     const { longitude, latitude, zoom } = location.center
-    mapRef.current?.flyTo({
-      center: [longitude, latitude],
-      zoom: zoom
-    })
+    const timeout = setTimeout(() => {
+      mapRef.current?.flyTo({
+        center: [longitude, latitude],
+        zoom
+      })
+    }, 300)
+    return () => clearTimeout(timeout)
     setMarkerScale(0.6)
   }, [location])
 
@@ -79,7 +85,7 @@ export function MapComponent({
     if (!booth) return
     mapRef.current?.flyTo({
       center: booth.center as [number, number],
-      zoom: 21,
+      zoom: 20,
       speed: 0.8
     })
   }, [activeBoothId, boothsById])
@@ -88,10 +94,28 @@ export function MapComponent({
   useFeatureState(mapRef, hoveredBoothId ? [hoveredBoothId] : [], "hover")
   useFeatureState(mapRef, filteredBoothIds, "filtered")
 
-  const activeBooth =
-    activeBoothId != null ? boothsById.get(activeBoothId) : null
-
-  const currentGeoJsonBoothData = geoJsonBoothDataByLocation.get(location.id)!
+  const currentGeoJsonBoothData = useMemo(() => {
+    const currentData = geoJsonBoothDataByLocation.get(
+      location.id === "library" ? preLocationId : location.id
+    ) ?? {
+      type: "FeatureCollection",
+      features: []
+    }
+    const libraryFeatures = geoJsonBoothDataByLocation.get("library")!.features
+    // Merge library features with the current location's features
+    const mergedFeatures = [
+      ...libraryFeatures,
+      ...currentData.features.filter(
+        feature =>
+          !libraryFeatures.some(
+            libraryFeature =>
+              libraryFeature.properties.id === feature.properties.id
+          )
+      )
+    ]
+    setPreLocationId(location.id)
+    return { ...currentData, features: mergedFeatures }
+  }, [location.id])
 
   // Don't want to rerender markers on every map render
   const markers = useMemo(
@@ -132,8 +156,9 @@ export function MapComponent({
   function onZoomChange() {
     const zoom = mapRef.current?.getZoom()
     if (zoom === undefined) return
-    const scale = Math.max(0.3, Math.min(2, 1 + (zoom - 20) * 0.5))
+    const scale = Math.max(0.2, Math.min(1, 1 + (zoom - 20) * 0.5))
     setMarkerScale(scale)
+    setMapZoom(zoom)
   }
 
   return (
@@ -153,7 +178,8 @@ export function MapComponent({
           [18.063, 59.345],
           [18.079, 59.35]
         ]}
-        mapStyle="https://api.maptiler.com/maps/977e9770-60b4-4b8a-94e9-a9fa8db4c68d/style.json?key=57xj41WPFBbOEWiVSSwL">
+        dragRotate={false}
+        mapStyle="https://api.maptiler.com/maps/376fa556-c405-4a91-8e9e-15be82eb3a58/style.json?key=mgMcr2yF2fWUHzf27ygv">
         <Layer {...backgroundLayerStyle}></Layer>
 
         {/** Order sensitive! */}
@@ -182,6 +208,14 @@ export function MapComponent({
         </Source>
 
         <Source
+          id="booths-outline"
+          type="geojson"
+          promoteId={"id"}
+          data={currentGeoJsonBoothData}>
+          <Layer {...boothOutlineStyle}></Layer>
+        </Source>
+
+        <Source
           id="nymble-plan-style"
           type="geojson"
           promoteId={"id"}
@@ -189,24 +223,27 @@ export function MapComponent({
           <Layer {...lineLayerStyle}></Layer>
         </Source>
 
-        <Source
-          id="nymble-plan-routes"
-          type="geojson"
-          promoteId={"id"}
-          data={geoJsonPlanRoutesData}>
-          <Layer {...routeLayerStyle}></Layer>
-        </Source>
+        {mapZoom > 19 && (
+          <Source
+            id="nymble-plan-routes"
+            type="geojson"
+            promoteId={"id"}
+            data={geoJsonPlanRoutesData}>
+            <Layer {...routeLayerStyle}></Layer>
+          </Source>
+        )}
 
-        <Source
-          id="nymble-plan-points"
-          type="geojson"
-          promoteId={"id"}
-          data={geoJsonPlanData}>
-          <Layer {...symbolLayerStyle}></Layer>
-        </Source>
+        {mapZoom > 19 && (
+          <Source
+            id="nymble-plan-points"
+            type="geojson"
+            promoteId={"id"}
+            data={geoJsonPlanData}>
+            <Layer {...symbolLayerStyle}></Layer>
+          </Source>
+        )}
 
         {markers}
-        {activeBooth && <BoothPopup key={activeBooth.id} booth={activeBooth} />}
       </MapboxMap>
     </div>
   )

@@ -73,19 +73,18 @@ const studentLinks: NavigationLink[] = [
     title: "Recruitment",
     href: "/student/recruitment",
     description: `Join Armada ${DateTime.now().year}. See which roles are available`,
-    enabled: true
+    enabled: false
   },
   {
     title: "Map",
     href: "/student/map",
     description: "Find your way around the fair",
-    enabled: false
+    enabled: true
   },
   {
     title: "At the Fair",
     href: "/student/at-the-fair",
     description: "For the fair",
-    /*enabled: feature("AT_FAIR_PAGE")*/
     enabled: true
   }
 ]

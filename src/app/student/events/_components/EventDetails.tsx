@@ -4,7 +4,7 @@ import { Event } from "@/components/shared/hooks/api/useEvents"
 import { Button } from "@/components/ui/button"
 import { cn, formatTimestampAsDate, formatTimestampAsTime } from "@/lib/utils"
 
-import { Calendar, Clock, Coins, MapPin, Utensils } from "lucide-react"
+import { Calendar, Clock, Coins, MapPin, User, Utensils } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { ReactNode } from "react"
@@ -20,7 +20,7 @@ function InfoBoxItem({
 }) {
   if (value == null) return
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-8">
       <div className="flex gap-2 text-stone-200">
         <span className="mt-1 w-5">{icon}</span>
         <span className="w-20 flex-none font-bold ">{label}:</span>
@@ -70,10 +70,16 @@ export default function EventDetails({
             value={`${formatTimestampAsTime(event.event_start)} - ${formatTimestampAsTime(event.event_end)}`}
             icon={<Clock size={16} />}></InfoBoxItem>
           {/* Separator */}
-          {(event.food || event.fee) && (
+          {(event.food || event.fee || event.event_max_capacity) && (
             <div className="h-[1px] w-full bg-stone-400"></div>
           )}
           {/* Bottom row */}
+          {event.event_max_capacity && (
+            <InfoBoxItem
+              label="Registered"
+              value={`${event.participant_count} / ${event.event_max_capacity}`}
+              icon={<User size={16} />}></InfoBoxItem>
+          )}
           <InfoBoxItem
             label="Food"
             value={event.food}
@@ -92,7 +98,11 @@ export default function EventDetails({
           {event.open_for_signup_student &&
           today < (event.registration_end ?? event.event_start) ? (
             <Link href={event.signup_link ?? ""}>
-              <Button className="w-full">Sign Up</Button>
+              <Button className="w-full">
+                {event.participant_count < event.event_max_capacity
+                  ? "Signup"
+                  : "Join waiting List"}
+              </Button>
             </Link>
           ) : (
             <Button disabled>
@@ -100,7 +110,7 @@ export default function EventDetails({
                 <> Signup opening soon ! </>
               ) : (
                 <>
-                  Registration closed
+                  Registration closed{" "}
                   {event.registration_end
                     ? formatTimestampAsDate(event.registration_end)
                     : ""}
