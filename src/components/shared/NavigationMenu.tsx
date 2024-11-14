@@ -3,8 +3,8 @@
 import Link from "next/link"
 import * as React from "react"
 
-import { Page } from "@/components/shared/Page"
 import { useScreenSize } from "@/components/shared/hooks/useScreenSize"
+import { Page } from "@/components/shared/Page"
 import {
   NavigationMenu as BaseNavigationMenu,
   NavigationMenuContent,
@@ -73,12 +73,18 @@ const studentLinks: NavigationLink[] = [
     title: "Recruitment",
     href: "/student/recruitment",
     description: `Join Armada ${DateTime.now().year}. See which roles are available`,
-    enabled: true
+    enabled: false
   },
   {
     title: "Map",
     href: "/student/map",
     description: "Find your way around the fair",
+    enabled: true
+  },
+  {
+    title: "At the Fair",
+    href: "/student/at-the-fair",
+    description: "For the fair",
     enabled: true
   }
 ]
