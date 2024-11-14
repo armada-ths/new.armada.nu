@@ -18,6 +18,14 @@ export default async function HomePage() {
   const fair_start = new Date(dates.fair.days[0]).getTime()
   const fair_end = new Date(dates.fair.days[1]).getTime()
   const today = Date.now()
+
+  const goldExhibitorOne = exhibitors.find(
+    exhibitor => exhibitor.name === "Försvarsmakten"
+  )
+  const goldExhibitorTwo = exhibitors.find(
+    exhibitor => exhibitor.name === "Nordea"
+  )
+
   return (
     <>
       {today < fr_end ? (
@@ -83,43 +91,40 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
-          <div className="z-10 flex flex-col items-center justify-center md:flex-[1]">
+          <div className="z-10 flex flex-col items-center md:flex-[1]">
             {/*<div className="flex max-h-52 max-w-96 flex-col items-center justify-center gap-y-5 rounded-lg border-[1px] border-slate-200 bg-white bg-opacity-40 p-8">
 						<Countdown />
 					  </div> */}
             <h1 className="max-w-30 flex justify-center font-bebas-neue text-3xl text-stone-300">
               Our Gold Exhibitors
             </h1>
-            <div className="flex w-full flex-wrap justify-center gap-6">
-              {exhibitors
-                .filter(
-                  exhibitor =>
-                    exhibitor.name === "Försvarsmakten" ||
-                    exhibitor.name === "Nordea"
-                )
-                .map(exhibitor => (
-                  <div
-                    key={exhibitor.id}
-                    className="flex h-40 w-40 items-center justify-center rounded-lg">
-                    {(exhibitor.logo_squared ||
-                      exhibitor.logo_freesize ||
-                      exhibitor.name === "Nordea") && (
+            <div className="mt-4 flex w-full flex-wrap justify-center gap-6">
+              <div className="flex items-center justify-center gap-20">
+                {goldExhibitorOne && (
+                  <Link href={`/student/exhibitors?id=${goldExhibitorOne.id}`}>
+                    <Image
+                      className="object-contain"
+                      src={goldExhibitorOne.logo_squared ?? ""}
+                      alt={goldExhibitorOne.name}
+                      width={200}
+                      height={400}
+                    />
+                  </Link>
+                )}
+                {goldExhibitorTwo && (
+                  <Link href={`/student/exhibitors?id=${goldExhibitorTwo.id}`}>
+                    <div className="rounded-lg bg-white/90">
                       <Image
                         className="object-contain"
-                        src={
-                          exhibitor.name === "Nordea"
-                            ? "/exhibitorLogo/NordeaBankLogo.png"
-                            : (exhibitor.logo_squared ??
-                              exhibitor.logo_freesize ??
-                              "")
-                        }
-                        alt={exhibitor.name}
-                        width={600}
-                        height={600}
+                        src={"/exhibitorLogo/NordeaBankLogo.png"}
+                        alt={goldExhibitorTwo.name}
+                        width={200}
+                        height={400}
                       />
-                    )}
-                  </div>
-                ))}
+                    </div>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </div>
