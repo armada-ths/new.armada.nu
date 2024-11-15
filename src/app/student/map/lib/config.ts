@@ -51,7 +51,7 @@ const style = {
   routeWidth: 1,
 
   routeHintColor: "#F3ECC3",
-  routeHintWidth: 0,
+  routeHintWidth: 1,
 
   roomBackgroundColor: "#1f2b24",
 
