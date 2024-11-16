@@ -42,7 +42,7 @@ export default async function HomePage() {
             </Suspense>
           </div>
         </div>
-        <div className="flex w-full flex-1 flex-col gap-y-40 pb-32 md:flex-row">
+        <div className="flex w-full flex-1 flex-col gap-y-5 pb-32 md:flex-row md:gap-y-40">
           <div className="flex flex-1">
             <div className="mx-auto flex max-w-[500px] flex-1">
               <div className="z-10 mx-10 flex flex-col md:flex-1">
@@ -103,7 +103,7 @@ export default async function HomePage() {
                 {goldExhibitorOne && (
                   <Link href={`/student/exhibitors?id=${goldExhibitorOne.id}`}>
                     <Image
-                      className="object-contain"
+                      className="h-10 object-contain md:h-20"
                       src={goldExhibitorOne.logo_squared ?? ""}
                       alt={goldExhibitorOne.name}
                       width={200}
@@ -115,7 +115,7 @@ export default async function HomePage() {
                   <Link href={`/student/exhibitors?id=${goldExhibitorTwo.id}`}>
                     <div className="rounded-lg bg-white/90">
                       <Image
-                        className="object-contain"
+                        className="h-10 object-contain md:h-20"
                         src={"/exhibitorLogo/NordeaBankLogo.png"}
                         alt={goldExhibitorTwo.name}
                         width={200}
