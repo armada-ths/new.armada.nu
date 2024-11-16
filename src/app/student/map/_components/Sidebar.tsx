@@ -51,7 +51,7 @@ export default function Sidebar({
 }) {
   const { width } = useScreenSize()
   const smallScreen = width ? width <= 800 : false
-  const [open, setOpen] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(true)
   const [showFilters, setShowFilters] = useState(false)
 
   const searchInputRef = useRef<HTMLInputElement>(null)
