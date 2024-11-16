@@ -250,9 +250,8 @@ function SidebarContainer({
           className={
             "z-10 h-full w-full focus-visible:outline-none dark:bg-neutral-900"
           }>
-          <ScrollArea className="h-full">
+          <ScrollArea className="max-h-[calc(80dvh-28px)] overflow-auto">
             {children}
-            <ScrollBar></ScrollBar>
           </ScrollArea>
         </DrawerContent>
       </Drawer>
