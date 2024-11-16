@@ -1,7 +1,6 @@
 import { InstagramIcon, LinkedinIcon, Music2Icon } from "lucide-react"
 
 export function Footer() {
-  console.log("HELLO HELLO")
   return (
     /* IF WIDTH < 768, SET TO VERTICAL, OTHERWISE KEEP HORIZONTAL */
     <div className="w-100 flex flex-col items-center justify-center md:flex-row md:items-start">
