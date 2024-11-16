@@ -21,7 +21,7 @@ export function BoothListItem({
         <div className="ml-4 flex h-full items-center">
           {logoSrc ? (
             <Image
-              className="mr-2 size-16 object-contain"
+              className="mr-2 size-16 object-contain py-4"
               src={logoSrc}
               alt={booth.exhibitor.name}
               width={300}
