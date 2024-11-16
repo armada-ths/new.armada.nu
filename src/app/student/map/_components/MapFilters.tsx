@@ -40,7 +40,7 @@ export default function MapFilters({
             onChange={selected => onFilterChange(f, selected)}></FilterSection>
         ))}
       </div>
-      <div className="flex">
+      <div className="flex px-5">
         <Button onClick={onSelect} className="ml-auto px-7">
           Select
         </Button>
