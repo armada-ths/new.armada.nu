@@ -99,7 +99,7 @@ export default async function HomePage() {
               Our Gold Exhibitors
             </h1>
             <div className="mt-4 flex w-full flex-wrap justify-center gap-6">
-              <div className="flex flex-wrap items-center justify-center gap-20 px-10">
+              <div className="flex flex-wrap items-center justify-center gap-20 px-10 pt-10">
                 {goldExhibitorOne && (
                   <Link href={`/student/exhibitors?id=${goldExhibitorOne.id}`}>
                     <Image
