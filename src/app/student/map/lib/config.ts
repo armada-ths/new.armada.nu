@@ -51,7 +51,7 @@ const style = {
   routeWidth: 1,
 
   routeHintColor: "#F3ECC3",
-  routeHintWidth: 0,
+  routeHintWidth: 1,
 
   roomBackgroundColor: "#1f2b24",
 
@@ -70,7 +70,8 @@ export enum PointType {
   Door = "Door",
   WC = "WC",
   Stair = "Stair",
-  Disability = "Disability"
+  Disability = "Disability",
+  StartUp = "StartUp"
 }
 
 // Function to add icon assets after map is loaded
@@ -90,12 +91,14 @@ export async function addMapIconAssets(
     const wcIcon = await loadImage("/map_icons/wc.png")
     const stairIcon = await loadImage("/map_icons/stair.png")
     const disabilityIcon = await loadImage("/map_icons/disability.png")
+    const startUpIcon = await loadImage("/map_icons/startup.png")
 
     map.addImage("exit-icon", exitIcon)
     map.addImage("door-icon", doorIcon)
     map.addImage("wc-icon", wcIcon)
     map.addImage("stair-icon", stairIcon)
     map.addImage("disability-icon", disabilityIcon)
+    map.addImage("startup-icon", startUpIcon)
   } catch (error) {
     console.error("Error loading icons:", error)
   }
@@ -221,6 +224,8 @@ export const symbolLayerStyle: SymbolLayer = {
       "stair-icon",
       ["==", ["get", "pointType"], PointType.Disability],
       "disability-icon",
+      ["==", ["get", "pointType"], PointType.StartUp],
+      "startup-icon",
       "default" // fallback icon
     ],
     "icon-size": 0.6, // Adjust icon size
