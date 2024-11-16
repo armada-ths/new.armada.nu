@@ -965,6 +965,17 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
+        "coordinates": [18.0706162227062, 59.3473913156493]
+      },
+      "id": "d9fc8fe0-a883-4ba6-bf0d-d0cf0eb2109c",
+      "properties": {
+        "pointType": "StartUp"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
         "coordinates": [18.071036645337, 59.3473358118837]
       },
       "id": "7b153fa2-4f5d-49bc-a5e0-056612f63694",
