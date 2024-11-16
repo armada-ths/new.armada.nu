@@ -6,7 +6,8 @@ import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { Page } from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
-import { ArrowRightIcon } from "lucide-react"
+import { ArrowRightIcon, MapIcon } from "lucide-react"
+import { DateTime } from "luxon"
 import Image from "next/image"
 import Link from "next/link"
 import { Suspense } from "react"
@@ -26,12 +27,26 @@ export default async function HomePage() {
     exhibitor => exhibitor.name === "Nordea"
   )
 
+  const isAfterFr = DateTime.now() > DateTime.fromISO(dates.fr.end)
+
   return (
     <>
       {today < fr_end ? (
         <NavigationMenu />
       ) : (
-        <NavigationMenu aside={<CompanyRegistrationButton />} />
+        <NavigationMenu
+          aside={
+            isAfterFr ? (
+              <Link href={"/student/map"}>
+                <Button className="flex gap-2">
+                  <MapIcon size={15} /> Visit the map
+                </Button>
+              </Link>
+            ) : (
+              <CompanyRegistrationButton />
+            )
+          }
+        />
       )}
 
       <Page.Background className="">
