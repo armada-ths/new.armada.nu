@@ -56,7 +56,7 @@ export default function Sidebar({
   filteredBooths,
   setFilteredBooths,
   open,
-  setOpen
+  setOpen: setOpenInternal
 }: {
   boothsById: BoothMap
   setActiveDrawerBoothId: (id: BoothID | null) => void
@@ -72,6 +72,12 @@ export default function Sidebar({
 }) {
   const { width } = useScreenSize()
   const smallScreen = width ? width <= 800 : false
+  const setOpen = (open: boolean) => {
+    if (!open) {
+      setActiveDrawerBoothId(null)
+    }
+    setOpenInternal(open)
+  }
   const [showFilters, setShowFilters] = useState(false)
 
   const searchInputRef = useRef<HTMLInputElement>(null)
@@ -127,7 +133,7 @@ export default function Sidebar({
             <Button
               variant="ghost"
               onClick={() => setActiveDrawerBoothId(null)}>
-              <ArrowLeft size={30} />
+              <ArrowLeft size={30} className="stroke-stone-400" />
             </Button>
 
             <div className="flex justify-end py-2">
@@ -308,10 +314,10 @@ function SidebarContainer({
         direction={"bottom"}
         onClose={() => setOpen(false)}>
         {createPortal(
-          <div className="absolute bottom-0 z-10 flex h-20 w-screen items-center justify-center border-t-[1px] border-stone-700/80 bg-stone-950">
-            <DrawerTrigger className="w-full px-5">
+          <div className="absolute bottom-0 z-50 flex h-20 w-screen items-center justify-center border-t-[1px] border-stone-700/80 bg-stone-950">
+            <DrawerTrigger asChild>
               <Button
-                className="text-md flex w-full gap-2 py-6"
+                className="text-md mx-5 flex w-full gap-2 py-6"
                 size={"lg"}
                 variant={"secondary"}>
                 <SearchIcon size={16} /> Search Exhibitors
