@@ -1,5 +1,4 @@
 import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
-import { FairDates } from "@/app/_components/FairDates"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
@@ -109,9 +108,11 @@ export default async function HomePage() {
                     </>
                   )}
                 </div>
+                {/*
                 <Suspense>
                   <FairDates />
                 </Suspense>
+                */}
               </div>
             </div>
           </div>
