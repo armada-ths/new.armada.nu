@@ -10,14 +10,13 @@ export function BoothListItem({
   booth,
   onBoothClick,
   onBoothNavigate,
-  currentLocationId,
   onMouseEnter,
   onMouseLeave,
   closeDrawer
 }: {
   booth: Booth
   onBoothClick: (boothId: BoothID) => void
-  onBoothNavigate: (boothId: BoothID) => void
+  onBoothNavigate: (boothId: BoothID | null) => void
   currentLocationId: LocationId
   onMouseEnter: () => void
   onMouseLeave: () => void
@@ -25,9 +24,15 @@ export function BoothListItem({
 }) {
   const logoSrc = booth.exhibitor.logo_squared ?? booth.exhibitor.logo_freesize
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function onBoothMapNavigate(event: any) {
-    onBoothNavigate(booth.id)
+  function onBoothMapNavigate() {
+    /* Sorry to the person that has to read this code
+      At this point we're on hour 20 of trying to hotfix
+      the map, we're tired, we want to go home, and there
+      is no coffe left, I'm starting to question my choices.
+      But we're here to make the fair great, and great it will be!
+    */
+    onBoothNavigate(null)
+    setTimeout(() => onBoothNavigate(booth.id))
   }
 
   return (
