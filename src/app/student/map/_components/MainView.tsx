@@ -91,7 +91,7 @@ export default function MainView({
             filteredBooths={filteredBooths}
             setFilteredBooths={setFilteredBooths}
           />
-          <div className="flex-grow">
+          <div className="h-[calc(100dvh-144px)] flex-grow">
             <MapComponent
               initialView={initialView}
               boothsById={currentLocationBoothsById}
