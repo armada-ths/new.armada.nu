@@ -1,4 +1,5 @@
 import { InstagramIcon, LinkedinIcon, Music2Icon } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   return (
@@ -52,14 +53,14 @@ export function Footer() {
 
       <div className="m-5 mb-3 mt-7 w-1/4 place-items-center text-center md:place-items-start md:text-left">
         <p>
-          <b>ARMADA</b>
+          <b>In Partnership With:</b>
         </p>
-        <p>
-          <i>Drottning Kristinas väg 15</i>
-        </p>
-        <p>
-          <i>114 28, Stockholm</i>
-        </p>
+        <Image
+          src={"/sture-logo-up.png"}
+          alt={"Sture Logo"}
+          width={100}
+          height={200}
+        />
       </div>
     </div>
   )
