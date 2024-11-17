@@ -97,7 +97,7 @@ export default function Sidebar({
     }
     return (
       <SidebarContainer open={open} setOpen={setOpen} smallScreen={smallScreen}>
-        <div className="p-2">
+        <div className="h-[calc(80vh-28px)] p-2">
           <Button variant="ghost" onClick={() => setActiveBoothId(null)}>
             <ArrowLeft size={30} />
           </Button>

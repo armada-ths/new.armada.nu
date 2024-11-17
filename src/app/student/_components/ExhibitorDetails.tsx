@@ -16,7 +16,7 @@ export default function ExhibitorDetails({
   const hasIndustries = exhibitor.industries?.length > 0
   const hasEmployments = exhibitor.employments?.length > 0
   return (
-    <div className="@container">
+    <div className="pb-5 @container">
       <div className="flex flex-col-reverse items-center gap-6 @sm:h-[100px] @sm:flex-row">
         {(exhibitor.logo_squared || exhibitor.logo_freesize) && (
           <Image
