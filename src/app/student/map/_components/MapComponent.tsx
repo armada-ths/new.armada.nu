@@ -142,7 +142,7 @@ export function MapComponent({
   function onMapClick(e: MapLayerMouseEvent) {
     const feature = e.features?.[0] as GeoJsonBooth | undefined // no other features for now
     if (feature) {
-      setActiveBoothId(feature.properties.id)
+      //setActiveBoothId(feature.properties.id) <-- We don't want the map to move, double action...
       setActiveDrawerBoothId(feature.properties.id)
       openDrawer()
     } else {
