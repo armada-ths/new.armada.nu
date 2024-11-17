@@ -171,6 +171,7 @@ export const routeLayerStyle: LineLayer = {
   id: "routes",
   type: "line",
   filter: ["==", "$type", "LineString"],
+  minzoom: 19,
   paint: {
     "line-color": [
       "case",
@@ -198,6 +199,7 @@ export const symbolLayerStyle: SymbolLayer = {
   id: "points",
   type: "symbol",
   filter: ["==", "$type", "Point"],
+  minzoom: 19,
   layout: {
     // Specify which image to use for each PointType
     "icon-image": [

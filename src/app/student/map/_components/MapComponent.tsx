@@ -55,8 +55,6 @@ export function MapComponent({
 
   const mapRef = useRef<MapRef>(null)
 
-  const [mapZoom, setMapZoom] = useState(initialView.zoom)
-
   const [markerScale, setMarkerScale] = useState(1)
 
   const [preLocationId, setPreLocationId] = useState<LocationId>(location.id)
@@ -172,7 +170,6 @@ export function MapComponent({
     if (zoom === undefined) return
     const scale = Math.max(0.2, Math.min(1, 1 + (zoom - 20) * 0.5))
     setMarkerScale(scale)
-    setMapZoom(zoom)
   }
 
   return (
@@ -194,7 +191,6 @@ export function MapComponent({
         ]}
         dragRotate={false}
         mapStyle="https://api.maptiler.com/maps/376fa556-c405-4a91-8e9e-15be82eb3a58/style.json?key=mgMcr2yF2fWUHzf27ygv">
-
         {/** Order sensitive! */}
         <Source
           id="buildings"
@@ -236,25 +232,21 @@ export function MapComponent({
           <Layer {...lineLayerStyle}></Layer>
         </Source>
 
-        {mapZoom > 19 && (
-          <Source
-            id="nymble-plan-routes"
-            type="geojson"
-            promoteId={"id"}
-            data={geoJsonPlanRoutesData}>
-            <Layer {...routeLayerStyle}></Layer>
-          </Source>
-        )}
+        <Source
+          id="nymble-plan-routes"
+          type="geojson"
+          promoteId={"id"}
+          data={geoJsonPlanRoutesData}>
+          <Layer {...routeLayerStyle}></Layer>
+        </Source>
 
-        {mapZoom > 19 && (
-          <Source
-            id="nymble-plan-points"
-            type="geojson"
-            promoteId={"id"}
-            data={geoJsonPlanData}>
-            <Layer {...symbolLayerStyle}></Layer>
-          </Source>
-        )}
+        <Source
+          id="nymble-plan-points"
+          type="geojson"
+          promoteId={"id"}
+          data={geoJsonPlanData}>
+          <Layer {...symbolLayerStyle}></Layer>
+        </Source>
 
         {markers}
       </MapboxMap>
