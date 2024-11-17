@@ -73,8 +73,10 @@ export default function EditorMapComponent({
 
   const [booths, setBooths] = useState<Booth[]>([])
 
+  const [markerScale, setMarkerScale] = useState(0.5)
+
   const markers = booths.map(booth => (
-    <BoothMarker key={booth.id} booth={booth} scale={1} />
+    <BoothMarker key={booth.id} booth={booth} scale={markerScale} />
   ))
 
   const draw = useMemo(() => {
@@ -139,6 +141,15 @@ export default function EditorMapComponent({
     updateBooths()
   }
 
+  function onZoomChange() {
+    const zoom = mapRef.current?.getZoom()
+    if (zoom === undefined) return
+
+    if (zoom < 18.5) setMarkerScale(0.2)
+    else if (zoom < 20.5) setMarkerScale(0.5)
+    else setMarkerScale(1.0)
+  }
+
   // Effects ----------------------------------------------
 
   function initializeDraw() {
@@ -199,6 +210,7 @@ export default function EditorMapComponent({
       <MapboxMap
         ref={mapRef}
         onLoad={() => setMapLoaded(true)}
+        onZoom={onZoomChange}
         initialViewState={{
           longitude: 18.070567,
           latitude: 59.34726,
