@@ -7,15 +7,15 @@ export type Location = {
 }
 
 const nymbleCenter = {
-  longitude: 18.070408551823675,
-  latitude: 59.34726434961294,
-  zoom: 19
+  longitude: 18.070592659323438,
+  latitude: 59.347274028818134,
+  zoom: 18.891181298825842
 }
 
 const libraryCenter = {
-  longitude: 18.072008997107673,
-  latitude: 59.347931139608846,
-  zoom: 19
+  longitude: 18.072310911561203,
+  latitude: 59.3479216743261,
+  zoom: 18.11485244486189
 }
 
 export const locations: Location[] = [
