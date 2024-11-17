@@ -212,7 +212,6 @@ export default function EditorMapComponent({
           [18.079, 59.35]
         ]}
         mapStyle="https://api.maptiler.com/maps/376fa556-c405-4a91-8e9e-15be82eb3a58/style.json?key=mgMcr2yF2fWUHzf27ygv">
-
         {/** Order sensitive! */}
         <Source
           id="buildings"

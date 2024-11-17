@@ -53,7 +53,7 @@ const style = {
   routeHintColor: "#F3ECC3",
   routeHintWidth: 1,
 
-  roomBackgroundColor: "#1f2b24",
+  roomBackgroundColor: "#1f2b24"
 } as const
 
 export enum LineType {

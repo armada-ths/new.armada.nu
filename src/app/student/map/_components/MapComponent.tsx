@@ -73,7 +73,6 @@ export function MapComponent({
       const { pathname } = window.location
       window.history.replaceState(null, "", pathname)
     }, 300)
-    setMarkerScale(0.6)
     return () => clearTimeout(timeout)
   }, [location])
 
@@ -168,8 +167,10 @@ export function MapComponent({
   function onZoomChange() {
     const zoom = mapRef.current?.getZoom()
     if (zoom === undefined) return
-    const scale = Math.max(0.2, Math.min(1, 1 + (zoom - 20) * 0.5))
-    setMarkerScale(scale)
+
+    if (zoom < 18.5) setMarkerScale(0.2)
+    else if (zoom < 20.5) setMarkerScale(0.5)
+    else setMarkerScale(1.0)
   }
 
   return (
