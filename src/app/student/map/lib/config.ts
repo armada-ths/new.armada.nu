@@ -54,9 +54,6 @@ const style = {
   routeHintWidth: 1,
 
   roomBackgroundColor: "#1f2b24",
-
-  backgroundColor: "#40d07e",
-  backgroundOpacity: 0.0
 } as const
 
 export enum LineType {
@@ -155,15 +152,6 @@ export const roomLayerStyle: FillLayer = {
   filter: ["==", "$type", "Polygon"],
   paint: {
     "fill-color": style.roomBackgroundColor
-  }
-}
-
-export const backgroundLayerStyle: BackgroundLayer = {
-  id: "background",
-  type: "background",
-  paint: {
-    "background-color": style.backgroundColor,
-    "background-opacity": style.backgroundOpacity
   }
 }
 

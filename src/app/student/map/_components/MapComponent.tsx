@@ -18,7 +18,6 @@ import {
 import { BoothMap, GeoJsonBooth } from "../lib/booths"
 import {
   addMapIconAssets,
-  backgroundLayerStyle,
   boothLayerStyle,
   boothOutlineStyle,
   buildingLayerStyle,
@@ -195,7 +194,6 @@ export function MapComponent({
         ]}
         dragRotate={false}
         mapStyle="https://api.maptiler.com/maps/376fa556-c405-4a91-8e9e-15be82eb3a58/style.json?key=mgMcr2yF2fWUHzf27ygv">
-        <Layer {...backgroundLayerStyle}></Layer>
 
         {/** Order sensitive! */}
         <Source
