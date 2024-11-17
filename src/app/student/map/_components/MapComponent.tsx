@@ -55,7 +55,7 @@ export function MapComponent({
 
   const mapRef = useRef<MapRef>(null)
 
-  const [markerScale, setMarkerScale] = useState(1)
+  const [markerScale, setMarkerScale] = useState(0.5)
 
   const [preLocationId, setPreLocationId] = useState<LocationId>(location.id)
   // Fly to location center on change
