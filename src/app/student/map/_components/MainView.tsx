@@ -75,12 +75,15 @@ export default function MainView({
     Array.from(boothsById.values())
   )
   const [editorMode, setEditorMode] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   return (
     <div className="relative flex h-full w-full">
       {!editorMode ? (
         <>
           <Sidebar
+            open={drawerOpen}
+            setOpen={setDrawerOpen}
             boothsById={boothsById}
             setActiveBoothId={setActiveBoothId}
             activeDrawerBoothId={activeDrawerBoothId}
@@ -98,6 +101,8 @@ export default function MainView({
               location={location}
               activeBoothId={activeBoothId}
               setActiveBoothId={setActiveBoothId}
+              setActiveDrawerBoothId={setActiveDrawerBoothId}
+              openDrawer={() => setDrawerOpen(true)}
               hoveredBoothId={hoveredBoothId}
               setHoveredBoothId={setHoveredBoothId}
               filteredBoothIds={filteredBooths.map(booth => booth.id)}

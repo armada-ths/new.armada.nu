@@ -54,7 +54,9 @@ export default function Sidebar({
   setHoveredBoothId,
   currentLocation,
   filteredBooths,
-  setFilteredBooths
+  setFilteredBooths,
+  open,
+  setOpen
 }: {
   boothsById: BoothMap
   setActiveDrawerBoothId: (id: BoothID | null) => void
@@ -65,10 +67,11 @@ export default function Sidebar({
   currentLocation: LocationId
   filteredBooths: Booth[]
   setFilteredBooths: (booths: Booth[]) => void
+  open: boolean
+  setOpen: (open: boolean) => void
 }) {
   const { width } = useScreenSize()
   const smallScreen = width ? width <= 800 : false
-  const [open, setOpen] = useState<boolean>(false)
   const [showFilters, setShowFilters] = useState(false)
 
   const searchInputRef = useRef<HTMLInputElement>(null)

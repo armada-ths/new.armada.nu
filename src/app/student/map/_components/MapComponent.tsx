@@ -34,19 +34,23 @@ export function MapComponent({
   location,
   activeBoothId,
   setActiveBoothId,
+  setActiveDrawerBoothId,
   hoveredBoothId,
   setHoveredBoothId,
   initialView,
-  filteredBoothIds
+  filteredBoothIds,
+  openDrawer
 }: {
   boothsById: BoothMap
   location: Location
-  activeBoothId: BoothID | null
   hoveredBoothId: BoothID | null
+  activeBoothId: BoothID | null
   setActiveBoothId: (id: BoothID | null) => void
+  setActiveDrawerBoothId: (id: BoothID | null) => void
   setHoveredBoothId: (id: BoothID | null) => void
   initialView: { longitude: number; latitude: number; zoom: number }
   filteredBoothIds: BoothID[]
+  openDrawer: () => void
 }) {
   const searchParams = useSearchParams()
 
@@ -139,6 +143,8 @@ export function MapComponent({
     const feature = e.features?.[0] as GeoJsonBooth | undefined // no other features for now
     if (feature) {
       setActiveBoothId(feature.properties.id)
+      setActiveDrawerBoothId(feature.properties.id)
+      openDrawer()
     } else {
       setActiveBoothId(null) // outside click
     }
