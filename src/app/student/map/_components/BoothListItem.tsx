@@ -1,8 +1,7 @@
 "use client"
-import { LocationId } from "@/app/student/map/lib/locations"
+import { LocationId, locations } from "@/app/student/map/lib/locations"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
-import { MapIcon } from "lucide-react"
 import Image from "next/image"
 import { Booth, BoothID } from "../lib/booths"
 
@@ -12,7 +11,8 @@ export function BoothListItem({
   onBoothNavigate,
   onMouseEnter,
   onMouseLeave,
-  closeDrawer
+  closeDrawer,
+  currentLocationId
 }: {
   booth: Booth
   onBoothClick: (boothId: BoothID) => void
@@ -44,7 +44,7 @@ export function BoothListItem({
         {}
       )}
       onClick={() => onBoothClick(booth.id)}>
-      <div className="h-12 transition hover:bg-lime-950">
+      <div className="transition hover:bg-white/10">
         <div className="ml-4 flex h-full items-center">
           {logoSrc ? (
             <Image
@@ -56,27 +56,19 @@ export function BoothListItem({
           ) : (
             <div className="mr-2 size-16"></div>
           )}
-          <div>{booth.exhibitor.name}</div>
-          {/*           <div
-            className={cn(
-              "ml-auto mr-2 text-xs text-stone-400",
-              booth.location === currentLocationId && "font-extrabold"
-            )}>
-            {locations.find(loc => loc.id === booth.location)?.label}
-          </div> */}
+          <div className="py-2">
+            <p className="overflow-ellipsis">{booth.exhibitor.name}</p>
+            <div className={cn("ml-auto mr-2 text-xs text-stone-400/50")}>
+              {locations.find(loc => loc.id === booth.location)?.label}
+            </div>
+          </div>
           <div
             className="ml-auto "
             onClick={event => {
               event.stopPropagation()
               event.preventDefault()
               closeDrawer()
-            }}>
-            <div
-              className="flex size-16 items-center justify-center px-1"
-              onClick={onBoothMapNavigate}>
-              <MapIcon size={18} />
-            </div>
-          </div>
+            }}></div>
         </div>
       </div>
     </Card>

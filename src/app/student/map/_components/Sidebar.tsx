@@ -38,6 +38,7 @@ import {
   EraserIcon,
   FilterIcon,
   MapIcon,
+  MapPinIcon,
   SearchIcon,
   X,
   XIcon
@@ -114,11 +115,35 @@ export default function Sidebar({
       return null
     }
     return (
-      <SidebarContainer open={open} setOpen={setOpen} smallScreen={smallScreen}>
+      <SidebarContainer
+        open={open}
+        setOpen={setOpen}
+        smallScreen={smallScreen}
+        header={
+          <div className="flex items-center justify-between">
+            <Button
+              variant="ghost"
+              onClick={() => setActiveDrawerBoothId(null)}>
+              <ArrowLeft size={30} />
+            </Button>
+
+            <div className="flex justify-end py-2">
+              <Button
+                className="flex gap-2"
+                variant={"outline"}
+                onClick={() => {
+                  setActiveBoothId(null)
+                  setTimeout(() => {
+                    setActiveBoothId(activeDrawerBoothId)
+                  })
+                  setOpen(false)
+                }}>
+                <MapPinIcon size={15} /> Locate on map
+              </Button>
+            </div>
+          </div>
+        }>
         <div className="p-2">
-          <Button variant="ghost" onClick={() => setActiveDrawerBoothId(null)}>
-            <ArrowLeft size={30} />
-          </Button>
           <ExhibitorDetails exhibitor={exhibitor} />
         </div>
       </SidebarContainer>
