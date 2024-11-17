@@ -44,7 +44,7 @@ export default async function Page() {
 
   return (
     // TODO: pt-16 is to account for the navbar, will break if navbar size changes
-    <div className="flex h-screen pt-16">
+    <div className="flex h-[100dvh] pt-16">
       <Suspense>
         <MainView
           exhibitorsById={exhibitorsByID}

@@ -6,7 +6,6 @@ import {
 } from "@/app/student/lib/filters"
 import FilterSection from "@/app/student/map/_components/FilterSection"
 import { Booth } from "@/app/student/map/lib/booths"
-import { Button } from "@/components/ui/button"
 
 export default function MapFilters({
   booths,
@@ -40,11 +39,11 @@ export default function MapFilters({
             onChange={selected => onFilterChange(f, selected)}></FilterSection>
         ))}
       </div>
-      <div className="flex px-5">
+      {/*       <div className="flex px-5">
         <Button onClick={onSelect} className="ml-auto px-7">
           Select
         </Button>
-      </div>
+      </div> */}
     </div>
   )
 }

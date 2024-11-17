@@ -68,6 +68,7 @@ export default function RootLayout({
       }}>
       <head />
       <body
+        id="root"
         className={`${inter.variable} ${bebasNeue.variable} ${lato.variable}`}>
         <Analytics />
         <SpeedInsights />

@@ -68,6 +68,8 @@ export default function MainView({
   } satisfies Partial<ViewState>
 
   const [activeBoothId, setActiveBoothId] = useState<BoothID | null>(null)
+  const [activeDrawerBoothId, setActiveDrawerBoothId] =
+    useState<BoothID | null>(null)
   const [hoveredBoothId, setHoveredBoothId] = useState<BoothID | null>(null)
   const [filteredBooths, setFilteredBooths] = useState<Booth[]>(
     Array.from(boothsById.values())
@@ -80,9 +82,10 @@ export default function MainView({
         <>
           <Sidebar
             boothsById={boothsById}
-            activeBoothId={activeBoothId}
-            hoveredBoothId={hoveredBoothId}
             setActiveBoothId={setActiveBoothId}
+            activeDrawerBoothId={activeDrawerBoothId}
+            setActiveDrawerBoothId={setActiveDrawerBoothId}
+            hoveredBoothId={hoveredBoothId}
             setHoveredBoothId={setHoveredBoothId}
             currentLocation={locationId}
             filteredBooths={filteredBooths}
@@ -94,8 +97,8 @@ export default function MainView({
               boothsById={currentLocationBoothsById}
               location={location}
               activeBoothId={activeBoothId}
-              hoveredBoothId={hoveredBoothId}
               setActiveBoothId={setActiveBoothId}
+              hoveredBoothId={hoveredBoothId}
               setHoveredBoothId={setHoveredBoothId}
               filteredBoothIds={filteredBooths.map(booth => booth.id)}
             />
