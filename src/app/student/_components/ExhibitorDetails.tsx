@@ -1,3 +1,5 @@
+"use client"
+
 import { P } from "@/app/_components/Paragraph"
 import BadgeCollection from "@/app/student/exhibitors/_components/BadgeCollection"
 import { Page } from "@/components/shared/Page"
@@ -7,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { Globe } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 export default function ExhibitorDetails({
   exhibitor
@@ -15,6 +18,17 @@ export default function ExhibitorDetails({
 }) {
   const hasIndustries = exhibitor.industries?.length > 0
   const hasEmployments = exhibitor.employments?.length > 0
+
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(true)
+    })
+  }, [])
+
+  if (!show) return null
+
   return (
     <div className="pb-5 @container">
       <div className="flex flex-col-reverse items-center gap-6 @sm:h-[100px] @sm:flex-row">

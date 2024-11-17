@@ -37,8 +37,8 @@ import {
   ChevronsRight,
   EraserIcon,
   FilterIcon,
-  ListIcon,
   MapIcon,
+  SearchIcon,
   X,
   XIcon
 } from "lucide-react"
@@ -115,7 +115,7 @@ export default function Sidebar({
     }
     return (
       <SidebarContainer open={open} setOpen={setOpen} smallScreen={smallScreen}>
-        <div className="h-[calc(80dvh-28px)] p-2">
+        <div className="p-2">
           <Button variant="ghost" onClick={() => setActiveDrawerBoothId(null)}>
             <ArrowLeft size={30} />
           </Button>
@@ -280,11 +280,16 @@ function SidebarContainer({
         direction={"bottom"}
         onClose={() => setOpen(false)}>
         {createPortal(
-          <DrawerTrigger className="absolute bottom-2 right-2 z-10">
-            <Button className="flex gap-2" variant={"outline"}>
-              <ListIcon size={15} /> All exhibitors
-            </Button>
-          </DrawerTrigger>,
+          <div className="absolute bottom-0 z-10 flex h-20 w-screen items-center justify-center border-t-[1px] border-stone-700/80 bg-stone-950">
+            <DrawerTrigger className="w-full px-5">
+              <Button
+                className="text-md flex w-full gap-2 py-6"
+                size={"lg"}
+                variant={"secondary"}>
+                <SearchIcon size={16} /> Search Exhibitors
+              </Button>
+            </DrawerTrigger>
+          </div>,
           document.getElementById("root")!
         )}
         <DrawerContent
