@@ -6,6 +6,7 @@ import { Location, LocationId } from "@/app/student/map/lib/locations"
 import { useFeatureState } from "@/components/shared/hooks/useFeatureState"
 import { useGeoJsonPlanData } from "@/components/shared/hooks/useGeoJsonPlanData"
 import "maplibre-gl/dist/maplibre-gl.css"
+import { useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
   Layer,
@@ -47,6 +48,8 @@ export function MapComponent({
   initialView: { longitude: number; latitude: number; zoom: number }
   filteredBoothIds: BoothID[]
 }) {
+  const searchParams = useSearchParams()
+
   const mapRef = useRef<MapRef>(null)
 
   const [mapZoom, setMapZoom] = useState(initialView.zoom)
@@ -56,15 +59,21 @@ export function MapComponent({
   const [preLocationId, setPreLocationId] = useState<LocationId>(location.id)
   // Fly to location center on change
   useEffect(() => {
+    const hasSearchParams = searchParams.has("lat") || searchParams.has("lng")
     const { longitude, latitude, zoom } = location.center
     const timeout = setTimeout(() => {
-      mapRef.current?.flyTo({
-        center: [longitude, latitude],
-        zoom
-      })
+      if (!hasSearchParams) {
+        mapRef.current?.flyTo({
+          center: [longitude, latitude],
+          zoom
+        })
+      }
+      // Remove the search params
+      const { pathname } = window.location
+      window.history.replaceState(null, "", pathname)
     }, 300)
-    return () => clearTimeout(timeout)
     setMarkerScale(0.6)
+    return () => clearTimeout(timeout)
   }, [location])
 
   useEffect(() => {
