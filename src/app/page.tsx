@@ -106,7 +106,7 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
-          <div className="z-10 flex flex-col items-center md:flex-[1]">
+          <div className="z-10 flex flex-col items-center md:flex-1">
             {/*<div className="flex max-h-52 max-w-96 flex-col items-center justify-center gap-y-5 rounded-lg border-[1px] border-slate-200 bg-white bg-opacity-40 p-8">
 						<Countdown />
 					  </div> */}
@@ -118,7 +118,7 @@ export default async function HomePage() {
                 {goldExhibitorOne && (
                   <Link href={`/student/exhibitors?id=${goldExhibitorOne.id}`}>
                     <Image
-                      className="h-10 object-contain md:h-20"
+                      className="h-10 w-24 object-contain md:h-20 md:w-72"
                       src={goldExhibitorOne.logo_squared ?? ""}
                       alt={goldExhibitorOne.name}
                       width={200}
@@ -130,7 +130,7 @@ export default async function HomePage() {
                   <Link href={`/student/exhibitors?id=${goldExhibitorTwo.id}`}>
                     <div className="rounded-lg bg-white/90">
                       <Image
-                        className="h-10 object-contain md:h-20"
+                        className="h-10 w-24 object-contain md:h-20 md:w-72"
                         src={"/exhibitorLogo/NordeaBankLogo.png"}
                         alt={goldExhibitorTwo.name}
                         width={200}
