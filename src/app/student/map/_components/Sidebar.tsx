@@ -333,7 +333,7 @@ function SidebarContainer({
             {header}
           </DrawerHeader>
           {/* <ScrollArea className="h-full overflow-auto">{children}</ScrollArea> */}
-          <div className="h-[calc(100dvh-168px)] overflow-scroll overscroll-none">
+          <div className="h-[calc(100dvh-92px)] overflow-scroll overscroll-none">
             {children}
           </div>
         </DrawerContent>
