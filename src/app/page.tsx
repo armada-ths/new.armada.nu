@@ -84,8 +84,16 @@ export default async function HomePage() {
                     </>
                   ) : (
                     <>
+                      <Link href="/student/map">
+                        <Button className="flex gap-2">
+                          <MapIcon size={15} /> Visit the map
+                        </Button>
+                      </Link>
                       <Link href="/student/events">
-                        <Button>Signup for events</Button>
+                        <Button variant={"secondary"} className="flex gap-2">
+                          Signup for events
+                          <ArrowRightIcon size={15} />
+                        </Button>
                       </Link>
                       {fair_start < today && today < fair_end && (
                         <Link href="/students/map">
