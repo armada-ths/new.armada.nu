@@ -13,7 +13,6 @@ import {
   makeBooth
 } from "@/app/student/map/lib/booths"
 import {
-  backgroundLayerStyle,
   buildingLayerStyle,
   lineLayerStyle,
   routeLayerStyle,
@@ -74,8 +73,10 @@ export default function EditorMapComponent({
 
   const [booths, setBooths] = useState<Booth[]>([])
 
+  const [markerScale, setMarkerScale] = useState(0.5)
+
   const markers = booths.map(booth => (
-    <BoothMarker key={booth.id} booth={booth} scale={1} />
+    <BoothMarker key={booth.id} booth={booth} scale={markerScale} />
   ))
 
   const draw = useMemo(() => {
@@ -140,6 +141,15 @@ export default function EditorMapComponent({
     updateBooths()
   }
 
+  function onZoomChange() {
+    const zoom = mapRef.current?.getZoom()
+    if (zoom === undefined) return
+
+    if (zoom < 18.5) setMarkerScale(0.2)
+    else if (zoom < 20.5) setMarkerScale(0.5)
+    else setMarkerScale(1.0)
+  }
+
   // Effects ----------------------------------------------
 
   function initializeDraw() {
@@ -200,6 +210,7 @@ export default function EditorMapComponent({
       <MapboxMap
         ref={mapRef}
         onLoad={() => setMapLoaded(true)}
+        onZoom={onZoomChange}
         initialViewState={{
           longitude: 18.070567,
           latitude: 59.34726,
@@ -213,8 +224,6 @@ export default function EditorMapComponent({
           [18.079, 59.35]
         ]}
         mapStyle="https://api.maptiler.com/maps/376fa556-c405-4a91-8e9e-15be82eb3a58/style.json?key=mgMcr2yF2fWUHzf27ygv">
-        <Layer {...backgroundLayerStyle}></Layer>
-
         {/** Order sensitive! */}
         <Source
           id="buildings"

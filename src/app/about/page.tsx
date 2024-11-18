@@ -54,8 +54,18 @@ export default async function RecruitmentPage() {
           , the student union at KTH, any profit Armada makes goes back to the
           students, funding THS initiatives for a better student life.
         </P>
+
         <div className="flex w-full justify-center">
           <OrganisationMembersGraphic />
+        </div>
+        <div className="my-10 block aspect-[0.75]">
+          <embed
+            src="/files/2024_paper.pdf"
+            type="application/pdf"
+            height="100%"
+            width="100%"
+            title="Armada Newsletter"
+          />
         </div>
       </Page.Boundary>
     </Page.Background>

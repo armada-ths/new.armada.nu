@@ -53,10 +53,7 @@ const style = {
   routeHintColor: "#F3ECC3",
   routeHintWidth: 1,
 
-  roomBackgroundColor: "#1f2b24",
-
-  backgroundColor: "#40d07e",
-  backgroundOpacity: 0.0
+  roomBackgroundColor: "#1f2b24"
 } as const
 
 export enum LineType {
@@ -158,15 +155,6 @@ export const roomLayerStyle: FillLayer = {
   }
 }
 
-export const backgroundLayerStyle: BackgroundLayer = {
-  id: "background",
-  type: "background",
-  paint: {
-    "background-color": style.backgroundColor,
-    "background-opacity": style.backgroundOpacity
-  }
-}
-
 export const lineLayerStyle: LineLayer = {
   source: "lines",
   id: "lines",
@@ -183,6 +171,7 @@ export const routeLayerStyle: LineLayer = {
   id: "routes",
   type: "line",
   filter: ["==", "$type", "LineString"],
+  minzoom: 19,
   paint: {
     "line-color": [
       "case",
@@ -210,6 +199,7 @@ export const symbolLayerStyle: SymbolLayer = {
   id: "points",
   type: "symbol",
   filter: ["==", "$type", "Point"],
+  minzoom: 19,
   layout: {
     // Specify which image to use for each PointType
     "icon-image": [
