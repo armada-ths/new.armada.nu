@@ -127,6 +127,7 @@ export default function Sidebar({
         open={open}
         setOpen={setOpen}
         smallScreen={smallScreen}
+        headerHeight={92}
         header={
           <div className="flex items-center justify-between">
             <Button
@@ -182,6 +183,7 @@ export default function Sidebar({
       open={open}
       setOpen={setOpen}
       smallScreen={smallScreen}
+      headerHeight={168}
       header={
         <>
           {/* Action buttons */}
@@ -296,12 +298,14 @@ function SidebarContainer({
   children,
   open,
   setOpen,
+  headerHeight,
   header
 }: {
   smallScreen: boolean
   children: React.ReactNode
   open: boolean
   setOpen: (open: boolean) => void
+  headerHeight?: number
   header?: React.ReactNode
 }) {
   if (smallScreen) {
@@ -342,7 +346,11 @@ function SidebarContainer({
             {header}
           </DrawerHeader>
           {/* <ScrollArea className="h-full overflow-auto">{children}</ScrollArea> */}
-          <div className="h-[calc(100dvh-92px)] overflow-scroll overscroll-none">
+          <div
+            className="overflow-scroll overscroll-none"
+            style={{
+              height: `calc(100vh - ${headerHeight ?? 0}px)`
+            }}>
             {children}
           </div>
         </DrawerContent>
@@ -357,7 +365,11 @@ function SidebarContainer({
         <Dialog>{header}</Dialog>
       </DrawerHeader>
 
-      <ScrollArea className="h-full">
+      <ScrollArea
+        className=""
+        style={{
+          height: `calc(100vh - ${headerHeight ?? 0}px - 64px)`
+        }}>
         {children}
         <ScrollBar></ScrollBar>
       </ScrollArea>
