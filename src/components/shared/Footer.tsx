@@ -52,14 +52,14 @@ export function Footer() {
       </div>
 
       <div className="m-5 mb-3 mt-7 w-1/4 place-items-center text-center md:place-items-start md:text-left">
-        <p>
+        <p className="pb-4">
           <b>In Partnership With:</b>
         </p>
         <Image
           src={"/sture-logo-up.png"}
           alt={"Sture Logo"}
-          width={100}
-          height={200}
+          width={60}
+          height={120}
         />
       </div>
     </div>
