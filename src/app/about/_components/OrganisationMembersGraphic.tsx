@@ -216,7 +216,6 @@ export function OrganisationMembersGraphic() {
       />
     )
   })
-  console.log(pgCircles[0].props.opacity)
 
   const otCircles = OtCircleList(80).map(circle => {
     return (
