@@ -27,6 +27,11 @@ const nextConfig = {
         permanent: true
       },
       {
+        source: "/at-the-fair",
+        destination: "/student/at-the-fair",
+        permanent: true
+      },
+      {
         source: "/recruitment",
         destination: "/student/recruitment",
         permanent: true
