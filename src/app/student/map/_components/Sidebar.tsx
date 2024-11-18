@@ -191,11 +191,13 @@ export default function Sidebar({
                 e.key === "Enter" && searchInputRef.current?.blur()
               }
             />
-            <DialogClose asChild>
-              <Button variant={"outline"} className="flex gap-2">
-                <MapIcon size={15} /> Map
-              </Button>
-            </DialogClose>
+            {smallScreen && (
+              <DialogClose asChild>
+                <Button variant={"outline"} className="flex gap-2">
+                  <MapIcon size={15} /> Map
+                </Button>
+              </DialogClose>
+            )}
           </div>
           <div className="flex gap-1">
             <Dialog>
