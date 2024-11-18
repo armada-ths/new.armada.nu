@@ -1,5 +1,4 @@
 import { CompanyRegistrationButton } from "@/app/_components/CompanyRegistrationButton"
-import { FairDates } from "@/app/_components/FairDates"
 import { RecruitmentBanner } from "@/app/_components/Recruitment"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
 import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
@@ -67,7 +66,8 @@ export default async function HomePage() {
                 <h2 className="my-5 text-stone-300">
                   The No. 1 career fair at KTH Royal Institute of Technology.
                   Where future engineers come in contact with career
-                  opportunities and shape their future
+                  opportunities and shape their future. Open 10-16 November the
+                  19th and 10-15 November the 20th.
                 </h2>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {today < fr_end ? (
@@ -108,9 +108,11 @@ export default async function HomePage() {
                     </>
                   )}
                 </div>
+                {/*
                 <Suspense>
                   <FairDates />
                 </Suspense>
+                */}
               </div>
             </div>
           </div>
