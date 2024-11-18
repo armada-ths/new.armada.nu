@@ -33,8 +33,6 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
 import {
   ArrowLeft,
-  ChevronsLeft,
-  ChevronsRight,
   EraserIcon,
   FilterIcon,
   MapIcon,
@@ -135,7 +133,6 @@ export default function Sidebar({
               onClick={() => setActiveDrawerBoothId(null)}>
               <ArrowLeft size={30} className="stroke-stone-400" />
             </Button>
-
             <div className="flex justify-end py-2">
               <Button
                 className="flex gap-2"
@@ -342,22 +339,17 @@ function SidebarContainer({
     )
   }
 
+  // Sidebar is always open on desktop
   return (
-    <div className={cn("relative h-full", open ? "w-[500px]" : "w-0")}>
+    <div className={cn("relative h-full w-[500px] overflow-hidden")}>
+      <DrawerHeader>
+        <Dialog>{header}</Dialog>
+      </DrawerHeader>
+
       <ScrollArea className="h-full">
         {children}
         <ScrollBar></ScrollBar>
       </ScrollArea>
-
-      <div className="absolute right-[-38px] top-0 z-20">
-        <Button
-          variant="ghost"
-          className="rounded-s-none border-none p-1"
-          onClick={() => setOpen(!open)}
-          title={open ? "Close sidebar" : "Open sidebar"}>
-          {open ? <ChevronsLeft size={30} /> : <ChevronsRight size={30} />}
-        </Button>
-      </div>
     </div>
   )
 }

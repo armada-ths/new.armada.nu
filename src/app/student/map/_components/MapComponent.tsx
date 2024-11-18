@@ -18,7 +18,6 @@ import {
 import { BoothMap, GeoJsonBooth } from "../lib/booths"
 import {
   addMapIconAssets,
-  backgroundLayerStyle,
   boothLayerStyle,
   boothOutlineStyle,
   buildingLayerStyle,
@@ -56,9 +55,7 @@ export function MapComponent({
 
   const mapRef = useRef<MapRef>(null)
 
-  const [mapZoom, setMapZoom] = useState(initialView.zoom)
-
-  const [markerScale, setMarkerScale] = useState(1)
+  const [markerScale, setMarkerScale] = useState(0.5)
 
   const [preLocationId, setPreLocationId] = useState<LocationId>(location.id)
   // Fly to location center on change
@@ -76,7 +73,6 @@ export function MapComponent({
       const { pathname } = window.location
       window.history.replaceState(null, "", pathname)
     }, 300)
-    setMarkerScale(0.6)
     return () => clearTimeout(timeout)
   }, [location])
 
@@ -171,9 +167,10 @@ export function MapComponent({
   function onZoomChange() {
     const zoom = mapRef.current?.getZoom()
     if (zoom === undefined) return
-    const scale = Math.max(0.2, Math.min(1, 1 + (zoom - 20) * 0.5))
-    setMarkerScale(scale)
-    setMapZoom(zoom)
+
+    if (zoom < 18.5) setMarkerScale(0.2)
+    else if (zoom < 20.5) setMarkerScale(0.5)
+    else setMarkerScale(1.0)
   }
 
   return (
@@ -195,8 +192,6 @@ export function MapComponent({
         ]}
         dragRotate={false}
         mapStyle="https://api.maptiler.com/maps/376fa556-c405-4a91-8e9e-15be82eb3a58/style.json?key=mgMcr2yF2fWUHzf27ygv">
-        <Layer {...backgroundLayerStyle}></Layer>
-
         {/** Order sensitive! */}
         <Source
           id="buildings"
@@ -238,25 +233,21 @@ export function MapComponent({
           <Layer {...lineLayerStyle}></Layer>
         </Source>
 
-        {mapZoom > 19 && (
-          <Source
-            id="nymble-plan-routes"
-            type="geojson"
-            promoteId={"id"}
-            data={geoJsonPlanRoutesData}>
-            <Layer {...routeLayerStyle}></Layer>
-          </Source>
-        )}
+        <Source
+          id="nymble-plan-routes"
+          type="geojson"
+          promoteId={"id"}
+          data={geoJsonPlanRoutesData}>
+          <Layer {...routeLayerStyle}></Layer>
+        </Source>
 
-        {mapZoom > 19 && (
-          <Source
-            id="nymble-plan-points"
-            type="geojson"
-            promoteId={"id"}
-            data={geoJsonPlanData}>
-            <Layer {...symbolLayerStyle}></Layer>
-          </Source>
-        )}
+        <Source
+          id="nymble-plan-points"
+          type="geojson"
+          promoteId={"id"}
+          data={geoJsonPlanData}>
+          <Layer {...symbolLayerStyle}></Layer>
+        </Source>
 
         {markers}
       </MapboxMap>
