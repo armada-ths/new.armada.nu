@@ -257,7 +257,7 @@ export default function EditorMapComponent({
           <Layer {...symbolLayerStyle}></Layer>
         </Source>
 
-        {mapLoaded && !showBuildings && markers}
+        {markers}
 
         {mapLoaded && activeFeatureId != null && (
           <Popup
