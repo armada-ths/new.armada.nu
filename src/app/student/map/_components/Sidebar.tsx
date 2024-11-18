@@ -43,6 +43,7 @@ import {
 } from "lucide-react"
 import { useRef, useState } from "react"
 import { createPortal } from "react-dom"
+import { gold } from "../data/exhibitor_tiers.json"
 
 export default function Sidebar({
   boothsById,
@@ -169,6 +170,13 @@ export default function Sidebar({
     filters.employments.selected.length + filters.industries.selected.length
   const hasAppliedFilters = appliedFilterCount > 0
 
+  const isGold = (booth: (typeof displayedBooths)[0]) =>
+    gold.includes(booth.exhibitor.id)
+
+  const orderedBooths = displayedBooths.toSorted(
+    (a, b) => (isGold(a) ? 0 : 1) - (isGold(b) ? 0 : 1)
+  )
+
   return (
     <SidebarContainer
       open={open}
@@ -265,8 +273,9 @@ export default function Sidebar({
       }>
       <div className="flex flex-col gap-0 px-1">
         {/* Booth list */}
-        {displayedBooths.map(booth => (
+        {orderedBooths.map(booth => (
           <BoothListItem
+            isGold={isGold(booth)}
             key={booth.id}
             onMouseEnter={() => setHoveredBoothId(booth.id)}
             onMouseLeave={() => setHoveredBoothId(null)}

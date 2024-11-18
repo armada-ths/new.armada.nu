@@ -2,6 +2,7 @@
 import { LocationId, locations } from "@/app/student/map/lib/locations"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { StarIcon } from "lucide-react"
 import Image from "next/image"
 import { Booth, BoothID } from "../lib/booths"
 
@@ -12,6 +13,7 @@ export function BoothListItem({
   onMouseEnter,
   onMouseLeave,
   closeDrawer,
+  isGold,
   currentLocationId
 }: {
   booth: Booth
@@ -21,6 +23,7 @@ export function BoothListItem({
   onMouseEnter: () => void
   onMouseLeave: () => void
   closeDrawer: () => void
+  isGold: boolean
 }) {
   const logoSrc = booth.exhibitor.logo_squared ?? booth.exhibitor.logo_freesize
 
@@ -69,6 +72,11 @@ export function BoothListItem({
               event.preventDefault()
               closeDrawer()
             }}></div>
+          {isGold && (
+            <div className="flex gap-2 px-4">
+              <StarIcon className="stroke-yellow-500" />
+            </div>
+          )}
         </div>
       </div>
     </Card>
