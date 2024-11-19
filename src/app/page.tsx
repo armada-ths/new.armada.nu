@@ -95,16 +95,6 @@ export default async function HomePage() {
                           <ArrowRightIcon size={15} />
                         </Button>
                       </Link>
-                      {fair_start < today && today < fair_end && (
-                        <Link href="/students/map">
-                          <Button
-                            variant={"secondary"}
-                            className="dark:bg-liqorice-700">
-                            Go to map
-                            <ArrowRightIcon className="ml-2 h-4 w-4" />
-                          </Button>
-                        </Link>
-                      )}
                     </>
                   )}
                 </div>
