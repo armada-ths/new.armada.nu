@@ -349,7 +349,7 @@ function SidebarContainer({
           <div
             className="overflow-scroll overscroll-none"
             style={{
-              height: `calc(100vh - ${headerHeight ?? 0}px)`
+              height: `calc(100dvh - ${headerHeight ?? 0}px)`
             }}>
             {children}
           </div>
@@ -368,7 +368,7 @@ function SidebarContainer({
       <ScrollArea
         className=""
         style={{
-          height: `calc(100vh - ${headerHeight ?? 0}px - 64px)`
+          height: `calc(100dvh - ${headerHeight ?? 0}px - 64px)`
         }}>
         {children}
         <ScrollBar></ScrollBar>
