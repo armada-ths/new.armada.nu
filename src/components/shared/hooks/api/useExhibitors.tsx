@@ -70,7 +70,32 @@ export async function fetchExhibitors(
     }
   )
   const result = await res.json()
-  return result as Exhibitor[]
+
+  return [
+    ...(result as Exhibitor[]),
+    {
+      id: -1,
+      average_age: null,
+      benefits: [],
+      booths: [],
+      cities: "",
+      climate_compensation: false,
+      company_website: "",
+      competences: [],
+      employments: [],
+      fair_location: "",
+      flyer: "",
+      founded: null,
+      groups: [],
+      industries: [],
+      location_special: "",
+      locations: [],
+      name: "Student Lounge",
+      type: "Student Lounge",
+      values: [],
+      vyer_position: ""
+    } as Exhibitor
+  ]
 }
 
 /**
