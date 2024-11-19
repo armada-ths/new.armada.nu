@@ -23,7 +23,7 @@ export default async function Page() {
 
   const exhibitors = await fetchExhibitors({
     year: 2024,
-    next: { revalidate: 3600 * 24 * 6 /* 6 days */ }
+    next: { revalidate: 3600 / 3 /* 20 min */ }
   })
 
   const exhibitorsByID = new Map(exhibitors.map(e => [e.id, e]))
