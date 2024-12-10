@@ -1,6 +1,7 @@
 import { NavigationMenu } from "@/components/shared/NavigationMenu"
 import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
 import { Button } from "@/components/ui/button"
+import { DateTime } from "luxon"
 import Link from "next/link"
 
 export default async function ExhibitorLayout({
@@ -22,7 +23,8 @@ export default async function ExhibitorLayout({
     <>
       <NavigationMenu
         aside={
-          <Link href="https://ais.armada.nu/fairs/2024/recruitment">
+          <Link
+            href={`https://ais.armada.nu/fairs/${DateTime.now().year}/recruitment`}>
             <Button variant={"outline"}>Apply for Armada</Button>
           </Link>
         }

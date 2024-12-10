@@ -7,6 +7,7 @@ import {
 import { LocationId, locations } from "@/app/student/map/lib/locations"
 import { feature } from "@/components/shared/feature"
 import { fetchExhibitors } from "@/components/shared/hooks/api/useExhibitors"
+import { DateTime } from "luxon"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
@@ -22,7 +23,7 @@ export default async function Page() {
   }
 
   const exhibitors = await fetchExhibitors({
-    year: 2024,
+    year: DateTime.now().year,
     next: { revalidate: 3600 / 3 /* 20 min */ }
   })
 

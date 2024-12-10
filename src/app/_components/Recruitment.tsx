@@ -1,6 +1,7 @@
 import { fetchRecruitment } from "@/components/shared/hooks/api/useRecruitment"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { UserRoundIcon } from "lucide-react"
+import { DateTime } from "luxon"
 import Link from "next/link"
 
 export async function RecruitmentBanner() {
@@ -18,7 +19,7 @@ export async function RecruitmentBanner() {
         <UserRoundIcon className="h-4 w-4" />
         <AlertTitle>Recruitment open!</AlertTitle>
         <AlertDescription>
-          Apply to become a part of Armada 2024
+          Apply to become a part of Armada {DateTime.now().year}
         </AlertDescription>
       </Alert>
     </Link>
