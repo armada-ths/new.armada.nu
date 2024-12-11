@@ -129,7 +129,7 @@ export default async function RecruitmentPage() {
           <div className="m-8 flex justify-center">
             <Link href={`${env.NEXT_PUBLIC_API_URL}${data.link}`}>
               <Button size={"lg"}>
-                Apply for Armada {DateTime.now().year}
+                Apply for Armada {DateTime.now().plus({ months: 2 }).year}
               </Button>
             </Link>
           </div>
