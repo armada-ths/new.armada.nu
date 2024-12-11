@@ -24,7 +24,8 @@ export default async function ExhibitorLayout({
       <NavigationMenu
         aside={
           <Link
-            href={`https://ais.armada.nu/fairs/${DateTime.now().year}/recruitment`}>
+            /* 2 months to account for pg recruitment which usually starts the previous year in nov/dec */
+            href={`https://ais.armada.nu/fairs/${DateTime.now().plus({ months: 2 }).year}/recruitment`}>
             <Button variant={"outline"}>Apply for Armada</Button>
           </Link>
         }

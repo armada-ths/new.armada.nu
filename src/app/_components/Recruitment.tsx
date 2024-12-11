@@ -19,7 +19,9 @@ export async function RecruitmentBanner() {
         <UserRoundIcon className="h-4 w-4" />
         <AlertTitle>Recruitment open!</AlertTitle>
         <AlertDescription>
-          Apply to become a part of Armada {DateTime.now().year}
+          Apply to become a part of Armada{" "}
+          {/* 2 months since pg recruitment usually starts in nov/dec */}
+          {DateTime.now().plus({ months: 2 }).year}{" "}
         </AlertDescription>
       </Alert>
     </Link>
