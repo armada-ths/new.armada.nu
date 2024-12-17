@@ -1,3 +1,4 @@
+import { P } from "@/app/_components/Paragraph"
 import { StatusModuleItem } from "@/app/exhibitor/_components/StatusModuleItem"
 import { Page } from "@/components/shared/Page"
 import { fetchDates } from "@/components/shared/hooks/api/useDates"
@@ -39,6 +40,8 @@ function FAQItem({
 
 export default async function Packages() {
   const dates = await fetchDates()
+
+  return <P>Packages will be available soon</P>
 
   return (
     <Page.Background withIndents>

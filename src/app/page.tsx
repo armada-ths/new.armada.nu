@@ -66,8 +66,8 @@ export default async function HomePage() {
                 <h2 className="my-5 text-stone-300">
                   The No. 1 career fair at KTH Royal Institute of Technology.
                   Where future engineers come in contact with career
-                  opportunities and shape their future. Open 10-16 November the
-                  19th and 10-15 November the 20th.
+                  opportunities and shape their future. November the 18th and
+                  19th.
                 </h2>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {today < fr_end ? (
@@ -111,7 +111,7 @@ export default async function HomePage() {
 						<Countdown />
 					  </div> */}
             <h1 className="max-w-30 flex justify-center font-bebas-neue text-3xl text-stone-300">
-              Our Gold Exhibitors
+              Our Gold Exhibitors (2024)
             </h1>
             <div className="mt-4 flex w-full flex-wrap justify-center gap-6">
               <div className="flex flex-wrap items-center justify-center gap-20 px-10 pt-10">
